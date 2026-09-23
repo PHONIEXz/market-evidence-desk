@@ -23,7 +23,7 @@ and the Sanity `production` dataset. The [hosted Studio](https://phoniex-market-
 endpoint serves the dataset with a filter limited to `source`, `marketEvent`, and
 `evidenceClaim`; its earlier preview showed all three. The agent connects to the same
 endpoint in GROQ mode for the structured documents and in Knowledge Base mode for the
-Sourcebook, using `SANITY_KNOWLEDGE_BASE_ID` to select the latter. Rebuild and review
+Sourcebook, defaulting to this project's Knowledge Base ID. Rebuild and review
 the Sourcebook after the corrected seed to spot repeated or outdated evidence.
 Create an **organization** API token with
 **Context Viewer** access; a project token will not authenticate to Context.
@@ -36,8 +36,9 @@ python agent.py "What evidence supports and conflicts with this research questio
 ```
 
 The `.env` file needs `SANITY_CONTEXT_MCP_URL`, `SANITY_ORGANIZATION_TOKEN`,
-and `GEMINI_API_KEY` (the existing spelling `GEMINIAPIKEY` also works). Set
-`SANITY_KNOWLEDGE_BASE_ID=kbu9WNgZ9ocF` to also query the Sourcebook. Gemini uses
+and `GEMINI_API_KEY` (the existing spelling `GEMINIAPIKEY` also works). The agent uses
+Sourcebook ID `kbu9WNgZ9ocF` even if an older `.env` omits
+`SANITY_KNOWLEDGE_BASE_ID`; set that variable only to select a different Knowledge Base. Gemini uses
 `GEMINI_MODEL=gemini-3.5-flash-lite` by default, the same model as Signal's
 default. If Gemini returns 503 for temporary high demand, the agent opens fresh
 Sanity MCP connections and tries `gemini-3.1-flash-lite` as a fallback; set
@@ -45,7 +46,7 @@ Sanity MCP connections and tries `gemini-3.1-flash-lite` as a fallback; set
 API key has access to a different compatible model. Alternatively, `OPENAI_API_KEY` works if no Gemini key
 is set. The Gemini key and Sanity organization token are separate credentials.
 The agent obtains both initial contexts and must actually call
-`groq_query` and, when enabled, `knowledge_base_read` before displaying an answer.
+`groq_query` and `knowledge_base_read` before displaying an answer.
 If both Gemini models return HTTP 503, run `python scripts/diagnose_gemini.py`.
 It checks the model catalog without generating text, then makes two short requests
 with the fallback model, one through the native Gemini API and one through Google's
@@ -56,8 +57,9 @@ After confirming both generation routes return 503, use
 `python scripts/diagnose_gemini.py --catalog-only` to check key access without
 repeating the generation requests.
 It avoids counting a copied SEC fact as independent corroboration. It is a command-line
-prototype. An earlier endpoint preview found all three documents, but no authenticated
-model query has been verified against this project yet. Try a question about the
+prototype. An authenticated Gemini run used `groq_query` to read the dataset and
+answered the SEC question. Sourcebook retrieval has not yet been verified in a live
+run. Try a question about the
 2023 SEC proof-of-reserves alert and confirm the SEC URL, publication date, and tool
 names appear. Then ask about this week's market and confirm it declines without new
 evidence. Never share the `.env` file or its token values.

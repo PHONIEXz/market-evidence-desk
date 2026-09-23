@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import test from "node:test";
 import handler, {normalizeGraph} from "../api/graph.js";
+import evidenceHandler from "../api/evidence.js";
+import {comparisonFromGraph} from "../web/comparison.js";
 
 const root = JSON.parse(readFileSync(new URL("../sanity/seed/sec-investor-alert.json", import.meta.url)));
 const additional = JSON.parse(readFileSync(new URL("../sanity/seed/proof-of-reserves-scope.json", import.meta.url)));
@@ -20,6 +22,28 @@ test("published comparison keeps all linked and contextual claims", () => {
   assert.equal(result.sources.length, 3);
   assert.equal(result.claims.length, 4);
   assert.equal(result.claims.filter((claim) => claim.stance === "context").length, 1);
+});
+
+test("guided comparison requires all three distinct dated linked claims", () => {
+  const ready = comparisonFromGraph(normalizeGraph(graph), new Date("2026-09-24T00:00:00Z"));
+  assert.equal(ready.rows.length, 3);
+  assert.equal(new Set(ready.rows.map(({source}) => source.url)).size, 3);
+  assert.deepEqual(ready.rows.map(({claim}) => claim.stance), ["context", "supports", "supports"]);
+  const missing = normalizeGraph({...graph, claims: graph.claims.filter((item) =>
+    item.sourceId !== "source-kraken-proof-of-reserves-guide-2022-11-28")});
+  assert.equal(comparisonFromGraph(missing), null);
+  const earlier = new Date("2023-04-01T00:00:00Z");
+  assert.equal(comparisonFromGraph(normalizeGraph(graph), earlier), null);
+});
+
+test("the hosted page provides every required element before app.js runs", () => {
+  const html = readFileSync(new URL("../web/index.html", import.meta.url), "utf8");
+  const script = readFileSync(new URL("../web/app.js", import.meta.url), "utf8");
+  const ids = new Set([...html.matchAll(/\bid="([\w-]+)"/g)].map((match) => match[1]));
+  const selectors = [...script.matchAll(/\$\("#([\w-]+)"\)/g)].map((match) => match[1]);
+  for (const id of selectors) assert.ok(ids.has(id), `Missing #${id} in web/index.html`);
+  assert.ok(html.includes('src="/web/app.js" type="module"'));
+  assert.equal(evidenceHandler, handler);
 });
 
 test("unverifiable claims are removed before reaching a hosted browser", () => {

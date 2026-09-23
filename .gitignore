@@ -1,6 +1,7 @@
 node_modules/
 .sanity/
 dist/
+public/
 .env
 .env.*
 !.env.example

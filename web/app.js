@@ -1,4 +1,4 @@
-"use strict";
+import {comparisonFromGraph} from "./comparison.js";
 
 const $ = (selector) => document.querySelector(selector);
 const dateText = (value) => new Date(value).toLocaleString(undefined, {dateStyle: "medium", timeStyle: "short"});
@@ -21,6 +21,7 @@ let mode = "live";
 let briefText = "";
 let sourceFilter = "";
 let requestNumber = 0;
+let comparisonMode = "scope";
 
 function setVisible(selector, visible) {
   $(selector).hidden = !visible;
@@ -32,6 +33,53 @@ function renderMetrics() {
   $("#metric-sources").textContent = graph.sources.length;
   $("#metric-claims").textContent = graph.claims.length;
   $("#metric-review").textContent = reviews;
+}
+
+function renderComparison() {
+  const output = $("#comparison-output");
+  clear(output);
+  const comparing = comparisonMode === "scope";
+  $("#comparison-scope").setAttribute("aria-pressed", String(comparing));
+  $("#comparison-price").setAttribute("aria-pressed", String(!comparing));
+  $("#comparison-question").textContent = comparing
+    ? "What can a customer check in a proof-of-reserves snapshot, and what does that leave unverified?"
+    : "What is Bitcoin's price right now, and should I buy it today?";
+  $("#comparison-context").textContent = comparing
+    ? "Checking a customer's inclusion and assessing an exchange's overall liabilities are different questions."
+    : "A dated investor alert cannot supply a live market price or a trading decision.";
+  $("#comparison-command").textContent = `python agent.py --case ${comparing ? "compare" : "price"}`;
+  $("#comparison-label").textContent = comparing ? "PUBLISHED SANITY SOURCE TRAIL" : "EVIDENCE BOUNDARY";
+  $("#comparison-copy-status").textContent = "";
+
+  if (mode !== "live") {
+    addText(output, "p", "Switch to Published data in the research desk to inspect real source records. The fictional demo has its own separate example.");
+    return;
+  }
+  if (!graph) {
+    addText(output, "p", "Waiting for the published Sanity graph. If it is unavailable, retry below.");
+    return;
+  }
+  if (!comparing) {
+    addText(output, "p", "This dated research graph has no live price feed or basis for a buy recommendation. The CLI agent's recorded test declined to provide either one.", "comparison-boundary");
+    addText(output, "p", "The available source records are historical. Open the sourcebook below to check their dates before drawing any conclusion.", "comparison-aside");
+    return;
+  }
+  const comparison = comparisonFromGraph(graph);
+  if (!comparison) {
+    addText(output, "p", "The published graph does not contain all three correctly linked sources for this comparison. Check the records in Sanity Studio before relying on the answer.");
+    return;
+  }
+  addText(output, "p", comparison.event.summary || "Compare the linked, dated source claims below.", "comparison-summary");
+  for (const {source, claim, label} of comparison.rows) {
+    const row = addText(output, "article", "", "comparison-source");
+    addText(row, "span", `${label} · ${publishedDate(source.publishedAt)} · ${claim.stance.toUpperCase()}`, "comparison-source-meta");
+    addText(row, "p", claim.text);
+    const link = addText(row, "a", `Read ${source.title} ↗`);
+    link.href = source.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+  }
+  addText(output, "p", `${comparison.event.review === "approved" ? "Reviewed" : "Human review pending"}. These historical records do not establish current solvency.`, "comparison-aside");
 }
 
 function renderEvidence(event, claims, sources, asOf) {
@@ -159,27 +207,37 @@ function render() {
 async function loadMode(nextMode) {
   const request = ++requestNumber;
   mode = nextMode;
+  graph = null;
+  renderComparison();
+  $("#refresh").textContent = mode === "live" ? "Retry published data ↻" : "Retry fictional demo ↻";
+  setVisible("#open-demo", mode === "live");
   $("#live-mode").classList.toggle("active", mode === "live");
   $("#demo-mode").classList.toggle("active", mode === "demo");
   $("#live-mode").setAttribute("aria-pressed", String(mode === "live"));
   $("#demo-mode").setAttribute("aria-pressed", String(mode === "demo"));
   $("#mode-badge").textContent = mode === "live" ? "PUBLISHED SANITY DATA" : "FICTIONAL DEMO";
-  setVisible("#desk", false); setVisible("#sources", false); setVisible("#method", false); setVisible("#method-strip", false); setVisible("#empty", false); setVisible("#error", false); setVisible("#loading", true);
+  setVisible("#desk", false); setVisible("#sources", false); setVisible("#method", false); setVisible("#method-strip", false); setVisible("#empty", false); setVisible("#error", false); setVisible("#loading", true); setVisible("#graph-actions", true);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
   try {
-    const response = await fetch(mode === "live" ? "/api/graph" : "/data/demo.json", {cache: "no-store"});
+    const response = await fetch(mode === "live" ? "/api/evidence" : "/data/demo.json", {signal: controller.signal});
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const loaded = await response.json();
     if (request !== requestNumber) return;
     if (!Array.isArray(loaded.events) || !Array.isArray(loaded.sources) || !Array.isArray(loaded.claims)) throw new Error("Invalid graph");
     graph = loaded;
+    renderComparison();
     $("#loading").hidden = true;
     if (!graph.events.length) { setVisible("#empty", true); return; }
     clear($("#event-select"));
     for (const event of graph.events) { const option = addText($("#event-select"), "option", event.title); option.value = event.id; }
-    render(); setVisible("#desk", true); setVisible("#sources", true); setVisible("#method", true); setVisible("#method-strip", true);
+    render(); setVisible("#desk", true); setVisible("#sources", true); setVisible("#method", true); setVisible("#method-strip", true); setVisible("#graph-actions", false);
   } catch (error) {
     if (request !== requestNumber) return;
-    $("#loading").hidden = true; setVisible("#error", true); $("#error").textContent = mode === "live" ? `Published Sanity data could not be loaded (${error.message}). Retry or open the fictional demo.` : `Fictional demo could not be loaded (${error.message}).`;
+    $("#loading").hidden = true; setVisible("#error", true); $("#error").textContent = mode === "live" ? "Published Sanity data did not load. Retry or open the fictional demo." : "Fictional demo did not load. Retry in a moment.";
+    renderComparison();
+  } finally {
+    clearTimeout(timeout);
   }
 }
 
@@ -190,6 +248,17 @@ $("#source-search").addEventListener("input", (event) => { sourceFilter = event.
 $("#live-mode").addEventListener("click", () => loadMode("live"));
 $("#demo-mode").addEventListener("click", () => loadMode("demo"));
 $("#refresh").addEventListener("click", () => loadMode(mode));
+$("#open-demo").addEventListener("click", () => loadMode("demo"));
+$("#comparison-scope").addEventListener("click", () => { comparisonMode = "scope"; renderComparison(); });
+$("#comparison-price").addEventListener("click", () => { comparisonMode = "price"; renderComparison(); });
+$("#comparison-copy").addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText($("#comparison-command").textContent);
+    $("#comparison-copy-status").textContent = "Command copied";
+  } catch {
+    $("#comparison-copy-status").textContent = "Clipboard unavailable. Select the command to copy it.";
+  }
+});
 $("#jump-to-desk").addEventListener("click", () => $("#desk").scrollIntoView({behavior: "smooth", block: "start"}));
 const titleReplay = $("#hero-title-replay");
 titleReplay.addEventListener("click", () => {

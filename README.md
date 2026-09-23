@@ -45,6 +45,11 @@ API key has access to a different compatible model. Alternatively, `OPENAI_API_K
 is set. The Gemini key and Sanity organization token are separate credentials.
 The agent obtains both initial contexts and must actually call
 `groq_query` and, when enabled, `knowledge_base_read` before displaying an answer.
+If both Gemini models return HTTP 503, run `python scripts/diagnose_gemini.py`.
+It makes two short requests with the fallback model, one through the native Gemini
+API and one through Google's OpenAI-compatible endpoint. It prints only model and
+HTTP statuses, never the key or response body. Share those status lines to tell
+whether the issue affects basic Gemini calls or the agent's longer request.
 It avoids counting a copied SEC fact as independent corroboration. It is a command-line
 prototype. An earlier endpoint preview found all three documents, but no authenticated
 model query has been verified against this project yet. Try a question about the

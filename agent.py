@@ -11,7 +11,7 @@ from agents.mcp import MCPServerStreamableHttp, create_static_tool_filter
 from dotenv import load_dotenv
 from openai import InternalServerError
 
-from scripts.context_config import called_tools, context_urls, initial_context_url, missing_retrievals
+from scripts.context_config import called_tools, context_urls, initial_context_url, missing_retrievals, sourcebook_id
 from scripts.model_config import configured_value, fallback_model, missing_settings, model_credentials
 
 
@@ -30,7 +30,7 @@ async def main() -> None:
 
     try:
         dataset_url, knowledge_base_url = context_urls(
-            mcp_url, os.environ.get("SANITY_KNOWLEDGE_BASE_ID", "").strip()
+            mcp_url, sourcebook_id(os.environ)
         )
     except ValueError as error:
         raise SystemExit(str(error)) from error
@@ -52,15 +52,19 @@ async def main() -> None:
         "You are a cautious research assistant, not a trading adviser. "
         "For every question, use Sanity Context groq_query to read actual "
         "published content before answering. Use groq_query to "
-        "retrieve the relevant research question, evidence claims, and each claim's "
-        "source URL and publication date. "
+        "retrieve the relevant research question, evidence claims, and the actual "
+        "source record including its url and publishedAt fields. "
         + ("Also use knowledge_base_read on relevant Sourcebook entries; the index "
            "may lag behind the live dataset. The same SEC page or dataset claim "
            "appearing twice is one source, not independent corroboration. "
            if knowledge_base_url else "")
         + "Distinguish observed facts from "
         "interpretation. Present supporting and conflicting evidence separately. "
-        "Include source URLs and timestamps that you actually retrieved. "
+        "Include an explicit 'Publication date:' calendar date and 'Source URL:' "
+        "copied from the retrieved source record. Write the URL as plain https:// "
+        "without backslash escapes. Do not infer the publication date from the question. "
+        "If publishedAt is missing, say that the publication date is unverified. "
+        "Include only timestamps that you actually retrieved. "
         "If the content is absent, stale, contradictory, or lacks a source, say so "
         "and do not invent an answer, URL, price, or prediction. Never place trades.\n\n"
         "# Sanity Context reference\n"

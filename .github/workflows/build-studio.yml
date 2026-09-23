@@ -1,9 +1,9 @@
 name: Build Sanity Studio
 
 on:
-  push:
+  pull_request:
     branches:
-      - feat/live-sanity-research-desk
+      - main
     paths:
       - .github/workflows/build-studio.yml
       - package.json

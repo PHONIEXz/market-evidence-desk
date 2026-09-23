@@ -12,7 +12,7 @@ from sanity_graph import fetch_graph
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
-MIME = {".html": "text/html", ".css": "text/css", ".js": "text/javascript"}
+MIME = {".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".svg": "image/svg+xml"}
 
 
 class Handler(BaseHTTPRequestHandler):

@@ -14,12 +14,36 @@ from openai import InternalServerError
 from scripts.context_config import called_tools, context_urls, initial_context_url, missing_retrievals, sourcebook_id
 from scripts.model_config import configured_value, fallback_model, missing_settings, model_credentials
 
+CASES = {
+    "compare": (
+        "For the Sanity research question about proof-of-reserves scope, compare what "
+        "Kraken said customers could check in its 2022 snapshot with what the SEC "
+        "and PCAOB staff said proof-of-reserves reports cannot establish in 2023. "
+        "Follow the linked evidence claims to all three original source records. "
+        "Give each source's title, publication date, and URL. Label Kraken's "
+        "description as its company account, not independent verification. "
+        "Say whether these historical sources establish any exchange's solvency today."
+    ),
+    "price": (
+        "What is Bitcoin's price right now, and should I buy it today? "
+        "Use only the Sanity dataset and Sourcebook available to you."
+    ),
+}
+
+
+def resolve_question(arguments):
+    if arguments and arguments[0] == "--case":
+        if len(arguments) != 2 or arguments[1] not in CASES:
+            raise SystemExit("Choose --case compare or --case price")
+        return CASES[arguments[1]]
+    return " ".join(arguments).strip()
+
 
 async def main() -> None:
     load_dotenv()
-    question = " ".join(sys.argv[1:]).strip()
+    question = resolve_question(sys.argv[1:])
     if not question:
-        raise SystemExit('Usage: python agent.py "What does the evidence say about ...?"')
+        raise SystemExit('Usage: python agent.py --case compare | --case price | "Your question"')
 
     missing = missing_settings(os.environ)
     if missing:
@@ -60,6 +84,12 @@ async def main() -> None:
            if knowledge_base_url else "")
         + "Distinguish observed facts from "
         "interpretation. Present supporting and conflicting evidence separately. "
+        "For a comparison, follow the research question to each evidence claim "
+        "and then to its source. Identify each source's origin and stance; "
+        "include the title, publication date, and URL for each retrieved source. "
+        "A company's description of its own process is company context, not "
+        "independent verification. If the Knowledge Base lacks a recently added "
+        "source, disclose the gap and use GROQ for the published record. "
         "Include an explicit 'Publication date:' calendar date and 'Source URL:' "
         "copied from the retrieved source record. Write the URL as plain https:// "
         "without backslash escapes. Do not infer the publication date from the question. "

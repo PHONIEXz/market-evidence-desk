@@ -14,7 +14,7 @@ def model_credentials(environment: Mapping[str, str]) -> tuple[str, str, str] | 
         environment, "GEMINIAPIKEY"
     )
     if gemini_key:
-        return ("gemini", gemini_key, configured_value(environment, "GEMINI_MODEL") or "gemini-3.8-flash")
+        return ("gemini", gemini_key, configured_value(environment, "GEMINI_MODEL") or "gemini-3.5-flash-lite")
     openai_key = configured_value(environment, "OPENAI_API_KEY")
     if openai_key:
         return ("openai", openai_key, "")
@@ -35,5 +35,5 @@ def fallback_model(environment: Mapping[str, str], primary_model: str, status_co
     """Use a smaller tool-capable Gemini model only for temporary overloads."""
     if status_code != 503:
         return ""
-    alternative = configured_value(environment, "GEMINI_FALLBACK_MODEL") or "gemini-3.5-flash-lite"
+    alternative = configured_value(environment, "GEMINI_FALLBACK_MODEL") or "gemini-3.1-flash-lite"
     return alternative if alternative != primary_model else ""

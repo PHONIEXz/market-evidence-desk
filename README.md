@@ -160,7 +160,7 @@ will need private credentials and request limits before public exposure.
 
 ## Hosting status
 
-A separate Vercel project named `market-evidence-desk` is connected to this repository. Its first deployment is pending; once Vercel creates a preview, verify `/`, `/api/graph`, both research questions, and the fictional demo before sharing the URL.
+A separate Vercel project named `market-evidence-desk` is connected to this repository. Its first deployment is `READY` at [market-evidence-desk.vercel.app](https://market-evidence-desk.vercel.app). Verify `/`, `/api/graph`, both research questions, and the fictional demo in a normal browser before sharing it publicly.
 
 ## What works today
 

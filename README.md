@@ -51,6 +51,9 @@ with the fallback model, one through the native Gemini API and one through Googl
 OpenAI-compatible endpoint. It prints only model and HTTP statuses, never the key or
 response body. Share those status lines to tell whether the issue affects basic
 Gemini calls or the agent's longer request.
+After confirming both generation routes return 503, use
+`python scripts/diagnose_gemini.py --catalog-only` to check key access without
+repeating the generation requests.
 It avoids counting a copied SEC fact as independent corroboration. It is a command-line
 prototype. An earlier endpoint preview found all three documents, but no authenticated
 model query has been verified against this project yet. Try a question about the

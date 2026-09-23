@@ -1,6 +1,6 @@
 import unittest
 
-from scripts.model_config import missing_settings, model_credentials
+from scripts.model_config import fallback_model, missing_settings, model_credentials
 
 
 class ModelConfigurationTests(unittest.TestCase):
@@ -24,6 +24,13 @@ class ModelConfigurationTests(unittest.TestCase):
             "SANITY_ORGANIZATION_TOKEN": "YOUR_ORGANIZATION_CONTEXT_VIEWER_TOKEN",
             "GEMINI_API_KEY": "YOUR_GEMINI_API_KEY",
         }), ["SANITY_ORGANIZATION_TOKEN", "GEMINI_API_KEY (or GEMINIAPIKEY or OPENAI_API_KEY)"])
+
+    def test_fallback_only_on_overload_and_for_distinct_model(self):
+        self.assertEqual(fallback_model({}, "gemini-3.8-flash", 503), "gemini-3.5-flash-lite")
+        self.assertEqual(fallback_model({}, "gemini-3.8-flash", 429), "")
+        self.assertEqual(fallback_model({}, "gemini-3.5-flash-lite", 503), "")
+        self.assertEqual(fallback_model({"GEMINI_FALLBACK_MODEL": "gemini-3.5-flash"},
+                                        "gemini-3.8-flash", 503), "gemini-3.5-flash")
 
 
 if __name__ == "__main__":

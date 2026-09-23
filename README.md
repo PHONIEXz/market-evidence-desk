@@ -158,6 +158,10 @@ preview URL before promoting it. The Gemini/Context research agent is still a
 local CLI and has **no browser chat route**. A later server-side chat endpoint
 will need private credentials and request limits before public exposure.
 
+## Hosting status
+
+A separate Vercel project named `market-evidence-desk` is connected to this repository. Its first deployment is pending; once Vercel creates a preview, verify `/`, `/api/graph`, both research questions, and the fictional demo before sharing the URL.
+
 ## What works today
 
 - A structured source → claim → event graph with a timestamp on each item.

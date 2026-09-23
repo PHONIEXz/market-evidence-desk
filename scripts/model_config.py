@@ -29,3 +29,11 @@ def missing_settings(environment: Mapping[str, str]) -> list[str]:
     if model_credentials(environment) is None:
         missing.append("GEMINI_API_KEY (or GEMINIAPIKEY or OPENAI_API_KEY)")
     return missing
+
+
+def fallback_model(environment: Mapping[str, str], primary_model: str, status_code: int) -> str:
+    """Use a smaller tool-capable Gemini model only for temporary overloads."""
+    if status_code != 503:
+        return ""
+    alternative = configured_value(environment, "GEMINI_FALLBACK_MODEL") or "gemini-3.5-flash-lite"
+    return alternative if alternative != primary_model else ""

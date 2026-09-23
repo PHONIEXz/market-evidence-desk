@@ -19,12 +19,13 @@ Check the read-only graph boundary with `python -m unittest discover -s tests -v
 Context is enabled for organization `oso5hthoq`. The **Market Evidence Desk Sourcebook**
 Knowledge Base (`kbu9WNgZ9ocF`) has two sources: a March 23, 2023
 [SEC investor alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities)
-and the Sanity `production` dataset. The Studio schema is deployed. To use the dataset through Context MCP, deploy the hosted Studio application too with `npm run studio:deploy`; schema deployment alone does not register the Studio. The dataset has
-**three published documents**: a source, a research question, and an evidence claim,
-all grounded in that one historical alert. The Knowledge Base was rebuilt from both
+and the Sanity `production` dataset. The Studio schema is deployed. To use the dataset through Context MCP, deploy the hosted Studio application too with `npm run studio:deploy`; schema deployment alone does not register the Studio. The dataset was previously reported to have
+three published documents: a source, a research question, and an evidence claim,
+all grounded in that one historical alert. A fresh anonymous query now returns zero;
+verify the project and publication state below. The Knowledge Base was rebuilt from both
 sources into five entries. The read-only `market-evidence-research` Context MCP
 endpoint serves the dataset with a filter limited to `source`, `marketEvent`, and
-`evidenceClaim`; its preview shows all three. The Knowledge Base is not attached
+`evidenceClaim`; its earlier preview showed all three. The Knowledge Base is not attached
 to this dataset-mode endpoint. To query the entries through MCP, configure a
 separate Knowledge Base-only endpoint. Create an **organization** API token with
 **Context Viewer** access; a project token will not authenticate to Context.
@@ -39,7 +40,7 @@ python agent.py "What evidence supports and conflicts with this research questio
 The `.env` file needs `SANITY_CONTEXT_MCP_URL`, `SANITY_ORGANIZATION_TOKEN`,
 and `OPENAI_API_KEY`. The agent gets the current schema or Knowledge Base
 outline from Context, then uses the Context MCP tools to query content. It is
-a command-line prototype. The endpoint preview finds all three documents, but
+a command-line prototype. An earlier endpoint preview found all three documents, but
 no authenticated model query has been verified against this project yet.
 Questions about current markets still lack current evidence and must be declined.
 
@@ -74,7 +75,7 @@ The seeded evidence claim was checked against the linked [March 23, 2023 SEC ale
 - A structured source → claim → event graph with a timestamp on each item.
 - A reader can inspect supporting and conflicting claims, stale sources, source links, and the human review state.
 - A transparent, deterministic research brief assembled from published Sanity claims when available, plus a separate fictional sample view. All copied briefs are labeled drafts.
-- An AI agent command-line runner wired for Sanity Context MCP; the endpoint finds three documents, and the live model connection still needs private credentials and verification.
+- An AI agent command-line runner wired for Sanity Context MCP; an earlier endpoint preview found three documents, but the current public dataset read is empty. The live model connection still needs private credentials and verification.
 - The SEC page and three structured Sanity documents ingested into one Knowledge Base and rebuilt into five entries. A separate endpoint is needed to serve those entries over MCP. They are historical guidance, not live market data.
 - Deployed Sanity document schemas for sources, events, evidence claims, and briefs.
 

@@ -191,5 +191,12 @@ $("#live-mode").addEventListener("click", () => loadMode("live"));
 $("#demo-mode").addEventListener("click", () => loadMode("demo"));
 $("#refresh").addEventListener("click", () => loadMode(mode));
 $("#jump-to-desk").addEventListener("click", () => $("#desk").scrollIntoView({behavior: "smooth", block: "start"}));
+const titleReplay = $("#hero-title-replay");
+titleReplay.addEventListener("click", () => {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  titleReplay.classList.add("restarting");
+  void titleReplay.offsetWidth;
+  titleReplay.classList.remove("restarting");
+});
 $("#copy").addEventListener("click", async () => { try { await navigator.clipboard.writeText(briefText); $("#copy-state").textContent = "Draft copied"; } catch { $("#copy-state").textContent = "Clipboard blocked; select the text above."; } });
 loadMode("live");

@@ -28,16 +28,25 @@ async def main():
     key = os.environ.get("GEMINI_API_KEY", "").strip() or os.environ.get("GEMINIAPIKEY", "").strip()
     if not key or key.upper().startswith("YOUR_"):
         raise SystemExit("Set GEMINI_API_KEY in .env; do not paste the key into chat.")
-    model = sys.argv[1] if len(sys.argv) > 1 else "gemini-3.5-flash-lite"
+    catalog_only = "--catalog-only" in sys.argv[1:]
+    model_args = [arg for arg in sys.argv[1:] if arg != "--catalog-only"]
+    if len(model_args) > 1:
+        raise SystemExit("Usage: python scripts/diagnose_gemini.py [--catalog-only] [model]")
+    model = model_args[0] if model_args else "gemini-3.5-flash-lite"
     if not model.startswith("gemini-") or "/" in model or "?" in model:
         raise SystemExit("Use a Gemini model ID, for example gemini-3.5-flash-lite.")
 
-    print(f"Checking {model} with one catalog request and two short generations (no Sanity content is sent).")
+    print("Checking Gemini model access without generating text." if catalog_only else
+          f"Checking {model} with one catalog request and two short generations (no Sanity content is sent).")
     async with httpx.AsyncClient(timeout=30) as client:
         catalog = await probe(
             client, "Gemini model catalog", "GET", "https://generativelanguage.googleapis.com/v1beta/models?pageSize=1",
             {"x-goog-api-key": key},
         )
+        if catalog_only:
+            print("Model listing works; generation is the failing operation." if catalog == 200 else
+                  "Model listing also failed. Review the key's status in Google AI Studio.")
+            return
         native = await probe(
             client, "Native Gemini", "POST", f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
             {"x-goog-api-key": key},

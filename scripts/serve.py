@@ -32,7 +32,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Location", "/web/")
             self.end_headers()
             return
-        if path == "/api/graph":
+        if path in ("/api/graph", "/api/evidence"):
             try:
                 body = json.dumps(fetch_graph()).encode("utf-8")
                 self.respond(200, body, "application/json; charset=utf-8")

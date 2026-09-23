@@ -38,8 +38,9 @@ python agent.py "What evidence supports and conflicts with this research questio
 The `.env` file needs `SANITY_CONTEXT_MCP_URL`, `SANITY_ORGANIZATION_TOKEN`,
 and `GEMINI_API_KEY` (the existing spelling `GEMINIAPIKEY` also works). Set
 `SANITY_KNOWLEDGE_BASE_ID=kbu9WNgZ9ocF` to also query the Sourcebook. Gemini uses
-`GEMINI_MODEL=gemini-3.8-flash` by default. If Gemini returns 503 for temporary
-high demand, the agent tries `gemini-3.5-flash-lite` once as a fallback; set
+`GEMINI_MODEL=gemini-3.5-flash-lite` by default, the same model as Signal's
+default. If Gemini returns 503 for temporary high demand, the agent opens fresh
+Sanity MCP connections and tries `gemini-3.1-flash-lite` as a fallback; set
 `GEMINI_FALLBACK_MODEL` to choose another fallback. Change `GEMINI_MODEL` if your
 API key has access to a different compatible model. Alternatively, `OPENAI_API_KEY` works if no Gemini key
 is set. The Gemini key and Sanity organization token are separate credentials.

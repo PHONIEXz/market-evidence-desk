@@ -9,9 +9,9 @@ import httpx
 from dotenv import load_dotenv
 
 
-async def probe(client, label, url, headers, payload):
+async def probe(client, label, method, url, headers, payload=None):
     try:
-        response = await client.post(url, headers=headers, json=payload)
+        response = await client.request(method, url, headers=headers, json=payload)
     except httpx.RequestError as error:
         print(f"{label}: network error ({type(error).__name__})")
         return None
@@ -32,20 +32,27 @@ async def main():
     if not model.startswith("gemini-") or "/" in model or "?" in model:
         raise SystemExit("Use a Gemini model ID, for example gemini-3.5-flash-lite.")
 
-    print(f"Checking {model} with two short requests (no Sanity content is sent).")
+    print(f"Checking {model} with one catalog request and two short generations (no Sanity content is sent).")
     async with httpx.AsyncClient(timeout=30) as client:
+        catalog = await probe(
+            client, "Gemini model catalog", "GET", "https://generativelanguage.googleapis.com/v1beta/models?pageSize=1",
+            {"x-goog-api-key": key},
+        )
         native = await probe(
-            client, "Native Gemini", f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+            client, "Native Gemini", "POST", f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
             {"x-goog-api-key": key},
             {"contents": [{"parts": [{"text": "Reply OK."}]}], "generationConfig": {"maxOutputTokens": 32}},
         )
         compatible = await probe(
-            client, "OpenAI-compatible Gemini", "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+            client, "OpenAI-compatible Gemini", "POST", "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
             {"Authorization": f"Bearer {key}"},
             {"model": model, "messages": [{"role": "user", "content": "Reply OK."}], "max_tokens": 32},
         )
     if native == 503 and compatible == 503:
-        print("Even tiny requests get 503 on both routes; the Sanity agent prompt is not the only cause.")
+        if catalog == 200:
+            print("The key can read Gemini model metadata, but generation fails on both routes.")
+        else:
+            print("Even tiny requests get 503 on both routes; the Sanity agent prompt is not the only cause.")
     elif native == 200 and compatible == 503:
         print("The native API responds, but the compatibility route used by agent.py returns 503.")
     elif native == 200 and compatible == 200:

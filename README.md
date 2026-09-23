@@ -57,12 +57,13 @@ After confirming both generation routes return 503, use
 `python scripts/diagnose_gemini.py --catalog-only` to check key access without
 repeating the generation requests.
 It avoids counting a copied SEC fact as independent corroboration. It is a command-line
-prototype. An authenticated Gemini run used `groq_query` to read the dataset and
-answered the SEC question. Sourcebook retrieval has not yet been verified in a live
-run. Try a question about the
-2023 SEC proof-of-reserves alert and confirm the SEC URL, publication date, and tool
-names appear. Then ask about this week's market and confirm it declines without new
-evidence. Never share the `.env` file or its token values.
+prototype. An authenticated Gemini run on September 23, 2026 logged both `groq_query`
+and `knowledge_base_read`, then answered the SEC proof-of-reserves question with the
+source URL and March 23, 2023 publication date. Its detailed answer was compared to
+the original SEC alert. The two retrieval paths have therefore been exercised live;
+the agent's response to a current-market question remains unverified. Ask about this
+week's market and confirm it declines without new evidence. Never share the `.env`
+file or its token values.
 
 ## Edit real content in Sanity Studio
 
@@ -106,14 +107,14 @@ The seeded evidence claim was checked against the linked [March 23, 2023 SEC ale
 - A structured source → claim → event graph with a timestamp on each item.
 - A reader can inspect supporting and conflicting claims, stale sources, source links, and the human review state.
 - A transparent, deterministic research brief assembled from published Sanity claims when available, plus a separate fictional sample view. All copied briefs are labeled drafts.
-- An AI agent command-line runner wired for Sanity Context MCP; an earlier endpoint preview found the original three documents. Its live model connection still needs private credentials and verification.
-- The SEC page and three structured Sanity documents ingested into one Knowledge Base and rebuilt into five entries. A separate endpoint is needed to serve those entries over MCP. They are historical guidance, not live market data.
+- A Gemini research agent calling both Sanity Context `groq_query` and `knowledge_base_read`; the SEC question was checked against the original alert in a live run. Current-market abstention still needs a separate run.
+- The SEC page and three structured Sanity documents ingested into one Knowledge Base and rebuilt into five entries. The agent reads entries through Knowledge Base mode on the same Context endpoint. They are historical guidance, not live market data.
 - Deployed Sanity document schemas for sources, events, evidence claims, and briefs.
 
 ## Next integration steps
 
 1. Review the published claim and the generated Knowledge Base entries against the source. Never present the demo examples or the 2023 alert as current news.
-2. Configure the local `.env` with an organization Context Viewer token and a Gemini API key (or an OpenAI API key), then verify the agent uses both GROQ and Sourcebook tools, returns the SEC URL and publication date, and abstains when newer evidence is missing.
+2. Run an adversarial current-market question and confirm the agent declines unsupported live prices, predictions, and trades. Capture the exact tool names and final response for the demo.
 3. The corrected root-level seed documents are public and the scoped read is wired into the local desk. Add a reviewed `researchBrief` approval transition before publishing or sharing briefs automatically. Recheck Knowledge Base entries now that the new documents have been added to avoid duplicated evidence.
 4. Record a Binance demo showing the research workflow, including one conflicting evidence case. Confirm the contest's full rules, posting method, and jurisdiction requirements from its original post before entering.
 5. For DEV's Sanity Challenge Path One, submit a DEV post with `#sanitychallenge`, the Sanity project ID, working demo, code, and an honest account of the agent's use of Context MCP. Deadline: October 4, 2026, 11:59 PM PDT. Entrants must meet the contest's age and other eligibility rules.

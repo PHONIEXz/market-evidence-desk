@@ -4,6 +4,7 @@
   "version": "0.2.0",
   "type": "module",
   "scripts": {
+    "web:build": "node scripts/build-public.mjs",
     "studio": "sanity dev",
     "studio:build": "sanity build",
     "studio:deploy": "sanity deploy",

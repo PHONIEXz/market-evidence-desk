@@ -59,9 +59,14 @@
   animation: wordmark-scan 4.6s ease-in-out infinite;
 }
 
+.hero {
+  column-gap: min(6vw, 80px);
+}
+
 .hero h1 {
   perspective: 900px;
-  line-height: 1.09;
+  font-size: clamp(48px, 6.3vw, 84px);
+  line-height: 1.12;
 }
 
 .hero-title-trigger {
@@ -94,7 +99,7 @@
   animation: unravel-claim 9s ease-in-out infinite;
 }
 
-.hero h1 .title-line:last-child {
+.hero h1 .title-line:nth-child(2) {
   width: max-content;
   max-width: 100%;
   animation: unravel-receipt 9s ease-in-out infinite;

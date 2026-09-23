@@ -1,0 +1,34 @@
+[
+  {
+    "_id": "source.sec-investor-alert-2023-03-23",
+    "_type": "source",
+    "title": "Exercise Caution with Crypto Asset Securities: Investor Alert",
+    "url": "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities",
+    "publishedAt": "2023-03-23T00:00:00Z",
+    "kind": "official",
+    "notes": "Historical investor education alert from the SEC Office of Investor Education and Advocacy. Its date is calendar-day precise, not a verified publication time. The alert states that it is a staff statement, not a rule or regulation. Do not treat it as current market news or current legal advice."
+  },
+  {
+    "_id": "marketEvent.sec-proof-of-reserves-question-2023",
+    "_type": "marketEvent",
+    "title": "What did the March 2023 SEC investor alert say about proof of reserves?",
+    "summary": "Historical source review: compare the alert's discussion of proof-of-reserves assessments with the protections of audited financial statements. This is an investor education question, not a live market event.",
+    "observedAt": "2026-09-23T12:52:51Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidenceClaim.sec-proof-of-reserves-limits-2023",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "marketEvent.sec-proof-of-reserves-question-2023"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source.sec-investor-alert-2023-03-23"
+    },
+    "text": "In its March 2023 investor alert, the SEC's Office of Investor Education and Advocacy said proof-of-reserves assessments may not provide meaningful assurance of adequate assets and are less rigorous and comprehensive than audited financial statements. This describes the staff alert's position at publication, not the financial condition of any specific firm today.",
+    "stance": "supports",
+    "observedAt": "2026-09-23T12:52:51Z"
+  }
+]

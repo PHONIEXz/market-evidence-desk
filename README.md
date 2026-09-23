@@ -19,10 +19,8 @@ Check the read-only graph boundary with `python -m unittest discover -s tests -v
 Context is enabled for organization `oso5hthoq`. The **Market Evidence Desk Sourcebook**
 Knowledge Base (`kbu9WNgZ9ocF`) has two sources: a March 23, 2023
 [SEC investor alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities)
-and the Sanity `production` dataset. The Studio schema is deployed. To use the dataset through Context MCP, deploy the hosted Studio application too with `npm run studio:deploy`; schema deployment alone does not register the Studio. The dataset was previously reported to have
-three published documents: a source, a research question, and an evidence claim,
-all grounded in that one historical alert. A fresh anonymous query now returns zero;
-verify the project and publication state below. The Knowledge Base was rebuilt from both
+and the Sanity `production` dataset. The Studio schema is deployed. To use the dataset through Context MCP, deploy the hosted Studio application too with `npm run studio:deploy`; schema deployment alone does not register the Studio. Three documents were previously seeded: a source, a research question, and an evidence claim,
+all grounded in that one historical alert. The user's authenticated and anonymous CLI queries both returned 16 documents; a separate anonymous HTTP read from the development workspace returned zero. Confirm the seeded IDs and the local HTTP response using the diagnostic below. The Knowledge Base was rebuilt from both
 sources into five entries. The read-only `market-evidence-research` Context MCP
 endpoint serves the dataset with a filter limited to `source`, `marketEvent`, and
 `evidenceClaim`; its earlier preview showed all three. The Knowledge Base is not attached
@@ -57,7 +55,7 @@ npm run studio:deploy
 npm run studio
 ```
 
-Open `http://localhost:3333` and sign in with the Sanity account that owns the project. The hosted Studio deployment asks for a unique `*.sanity.studio` hostname on the first run. The seed command was reported successful for three linked documents (a Source, Research question, and Evidence claim) based on the March 23, 2023 SEC alert. `--missing` skips their fixed IDs if already created. A subsequent anonymous query to `cxjysvlq/production` on September 23, 2026 returned **zero documents**, so check the project, dataset, publication state, and visibility in Studio before describing the live dataset as populated. Review the claim in Studio: its intended human review state is `needs-human-review`, and the seed records an observation time rather than a live price or market event. Add newer primary sources before making current-market claims. The web desk now reads Sanity for its default view; the AI agent remains a separate command-line prototype.
+Open `http://localhost:3333` and sign in with the Sanity account that owns the project. The hosted Studio deployment asks for a unique `*.sanity.studio` hostname on the first run. The seed command was reported successful for three linked documents (a Source, Research question, and Evidence claim) based on the March 23, 2023 SEC alert. `--missing` skips their fixed IDs if already created. On September 23, 2026, the user's signed-in and anonymous Sanity CLI queries both returned **16 documents**, while this development workspace's anonymous HTTP query returned **zero** for the same project and dataset. The reason remains unverified, so the live desk must be checked on the user's machine. Review the claim in Studio: its intended human review state is `needs-human-review`, and the seed records an observation time rather than a live price or market event. Add newer primary sources before making current-market claims. The web desk reads Sanity for its default view; the AI agent remains a separate command-line prototype.
 
 Check both views of the same dataset from the project directory after the running Studio build finishes or is stopped:
 
@@ -66,7 +64,15 @@ npx sanity documents query 'count(*[])' --project-id cxjysvlq --dataset producti
 npx sanity documents query 'count(*[])' --project-id cxjysvlq --dataset production --anonymous
 ```
 
-If both return zero, confirm the active Sanity account and then rerun the seed with explicit project and dataset flags. If the signed-in query returns documents but the anonymous query does not, check dataset visibility before trying the public local desk. Do not start a second `sanity deploy` while the first one is still building. Once a Studio build actually completes, the CLI supports `sanity deploy --no-build` to upload that existing `dist/` output.
+To compare the same public HTTP endpoint used by the desk and check the three seeded IDs, run this on the user's machine (it sends no credentials):
+
+```bash
+curl -fsSG 'https://cxjysvlq.api.sanity.io/v2025-08-15/data/query/production' \
+  --data-urlencode 'perspective=published' \
+  --data-urlencode 'query={"count":count(*[]),"seed":*[_id in ["source.sec-investor-alert-2023-03-23","marketEvent.sec-proof-of-reserves-question-2023","evidenceClaim.sec-proof-of-reserves-limits-2023"]]{_id,_type}}'
+```
+
+If `count` is 16 and `seed` lists the three IDs, run the local desk. If the CLI sees 16 but `curl` sees zero on the same machine, compare the CLI's anonymous query with the HTTP request before changing publication state or reseeding. Do not start a second `sanity deploy` while the first one is still building. Once a Studio build actually completes, the CLI supports `sanity deploy --no-build` to upload that existing `dist/` output.
 
 The seeded evidence claim was checked against the linked [March 23, 2023 SEC alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities), specifically its proof-of-reserves discussion. It remains historical guidance and needs a human review decision in this project.
 
@@ -75,7 +81,7 @@ The seeded evidence claim was checked against the linked [March 23, 2023 SEC ale
 - A structured source → claim → event graph with a timestamp on each item.
 - A reader can inspect supporting and conflicting claims, stale sources, source links, and the human review state.
 - A transparent, deterministic research brief assembled from published Sanity claims when available, plus a separate fictional sample view. All copied briefs are labeled drafts.
-- An AI agent command-line runner wired for Sanity Context MCP; an earlier endpoint preview found three documents, but the current public dataset read is empty. The live model connection still needs private credentials and verification.
+- An AI agent command-line runner wired for Sanity Context MCP; an earlier endpoint preview found three documents. The CLI and direct HTTP reads currently disagree, and the live model connection still needs private credentials and verification.
 - The SEC page and three structured Sanity documents ingested into one Knowledge Base and rebuilt into five entries. A separate endpoint is needed to serve those entries over MCP. They are historical guidance, not live market data.
 - Deployed Sanity document schemas for sources, events, evidence claims, and briefs.
 

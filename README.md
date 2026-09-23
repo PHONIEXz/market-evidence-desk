@@ -13,6 +13,27 @@ Open `http://localhost:8000/web/`. The demo uses **fictional illustrative data**
 
 Validate the source and claim graph with `python scripts/validate_demo.py`.
 
+## Run the Sanity Context research agent
+
+First enable Context for the organization, deploy the Studio schema, publish actual
+research documents, create a Context MCP endpoint with the dataset or a built
+Knowledge Base as its source, and create an **organization** API token with
+**Context Viewer** access. A project token will not authenticate to Context.
+
+```bash
+python -m pip install -r requirements.txt
+cp .env.example .env
+# Edit .env locally; never commit it or paste tokens into a public post.
+python agent.py "What evidence supports and conflicts with this research question?"
+```
+
+The `.env` file needs `SANITY_CONTEXT_MCP_URL`, `SANITY_ORGANIZATION_TOKEN`,
+and `OPENAI_API_KEY`. The agent gets the current schema or Knowledge Base
+outline from Context, then uses the Context MCP tools to query content. It is
+a command-line prototype. No live query has been verified against this
+project yet. If the dataset has no published content, it cannot give a
+grounded answer.
+
 ## Edit real content in Sanity Studio
 
 The Studio configuration now points to project `cxjysvlq`, dataset `production`. The project ID is public metadata, not an API key. From this directory:
@@ -29,13 +50,14 @@ Open `http://localhost:3333` and sign in with the Sanity account that owns the p
 
 - A structured source → claim → event graph with a timestamp on each item.
 - A reader can inspect supporting and conflicting claims, stale sources, source links, and the human review state.
-- A transparent, deterministic research brief assembled from the claims. It is a prototype, **not an AI agent yet**.
+- A transparent, deterministic research brief assembled from fictional sample claims.
+- An AI agent command-line runner wired for Sanity Context MCP; its live connection still needs to be configured and verified.
 - Sanity document schemas for sources, events, evidence claims, and briefs, ready to register in a new Sanity project.
 
 ## Next integration steps
 
 1. Enable Context in the organization's **Labs** page. Publish real research documents in Studio; never present the demo examples as current news.
-2. Build a Knowledge Base from those documents in Sanity Context. Connect an agent harness to its Context MCP endpoint using an organization token stored only server-side. Make the agent return claims with source URLs and abstain when sources are missing or contradictory.
+2. Build a Knowledge Base from those documents in Sanity Context. Create an MCP endpoint, configure the local `.env` with an organization Context Viewer token and an OpenAI API key, and verify the agent returns source URLs and abstains when sources are missing or contradictory.
 3. Replace demo JSON with scoped Sanity reads and add a human approval transition before publishing any brief.
 4. Record a Binance demo showing the research workflow, including one conflicting evidence case. Confirm the contest's full rules, posting method, and jurisdiction requirements from its original post before entering.
 5. For DEV's Sanity Challenge Path One, submit a DEV post with `#sanitychallenge`, the Sanity project ID, working demo, code, and an honest account of the agent's use of Context MCP. Deadline: October 4, 2026, 11:59 PM PDT. Entrants must meet the contest's age and other eligibility rules.

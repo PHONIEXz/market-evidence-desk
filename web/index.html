@@ -1,25 +1,44 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b111b">
   <title>Market Evidence Desk | Research with receipts</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <header><span class="brand">◈ MARKET EVIDENCE DESK</span><span class="badge" id="mode-badge">PUBLISHED SANITY DATA</span></header>
-  <main>
-    <section class="hero"><p class="eyebrow">RESEARCH WITH RECEIPTS</p><h1>See the claim.<br><em>Trace the source.</em></h1><p>Turn conflicting market narratives into a reviewable research brief. Every sentence earns its place.</p></section>
-    <nav class="modes" aria-label="Data source"><button type="button" id="live-mode" aria-pressed="true">Published Sanity data</button><button type="button" id="demo-mode" aria-pressed="false">Fictional demo</button></nav>
-    <div id="loading" role="status" class="panel" hidden>Loading research questions…</div>
-    <div id="error" role="alert" hidden></div>
-    <div id="empty" class="panel" role="status" hidden>No publicly readable research questions were returned. Check the published content in Sanity Studio, or open the fictional demo above.</div>
-    <section class="grid" id="desk" hidden>
-      <article class="panel"><p class="eyebrow">01 / THE QUESTION</p><label for="event-select">Research question</label><select id="event-select"></select><h2 id="event-title"></h2><p id="event-summary"></p><div class="meta"><span id="observed"></span><span id="review"></span></div><div class="callout" id="notice"></div></article>
-      <article class="panel"><p class="eyebrow">02 / THE EVIDENCE</p><h2>Source ledger <span id="count"></span></h2><label for="as-of">Review evidence as of</label><input id="as-of" type="datetime-local"><div id="claims"></div></article>
-      <article class="panel brief"><p class="eyebrow">03 / HUMAN CHECKPOINT</p><h2>Research brief</h2><p id="brief-intro"></p><ul id="brief-points"></ul><p class="caution" id="brief-caution"></p><button id="copy" type="button">Copy research brief</button><small id="copy-state" role="status"></small></article>
+  <div class="page-glow page-glow-one"></div>
+  <div class="page-glow page-glow-two"></div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Market Evidence Desk home"><span class="brand-mark">◈</span><span><strong>MARKET EVIDENCE</strong><small>Research with receipts</small></span></a>
+      <nav class="top-nav" aria-label="Primary navigation"><a href="#desk">Research desk</a><a href="#sources">Sources</a><a href="#method">Method</a></nav>
+      <div class="header-actions"><span class="live-dot" aria-hidden="true"></span><span id="mode-badge">PUBLISHED SANITY DATA</span></div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy"><p class="eyebrow">EVIDENCE DESK <span>·</span> 23 SEP 2026</p><h1>Make the claim.<br><em>Show the receipt.</em></h1><p class="hero-lede">A calm place to inspect market narratives, trace every statement back to its source, and keep uncertainty visible.</p><div class="hero-actions"><button class="button-primary" id="jump-to-desk" type="button">Open research desk <span>↓</span></button><button class="button-quiet" id="refresh" type="button">Refresh data <span>↻</span></button></div></div>
+      <div class="hero-card" aria-label="Desk status"><div class="hero-card-top"><span class="status-chip"><i></i> LIVE DATA CONNECTION</span><span class="mono">SANITY / PRODUCTION</span></div><div class="hero-card-title">Evidence, with the<br><strong>missing pieces</strong> left visible.</div><div class="hero-card-bottom"><span>Read-only desk</span><span class="arrow">↗</span></div></div>
     </section>
+
+    <section class="metric-grid" id="overview" aria-label="Desk overview"><article class="metric-card accent"><span class="metric-label">RESEARCH QUESTIONS</span><strong id="metric-events">—</strong><span class="metric-note">published in the desk</span></article><article class="metric-card"><span class="metric-label">SOURCE RECORDS</span><strong id="metric-sources">—</strong><span class="metric-note">with publication dates</span></article><article class="metric-card"><span class="metric-label">LINKED CLAIMS</span><strong id="metric-claims">—</strong><span class="metric-note">supporting, context, conflict</span></article><article class="metric-card warning"><span class="metric-label">HUMAN REVIEW QUEUE</span><strong id="metric-review">—</strong><span class="metric-note">machine synthesis stays draft</span></article></section>
+
+    <div id="loading" role="status" class="loading-state"><span class="spinner"></span> Reading the published evidence graph…</div><div id="error" role="alert" hidden></div><div id="empty" class="empty-state" role="status" hidden>No published research questions were returned. Open the fictional demo or publish a reviewed question in Sanity Studio.</div>
+
+    <section class="workspace" id="desk" hidden>
+      <aside class="question-panel panel"><div class="section-kicker"><span>01</span> RESEARCH QUESTION</div><label for="event-select">Choose a question</label><select id="event-select"></select><div class="question-status"><span id="review-dot"></span><span id="review"></span></div><h2 id="event-title"></h2><p id="event-summary"></p><div class="question-meta"><div><span>OBSERVED</span><strong id="observed"></strong></div><div><span>CLAIMS</span><strong id="question-claim-count"></strong></div></div><div class="review-callout"><span class="callout-icon">!</span><p id="notice"></p></div><div class="question-switcher"><button id="live-mode" class="mode-toggle active" type="button" aria-pressed="true">Published data</button><button id="demo-mode" class="mode-toggle" type="button" aria-pressed="false">Fictional demo</button></div></aside>
+      <section class="evidence-panel panel" aria-labelledby="ledger-title"><div class="panel-heading"><div><div class="section-kicker"><span>02</span> EVIDENCE LEDGER</div><h2 id="ledger-title">What the sources say</h2></div><span class="count-badge" id="count"></span></div><div class="ledger-toolbar"><div class="balance" aria-label="Evidence balance"><span class="balance-label">BALANCE</span><div class="balance-bar"><i id="support-bar"></i><i id="context-bar"></i><i id="conflict-bar"></i></div><span id="balance-text"></span></div><label class="date-control" for="as-of">AS OF <input id="as-of" type="datetime-local"></label></div><div id="claims" class="claims-list"></div></section>
+    </section>
+
+    <section class="source-section" id="sources" hidden><div class="section-heading"><div><div class="section-kicker"><span>03</span> SOURCEBOOK</div><h2>Every claim has a trail.</h2><p>Open the original source, inspect its date, and see how the desk classified it.</p></div><label class="search-box" for="source-search"><span>⌕</span><input id="source-search" type="search" placeholder="Filter sources" autocomplete="off"></label></div><div id="source-cards" class="source-grid"></div></section>
+
+    <section class="lower-grid" id="method" hidden><article class="timeline-panel panel"><div class="section-kicker"><span>04</span> EVIDENCE TIMELINE</div><h2>When the record was made</h2><div id="timeline" class="timeline"></div></article><article class="brief-panel panel"><div class="section-kicker"><span>05</span> REVIEWABLE BRIEF</div><h2>Take the evidence with you.</h2><p id="brief-intro"></p><div class="brief-status"><span class="status-dot"></span><span>DRAFT · HUMAN REVIEW REQUIRED</span></div><ul id="brief-points"></ul><button id="copy" class="button-primary" type="button">Copy research brief <span>↗</span></button><small id="copy-state" role="status"></small></article></section>
+    <section class="method-strip" hidden id="method-strip"><div><div class="section-kicker">HOW TO READ THIS DESK</div><h2>Evidence first. Confidence second.</h2></div><div class="method-items"><div><span class="method-number">01</span><strong>Observed fact</strong><p>What a dated source actually says.</p></div><div><span class="method-number">02</span><strong>Context</strong><p>Useful perspective labelled by origin.</p></div><div><span class="method-number">03</span><strong>Human checkpoint</strong><p>Drafts stay drafts until reviewed.</p></div></div></section>
   </main>
-  <footer>Research prototype · Verify sources and review drafts before sharing · No automated trade execution</footer>
-  <script src="./app.js" defer></script>
+
+  <footer class="site-footer"><span>MARKET EVIDENCE DESK</span><span>Published evidence · Read-only · No automated trading</span><a href="https://phoniex-market-evidence-desk.sanity.studio/" target="_blank" rel="noopener noreferrer">Edit in Sanity Studio ↗</a></footer><script src="./app.js" defer></script>
 </body>
 </html>

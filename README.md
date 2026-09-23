@@ -21,9 +21,11 @@ Knowledge Base (`kbu9WNgZ9ocF`) has two sources: a March 23, 2023
 [SEC investor alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities)
 and the Sanity `production` dataset. The [hosted Studio](https://phoniex-market-evidence-desk.sanity.studio/) and its schema are deployed. Three documents were previously seeded with dotted IDs, which Sanity restricts to authenticated readers even in a public dataset. The CLI saw those documents because it had a stored login token; an unauthenticated HTTP query returned zero. The corrected seed uses root-level IDs so the public desk can read the SEC source, research question, and evidence claim. The Knowledge Base was previously rebuilt from the SEC page and Sanity dataset into five entries. The read-only `market-evidence-research` Context MCP
 endpoint serves the dataset with a filter limited to `source`, `marketEvent`, and
-`evidenceClaim`; its earlier preview showed all three. The Knowledge Base is not attached
-to this dataset-mode endpoint. To query the entries through MCP, configure a
-separate Knowledge Base-only endpoint. Create an **organization** API token with
+`evidenceClaim`; its earlier preview showed all three. The agent connects to the same
+endpoint in GROQ mode for the structured documents and in Knowledge Base mode for the
+Sourcebook, using `SANITY_KNOWLEDGE_BASE_ID` to select the latter. Rebuild and review
+the Sourcebook after the corrected seed to spot repeated or outdated evidence.
+Create an **organization** API token with
 **Context Viewer** access; a project token will not authenticate to Context.
 
 ```bash
@@ -34,11 +36,15 @@ python agent.py "What evidence supports and conflicts with this research questio
 ```
 
 The `.env` file needs `SANITY_CONTEXT_MCP_URL`, `SANITY_ORGANIZATION_TOKEN`,
-and `OPENAI_API_KEY`. The agent gets the current schema or Knowledge Base
-outline from Context, then uses the Context MCP tools to query content. It is
-a command-line prototype. An earlier endpoint preview found all three documents, but
-no authenticated model query has been verified against this project yet.
-Questions about current markets still lack current evidence and must be declined.
+and `OPENAI_API_KEY`; set `SANITY_KNOWLEDGE_BASE_ID=kbu9WNgZ9ocF` to also query the
+Sourcebook. The agent obtains both initial contexts and must actually call
+`groq_query` and, when enabled, `knowledge_base_read` before displaying an answer.
+It avoids counting a copied SEC fact as independent corroboration. It is a command-line
+prototype. An earlier endpoint preview found all three documents, but no authenticated
+model query has been verified against this project yet. Try a question about the
+2023 SEC proof-of-reserves alert and confirm the SEC URL, publication date, and tool
+names appear. Then ask about this week's market and confirm it declines without new
+evidence. Never share the `.env` file or its token values.
 
 ## Edit real content in Sanity Studio
 
@@ -89,7 +95,7 @@ The seeded evidence claim was checked against the linked [March 23, 2023 SEC ale
 ## Next integration steps
 
 1. Review the published claim and the generated Knowledge Base entries against the source. Never present the demo examples or the 2023 alert as current news.
-2. Configure the local `.env` with an organization Context Viewer token and an OpenAI API key, then verify the agent returns the SEC URL and publication date and abstains when newer evidence is missing. A separate Knowledge Base-only endpoint is optional if the agent needs those entries instead of GROQ access to the dataset.
+2. Configure the local `.env` with an organization Context Viewer token and an OpenAI API key, then verify the agent uses both GROQ and Sourcebook tools, returns the SEC URL and publication date, and abstains when newer evidence is missing.
 3. The corrected root-level seed documents are public and the scoped read is wired into the local desk. Add a reviewed `researchBrief` approval transition before publishing or sharing briefs automatically. Recheck Knowledge Base entries now that the new documents have been added to avoid duplicated evidence.
 4. Record a Binance demo showing the research workflow, including one conflicting evidence case. Confirm the contest's full rules, posting method, and jurisdiction requirements from its original post before entering.
 5. For DEV's Sanity Challenge Path One, submit a DEV post with `#sanitychallenge`, the Sanity project ID, working demo, code, and an honest account of the agent's use of Context MCP. Deadline: October 4, 2026, 11:59 PM PDT. Entrants must meet the contest's age and other eligibility rules.

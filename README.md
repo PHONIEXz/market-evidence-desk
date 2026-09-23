@@ -159,7 +159,7 @@ The seeded evidence claim was checked against the linked [March 23, 2023 SEC ale
 
 ## Public read-only desk
 
-The [feature preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) is the current walkthrough. The root page is served from `web/`; `/api/graph` reads the published Sanity dataset through a same-origin, read-only Vercel Function. No Gemini or Sanity organization token is sent to a visitor's browser. The separate [Sanity Studio](https://phoniex-market-evidence-desk.sanity.studio/) is for editors.
+The [feature preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) is the current walkthrough. The root page is served from `web/`; `/api/evidence` reads the published Sanity dataset through a same-origin, read-only Vercel Function. No Gemini or Sanity organization token is sent to a visitor's browser. The separate [Sanity Studio](https://phoniex-market-evidence-desk.sanity.studio/) is for editors.
 
 ```bash
 npm run web:build

@@ -6,7 +6,7 @@
   "scripts": {
     "studio": "sanity dev",
     "studio:build": "sanity build",
-    "schema:deploy": "sanity schema deploy"
+    "schema:deploy": "sanity schemas deploy"
   },
   "dependencies": {
     "react": "^19.0.0",

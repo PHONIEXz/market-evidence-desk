@@ -2,10 +2,15 @@ import unittest
 from types import SimpleNamespace
 from urllib.parse import parse_qs, urlparse
 
-from scripts.context_config import called_tools, context_urls, initial_context_url, missing_retrievals
+from scripts.context_config import called_tools, context_urls, initial_context_url, missing_retrievals, sourcebook_id
 
 
 class ContextConfigurationTests(unittest.TestCase):
+    def test_sourcebook_is_enabled_for_older_environment_files(self):
+        self.assertEqual(sourcebook_id({}), "kbu9WNgZ9ocF")
+        self.assertEqual(sourcebook_id({"SANITY_KNOWLEDGE_BASE_ID": ""}), "kbu9WNgZ9ocF")
+        self.assertEqual(sourcebook_id({"SANITY_KNOWLEDGE_BASE_ID": "kbAlternate"}), "kbAlternate")
+
     def test_dataset_and_sourcebook_use_separate_modes_on_same_endpoint(self):
         url = "https://api.sanity.io/v1/context/organizations/oso5hthoq/mcp/market-evidence-research"
         dataset, sourcebook = context_urls(url + "?embeddings=false", "kbu9WNgZ9ocF")

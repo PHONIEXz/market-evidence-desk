@@ -1,6 +1,14 @@
 # Market Evidence Desk
 
-An early working slice for two September 2026 challenges. This project is deliberately **research only**: no wallet, keys, orders, price predictions, or live trading.
+An early working slice for the DEV Sanity Challenge, Path One: an AI research agent that queries real structured content and a Knowledge Base. This project is deliberately **research only**: no wallet, keys, orders, price predictions, or live trading.
+
+## Start here: three-minute walkthrough
+
+1. Open the [public research-desk preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) and read **How it works**. The published view loads sources, questions, and claims from Sanity; **Fictional demo** is a separate illustration.
+2. Choose **What can proof-of-reserves checks show, and what remains unverified?** in the desk. Follow the SEC and PCAOB sources marked as supporting evidence and Kraken's own explanation marked as context. These are historical documents, not current price information; the question remains marked for human review.
+3. Read the recorded AI example below the evidence desk, then run `python agent.py "What does the March 23, 2023 SEC alert say about the limits of proof of reserves? Include its URL and publication date."` after configuring the private `.env` as described below. The website is currently a read-only evidence browser; the AI agent runs separately in the terminal.
+
+The [Sanity Studio](https://phoniex-market-evidence-desk.sanity.studio/) is for editing and reviewing the structured records. The website is for reading published records. Neither the Studio nor the website requires a Gemini key from visitors; only the locally run agent needs its own configured credentials.
 
 ## Run the research desk locally
 
@@ -133,34 +141,16 @@ not need a new build.
 
 The seeded evidence claim was checked against the linked [March 23, 2023 SEC alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities), specifically its proof-of-reserves discussion. It remains historical guidance and needs a human review decision in this project.
 
-## Prepare the public read-only desk
+## Public read-only desk
 
-The repository now has a Vercel-ready **read-only website**, separate from the
-hosted Sanity Studio. It is **not deployed yet**. `vercel.json` builds the
-static `web/` files and the fictional demo into `public/`, serves the desk
-from `/`, and exposes a same-origin `/api/graph` Vercel Function. That
-function reads the published public Sanity dataset without an API token,
-filters unsafe or incomplete evidence links, and caches successful reads
-briefly. It serves source details for the browser; it cannot edit documents.
-The `context` claim is included in the ledger and copied draft brief.
+The [feature preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) is the current walkthrough. The root page is served from `web/`; `/api/graph` reads the published Sanity dataset through a same-origin, read-only Vercel Function. No Gemini or Sanity organization token is sent to a visitor's browser. The separate [Sanity Studio](https://phoniex-market-evidence-desk.sanity.studio/) is for editors.
 
 ```bash
 npm run web:build
 node --test tests/test_web_graph.mjs
 ```
 
-To make a preview, import this GitHub repository as a **separate Vercel project**
-with its root at the repository root and deploy the feature branch. The
-configuration sets the build command and output directory; no Gemini or Sanity
-organization tokens are required for this read-only site. Check `/`,
-`/api/graph`, both evidence questions, and the fictional-demo toggle on the
-preview URL before promoting it. The Gemini/Context research agent is still a
-local CLI and has **no browser chat route**. A later server-side chat endpoint
-will need private credentials and request limits before public exposure.
-
-## Hosting status
-
-A separate Vercel project named `market-evidence-desk` is connected to this repository. Its first deployment is `READY` at [market-evidence-desk.vercel.app](https://market-evidence-desk.vercel.app). Verify `/`, `/api/graph`, both research questions, and the fictional demo in a normal browser before sharing it publicly.
+The web app does not offer a live AI chat route. The agent currently runs through `python agent.py` with server-side credentials on the operator's own machine. Its example on the site is explicitly labelled as a recorded run. The [production URL](https://market-evidence-desk.vercel.app/) may still show an older version until the feature pull request is merged.
 
 ## What works today
 
@@ -176,7 +166,7 @@ A separate Vercel project named `market-evidence-desk` is connected to this repo
 1. Review the published claim and the generated Knowledge Base entries against the source. Never present the demo examples or the 2023 alert as current news.
 2. Review the imported multi-source comparison in Studio, refresh the Sourcebook, and repeat the agent check against both dated perspectives. Capture the exact tool names and final response for the demo.
 3. The corrected root-level seed documents are public and the scoped read is wired into the local desk. Add a reviewed `researchBrief` approval transition before publishing or sharing briefs automatically. Recheck Knowledge Base entries now that the new documents have been added to avoid duplicated evidence.
-4. Record a Binance demo showing the research workflow, including one conflicting evidence case. Confirm the contest's full rules, posting method, and jurisdiction requirements from its original post before entering.
+4. Record a Sanity Challenge demo showing the research workflow and, when sourced, a genuinely conflicting evidence case. The currently published proof-of-reserves comparison contains support and context; it does not yet contain a conflicting claim.
 5. For DEV's Sanity Challenge Path One, submit a DEV post with `#sanitychallenge`, the Sanity project ID, working demo, code, and an honest account of the agent's use of Context MCP. Deadline: October 4, 2026, 11:59 PM PDT. Entrants must meet the contest's age and other eligibility rules.
 
 ## Design guardrails

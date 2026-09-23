@@ -9,9 +9,10 @@ import httpx
 from agents import Agent, AsyncOpenAI, OpenAIChatCompletionsModel, Runner, set_tracing_disabled
 from agents.mcp import MCPServerStreamableHttp, create_static_tool_filter
 from dotenv import load_dotenv
+from openai import InternalServerError
 
 from scripts.context_config import called_tools, context_urls, initial_context_url, missing_retrievals
-from scripts.model_config import configured_value, missing_settings, model_credentials
+from scripts.model_config import configured_value, fallback_model, missing_settings, model_credentials
 
 
 async def main() -> None:
@@ -54,6 +55,7 @@ async def main() -> None:
             client = await stack.enter_async_context(AsyncOpenAI(
                 api_key=credentials[1],
                 base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+                max_retries=1,
             ))
             model_options["model"] = OpenAIChatCompletionsModel(
                 model=credentials[2], openai_client=client
@@ -90,7 +92,31 @@ async def main() -> None:
             mcp_servers=servers,
             **model_options,
         )
-        result = await Runner.run(agent, question)
+        try:
+            result = await Runner.run(agent, question)
+        except InternalServerError as error:
+            if credentials[0] != "gemini" or error.status_code != 503:
+                raise
+            alternative = fallback_model(os.environ, credentials[2], error.status_code)
+            if alternative:
+                print(f"Gemini {credentials[2]} is overloaded; trying {alternative}.", file=sys.stderr)
+                agent = agent.clone(model=OpenAIChatCompletionsModel(
+                    model=alternative, openai_client=client
+                ))
+                try:
+                    result = await Runner.run(agent, question)
+                except InternalServerError as fallback_error:
+                    if fallback_error.status_code != 503:
+                        raise
+                    raise SystemExit(
+                        "Gemini is temporarily overloaded on both models. "
+                        "Try again later or set GEMINI_MODEL to another available model in .env."
+                    ) from None
+            else:
+                raise SystemExit(
+                    "Gemini is temporarily overloaded. Try again later or change "
+                    "GEMINI_MODEL in .env."
+                ) from None
         names = called_tools(result.new_items)
         missing = missing_retrievals(names, require_knowledge_base=bool(knowledge_base_url))
         if missing:

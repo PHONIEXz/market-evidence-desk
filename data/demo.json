@@ -1,0 +1,16 @@
+{
+  "notice": "Fictional demonstration. No entries below describe real markets or events.",
+  "sources": [
+    {"id":"src-official","title":"Illustrative central bank bulletin","url":"https://example.com/fictional-bulletin","publishedAt":"2026-09-22T12:00:00Z","kind":"official"},
+    {"id":"src-reporter","title":"Illustrative market desk note","url":"https://example.com/fictional-desk-note","publishedAt":"2026-09-22T13:00:00Z","kind":"commentary"},
+    {"id":"src-old","title":"Illustrative earlier desk note","url":"https://example.com/fictional-earlier-note","publishedAt":"2026-09-10T13:00:00Z","kind":"commentary"}
+  ],
+  "events": [
+    {"id":"evt-1","title":"What did the illustrative policy update actually say?","summary":"A fictional example showing how an official statement and market commentary can disagree.","observedAt":"2026-09-22T14:00:00Z","review":"needs-human-review"}
+  ],
+  "claims": [
+    {"id":"clm-1","eventId":"evt-1","sourceId":"src-official","text":"The fictional bulletin says its policy setting was held steady.","stance":"supports","observedAt":"2026-09-22T12:05:00Z","expiresAt":"2026-10-01T00:00:00Z"},
+    {"id":"clm-2","eventId":"evt-1","sourceId":"src-reporter","text":"The fictional commentary says a policy change was announced.","stance":"conflicts","observedAt":"2026-09-22T13:05:00Z","expiresAt":"2026-10-01T00:00:00Z"},
+    {"id":"clm-3","eventId":"evt-1","sourceId":"src-old","text":"The earlier fictional note discussed a different scheduled meeting.","stance":"context","observedAt":"2026-09-10T13:05:00Z","expiresAt":"2026-09-20T00:00:00Z"}
+  ]
+}

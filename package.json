@@ -1,0 +1,22 @@
+{
+  "name": "market-evidence-desk",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "studio": "sanity dev",
+    "studio:build": "sanity build",
+    "schema:deploy": "sanity schema deploy"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sanity": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.9.0"
+  }
+}

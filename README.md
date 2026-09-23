@@ -47,10 +47,12 @@ The Studio configuration now points to project `cxjysvlq`, dataset `production`.
 ```bash
 npm install
 npx sanity login
+npm run schema:deploy
+npx sanity documents create sanity/seed/sec-investor-alert.json --missing
 npm run studio
 ```
 
-Open `http://localhost:3333` and sign in with the Sanity account that owns the project. Create **Source**, **Research question**, and **Evidence claim** documents in that order. Give each real claim a working source URL, original publication time, and observation time. To make the schema available to Sanity Context's dataset mode, run `npm run schema:deploy` after login. The `web/` demo still reads fictional JSON; it is not yet connected to the Studio dataset or an AI model.
+Open `http://localhost:3333` and sign in with the Sanity account that owns the project. The seed file contains three linked published documents (a Source, Research question, and Evidence claim) based on the March 23, 2023 SEC alert. `--missing` skips their fixed IDs if already created. Review the claim in Studio: its human review state is `needs-human-review`, and the seed records an observation time rather than a live price or market event. Add newer primary sources before making current-market claims. The `web/` demo still reads fictional JSON; it is not yet connected to the Studio dataset or an AI model.
 
 ## What works today
 

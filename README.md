@@ -30,14 +30,18 @@ Create an **organization** API token with
 
 ```bash
 python -m pip install -r requirements.txt
-cp .env.example .env
+test -f .env || cp .env.example .env
 # Edit .env locally; never commit it or paste tokens into a public post.
 python agent.py "What evidence supports and conflicts with this research question?"
 ```
 
 The `.env` file needs `SANITY_CONTEXT_MCP_URL`, `SANITY_ORGANIZATION_TOKEN`,
-and `OPENAI_API_KEY`; set `SANITY_KNOWLEDGE_BASE_ID=kbu9WNgZ9ocF` to also query the
-Sourcebook. The agent obtains both initial contexts and must actually call
+and `GEMINI_API_KEY` (the existing spelling `GEMINIAPIKEY` also works). Set
+`SANITY_KNOWLEDGE_BASE_ID=kbu9WNgZ9ocF` to also query the Sourcebook. Gemini uses
+`GEMINI_MODEL=gemini-3.8-flash` by default; change it if your API key has access to a
+different compatible model. Alternatively, `OPENAI_API_KEY` works if no Gemini key
+is set. The Gemini key and Sanity organization token are separate credentials.
+The agent obtains both initial contexts and must actually call
 `groq_query` and, when enabled, `knowledge_base_read` before displaying an answer.
 It avoids counting a copied SEC fact as independent corroboration. It is a command-line
 prototype. An earlier endpoint preview found all three documents, but no authenticated
@@ -95,7 +99,7 @@ The seeded evidence claim was checked against the linked [March 23, 2023 SEC ale
 ## Next integration steps
 
 1. Review the published claim and the generated Knowledge Base entries against the source. Never present the demo examples or the 2023 alert as current news.
-2. Configure the local `.env` with an organization Context Viewer token and an OpenAI API key, then verify the agent uses both GROQ and Sourcebook tools, returns the SEC URL and publication date, and abstains when newer evidence is missing.
+2. Configure the local `.env` with an organization Context Viewer token and a Gemini API key (or an OpenAI API key), then verify the agent uses both GROQ and Sourcebook tools, returns the SEC URL and publication date, and abstains when newer evidence is missing.
 3. The corrected root-level seed documents are public and the scoped read is wired into the local desk. Add a reviewed `researchBrief` approval transition before publishing or sharing briefs automatically. Recheck Knowledge Base entries now that the new documents have been added to avoid duplicated evidence.
 4. Record a Binance demo showing the research workflow, including one conflicting evidence case. Confirm the contest's full rules, posting method, and jurisdiction requirements from its original post before entering.
 5. For DEV's Sanity Challenge Path One, submit a DEV post with `#sanitychallenge`, the Sanity project ID, working demo, code, and an honest account of the agent's use of Context MCP. Deadline: October 4, 2026, 11:59 PM PDT. Entrants must meet the contest's age and other eligibility rules.

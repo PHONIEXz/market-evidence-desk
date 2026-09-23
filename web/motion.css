@@ -96,13 +96,13 @@
 
 .hero h1 .title-line:first-child {
   transform-origin: bottom left;
-  animation: unravel-claim 9s ease-in-out infinite;
+  animation: unravel-claim 10s ease-in-out infinite;
 }
 
 .hero h1 .title-line:nth-child(2) {
   width: max-content;
   max-width: 100%;
-  animation: unravel-receipt 9s ease-in-out infinite;
+  animation: unravel-receipt 10s ease-in-out infinite;
 }
 
 .hero h1 .title-rule {
@@ -114,7 +114,7 @@
   background: linear-gradient(90deg, #83e5c5 0%, #f0d398 70%, transparent 100%);
   box-shadow: 0 0 19px rgba(131, 229, 197, .34);
   transform-origin: left;
-  animation: unravel-rule 9s ease-in-out infinite;
+  animation: unravel-rule 10s ease-in-out infinite;
 }
 
 .hero h1 .title-accent {
@@ -146,21 +146,21 @@
 }
 
 @keyframes unravel-claim {
-  0%, 9% { opacity: 0; clip-path: inset(100% 0 0); transform: translateY(.35em) rotateX(-12deg); }
-  21%, 77% { opacity: 1; clip-path: inset(0 0 0); transform: translateY(0) rotateX(0); }
-  91%, 100% { opacity: 0; clip-path: inset(0 0 100%); transform: translateY(-.18em) rotateX(0); }
+  0%, 3% { opacity: 0; clip-path: inset(100% 0 0); transform: translateY(.35em) rotateX(-12deg); }
+  12%, 85% { opacity: 1; clip-path: inset(0 0 0); transform: translateY(0) rotateX(0); }
+  94%, 100% { opacity: 0; clip-path: inset(0 0 100%); transform: translateY(-.18em) rotateX(0); }
 }
 
 @keyframes unravel-receipt {
-  0%, 17% { opacity: 0; clip-path: inset(100% 0 0); transform: translateY(.28em); }
-  31%, 77% { opacity: 1; clip-path: inset(0 0 0); transform: translateY(0); }
-  91%, 100% { opacity: 0; clip-path: inset(0 0 100%); transform: translateY(-.18em); }
+  0%, 7% { opacity: 0; clip-path: inset(100% 0 0); transform: translateY(.28em); }
+  18%, 85% { opacity: 1; clip-path: inset(0 0 0); transform: translateY(0); }
+  94%, 100% { opacity: 0; clip-path: inset(0 0 100%); transform: translateY(-.18em); }
 }
 
 @keyframes unravel-rule {
   0% { opacity: 0; transform: scaleX(0); }
-  9%, 77% { opacity: 1; transform: scaleX(1); }
-  91%, 100% { opacity: 0; transform: scaleX(0); }
+  4%, 85% { opacity: 1; transform: scaleX(1); }
+  94%, 100% { opacity: 0; transform: scaleX(0); }
 }
 
 @keyframes title-sheen {

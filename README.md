@@ -20,7 +20,7 @@ Context is enabled for organization `oso5hthoq`. The **Market Evidence Desk Sour
 Knowledge Base (`kbu9WNgZ9ocF`) has two sources: a March 23, 2023
 [SEC investor alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities)
 and the Sanity `production` dataset. The Studio schema is deployed. To use the dataset through Context MCP, deploy the hosted Studio application too with `npm run studio:deploy`; schema deployment alone does not register the Studio. Three documents were previously seeded: a source, a research question, and an evidence claim,
-all grounded in that one historical alert. The user's authenticated and anonymous CLI queries both returned 16 documents; a separate anonymous HTTP read from the development workspace returned zero. Confirm the seeded IDs and the local HTTP response using the diagnostic below. The Knowledge Base was rebuilt from both
+all grounded in that one historical alert. The user's authenticated and `--anonymous` CLI queries both returned 16 documents; a direct anonymous HTTP read from the user's machine and this development workspace both returned zero. The reason for this CLI versus HTTP difference is not yet confirmed. The Knowledge Base was rebuilt from both
 sources into five entries. The read-only `market-evidence-research` Context MCP
 endpoint serves the dataset with a filter limited to `source`, `marketEvent`, and
 `evidenceClaim`; its earlier preview showed all three. The Knowledge Base is not attached
@@ -55,7 +55,7 @@ npm run studio:deploy
 npm run studio
 ```
 
-Open `http://localhost:3333` and sign in with the Sanity account that owns the project. The hosted Studio deployment asks for a unique `*.sanity.studio` hostname on the first run. The seed command was reported successful for three linked documents (a Source, Research question, and Evidence claim) based on the March 23, 2023 SEC alert. `--missing` skips their fixed IDs if already created. On September 23, 2026, the user's signed-in and anonymous Sanity CLI queries both returned **16 documents**, while this development workspace's anonymous HTTP query returned **zero** for the same project and dataset. The reason remains unverified, so the live desk must be checked on the user's machine. Review the claim in Studio: its intended human review state is `needs-human-review`, and the seed records an observation time rather than a live price or market event. Add newer primary sources before making current-market claims. The web desk reads Sanity for its default view; the AI agent remains a separate command-line prototype.
+Open `http://localhost:3333` and sign in with the Sanity account that owns the project. The hosted Studio deployment asks for a unique `*.sanity.studio` hostname on the first run. The seed command was reported successful for three linked documents (a Source, Research question, and Evidence claim) based on the March 23, 2023 SEC alert. `--missing` skips their fixed IDs if already created. On September 23, 2026, the user's signed-in and `--anonymous` Sanity CLI queries both returned **16 documents**, while a direct anonymous HTTP query on the same machine returned **zero** for the same project and dataset. This suggests a query-context or access difference, but we have not isolated it yet. The desk uses the direct HTTP route and will show its empty state until that route returns research questions. Review the claim in Studio: its intended human review state is `needs-human-review`, and the seed records an observation time rather than a live price or market event. Add newer primary sources before making current-market claims. The AI agent remains a separate command-line prototype.
 
 Check both views of the same dataset from the project directory after the running Studio build finishes or is stopped:
 
@@ -72,7 +72,14 @@ curl -fsSG 'https://cxjysvlq.api.sanity.io/v2025-08-15/data/query/production' \
   --data-urlencode 'query={"count":count(*[]),"seed":*[_id in ["source.sec-investor-alert-2023-03-23","marketEvent.sec-proof-of-reserves-question-2023","evidenceClaim.sec-proof-of-reserves-limits-2023"]]{_id,_type}}'
 ```
 
-If `count` is 16 and `seed` lists the three IDs, run the local desk. If the CLI sees 16 but `curl` sees zero on the same machine, compare the CLI's anonymous query with the HTTP request before changing publication state or reseeding. Do not start a second `sanity deploy` while the first one is still building. Once a Studio build actually completes, the CLI supports `sanity deploy --no-build` to upload that existing `dist/` output.
+The direct HTTP request returned `{"count":0,"seed":[]}` on the user's machine, despite the CLI count of 16. Next check which document IDs the CLI sees and the dataset's visibility:
+
+```bash
+./node_modules/.bin/sanity documents query '*[_id in ["source.sec-investor-alert-2023-03-23","marketEvent.sec-proof-of-reserves-question-2023","evidenceClaim.sec-proof-of-reserves-limits-2023"]]{_id,_type}' --project-id cxjysvlq --dataset production --anonymous
+./node_modules/.bin/sanity datasets visibility get production --project-id cxjysvlq
+```
+
+Do not change dataset visibility or reseed until those read-only checks explain the mismatch. Do not start a second `sanity deploy` while the first one is still building. Once a Studio build completes, the CLI supports `sanity deploy --no-build` to upload that existing `dist/` output.
 
 The seeded evidence claim was checked against the linked [March 23, 2023 SEC alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities), specifically its proof-of-reserves discussion. It remains historical guidance and needs a human review decision in this project.
 

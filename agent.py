@@ -6,11 +6,12 @@ import os
 import sys
 
 import httpx
-from agents import Agent, Runner
+from agents import Agent, AsyncOpenAI, OpenAIChatCompletionsModel, Runner, set_tracing_disabled
 from agents.mcp import MCPServerStreamableHttp, create_static_tool_filter
 from dotenv import load_dotenv
 
 from scripts.context_config import called_tools, context_urls, initial_context_url, missing_retrievals
+from scripts.model_config import configured_value, missing_settings, model_credentials
 
 
 async def main() -> None:
@@ -19,12 +20,12 @@ async def main() -> None:
     if not question:
         raise SystemExit('Usage: python agent.py "What does the evidence say about ...?"')
 
-    mcp_url = os.environ.get("SANITY_CONTEXT_MCP_URL")
-    token = os.environ.get("SANITY_ORGANIZATION_TOKEN")
-    if not mcp_url or not token or not os.environ.get("OPENAI_API_KEY"):
-        raise SystemExit(
-            "Set SANITY_CONTEXT_MCP_URL, SANITY_ORGANIZATION_TOKEN, and OPENAI_API_KEY in .env"
-        )
+    missing = missing_settings(os.environ)
+    if missing:
+        raise SystemExit("Set these values in .env: " + ", ".join(missing))
+    mcp_url = configured_value(os.environ, "SANITY_CONTEXT_MCP_URL")
+    token = configured_value(os.environ, "SANITY_ORGANIZATION_TOKEN")
+    credentials = model_credentials(os.environ)
 
     try:
         dataset_url, knowledge_base_url = context_urls(
@@ -47,6 +48,16 @@ async def main() -> None:
             contexts.append(f"# {label}\n{response.text}")
 
     async with AsyncExitStack() as stack:
+        model_options = {}
+        if credentials[0] == "gemini":
+            set_tracing_disabled(True)
+            client = await stack.enter_async_context(AsyncOpenAI(
+                api_key=credentials[1],
+                base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+            ))
+            model_options["model"] = OpenAIChatCompletionsModel(
+                model=credentials[2], openai_client=client
+            )
         servers = []
         for label, url in endpoints:
             server = await stack.enter_async_context(MCPServerStreamableHttp(
@@ -77,6 +88,7 @@ async def main() -> None:
                 + "\n\n".join(contexts)
             ),
             mcp_servers=servers,
+            **model_options,
         )
         result = await Runner.run(agent, question)
         names = called_tools(result.new_items)

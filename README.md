@@ -104,23 +104,25 @@ Replace `RUN_ID` with the numeric run ID in the successful Actions run URL. The 
 
 ### Expand the proof-of-reserves research question
 
-The first source is live. A second, **prepared but not yet imported** seed adds a
-research question, a March 8, 2023 [PCAOB Investor Advocate staff advisory](https://pcaobus.org/news-events/news-releases/news-release-detail/investor-advisory-exercise-caution-with-third-party-verification-proof-of-reserve-reports),
+The initial SEC source is live. A second seed was **imported by the user on
+September 23, 2026**, adding a research question, a March 8, 2023 [PCAOB Investor Advocate staff advisory](https://pcaobus.org/news-events/news-releases/news-release-detail/investor-advisory-exercise-caution-with-third-party-verification-proof-of-reserve-reports),
 and Kraken's November 28, 2022 [explanation of its own proof-of-reserves process](https://blog.kraken.com/news/what-is-proof-of-reserves-a-beginners-guide).
 It connects those sources and the existing SEC source to three claims. Kraken's
 statement is marked `context` because the ability to verify inclusion in a
 snapshot does not contradict the SEC/PCAOB warnings about broader assurance;
 it is a company statement, not independent evidence of current solvency.
 
-Once you have reviewed the six documents in
-`sanity/seed/proof-of-reserves-scope.json`, add them with your existing Sanity login:
+The user ran the following command and Sanity reported all six documents created.
+For a fresh dataset, review the documents in
+`sanity/seed/proof-of-reserves-scope.json` before importing them:
 
 ```bash
 npx sanity documents create sanity/seed/proof-of-reserves-scope.json --missing --project-id cxjysvlq --dataset production
 ```
 
-Check the new research question and its three claims in Studio and through the
-unauthenticated `/api/graph` route. Leave its review state as
+Public visibility and source-reference resolution have **not yet been independently
+verified** after this import. Check the new research question and its three claims
+in Studio and through an unauthenticated public query or `/api/graph` route. Leave its review state as
 `needs-human-review` until you have checked the sources yourself. Refresh or
 rebuild the Sourcebook Knowledge Base and review its entries before expecting
 `knowledge_base_read` to reflect the new documents. The old dotted-ID documents

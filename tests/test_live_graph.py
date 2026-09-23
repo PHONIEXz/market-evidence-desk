@@ -34,6 +34,7 @@ class GraphTests(unittest.TestCase):
         self.assertEqual(len(graph["sources"]), 1)
         self.assertEqual(len(graph["claims"]), 1)
         self.assertEqual(graph["claims"][0]["sourceId"], graph["sources"][0]["id"])
+        self.assertTrue(all("." not in item["id"] for kind in ("events", "sources", "claims") for item in graph[kind]), "Published seed IDs must be at the root path for public access")
 
     def test_rejects_dangling_unsafe_and_impossible_evidence(self):
         graph = seed_graph()

@@ -9,7 +9,7 @@ class ModelConfigurationTests(unittest.TestCase):
             with self.subTest(name=name):
                 environment = {name: "gemini-secret", "OPENAI_API_KEY": "openai-secret"}
                 self.assertEqual(model_credentials(environment), (
-                    "gemini", "gemini-secret", "gemini-3.8-flash"
+                    "gemini", "gemini-secret", "gemini-3.5-flash-lite"
                 ))
 
     def test_openai_fallback_and_model_override(self):
@@ -26,9 +26,9 @@ class ModelConfigurationTests(unittest.TestCase):
         }), ["SANITY_ORGANIZATION_TOKEN", "GEMINI_API_KEY (or GEMINIAPIKEY or OPENAI_API_KEY)"])
 
     def test_fallback_only_on_overload_and_for_distinct_model(self):
-        self.assertEqual(fallback_model({}, "gemini-3.8-flash", 503), "gemini-3.5-flash-lite")
+        self.assertEqual(fallback_model({}, "gemini-3.5-flash-lite", 503), "gemini-3.1-flash-lite")
         self.assertEqual(fallback_model({}, "gemini-3.8-flash", 429), "")
-        self.assertEqual(fallback_model({}, "gemini-3.5-flash-lite", 503), "")
+        self.assertEqual(fallback_model({}, "gemini-3.1-flash-lite", 503), "")
         self.assertEqual(fallback_model({"GEMINI_FALLBACK_MODEL": "gemini-3.5-flash"},
                                         "gemini-3.8-flash", 503), "gemini-3.5-flash")
 

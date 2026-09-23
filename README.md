@@ -5,8 +5,8 @@ An early working slice for the DEV Sanity Challenge, Path One: an AI research ag
 ## Start here: three-minute walkthrough
 
 1. Open the [public research-desk preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) and read **How it works**. The published view loads sources, questions, and claims from Sanity; **Fictional demo** is a separate illustration.
-2. Choose **What can proof-of-reserves checks show, and what remains unverified?** in the desk. Follow the SEC and PCAOB sources marked as supporting evidence and Kraken's own explanation marked as context. These are historical documents, not current price information; the question remains marked for human review.
-3. Read the recorded AI example below the evidence desk, then run `python agent.py "What does the March 23, 2023 SEC alert say about the limits of proof of reserves? Include its URL and publication date."` after configuring the private `.env` as described below. The website is currently a read-only evidence browser; the AI agent runs separately in the terminal.
+2. Open **Compare evidence**. The first tab follows the published question through Kraken's contextual claim and the SEC and PCAOB supporting claims, with each dated original source. The second tab explains why this historical graph cannot give today's Bitcoin price. These are guided evidence views, not generated AI answers. If the dataset is slow or unavailable, a visible retry and fictional demo replace an indefinite spinner.
+3. Read the recorded SEC AI example below the desk, then run `python agent.py --case compare` with your private `.env`. This comparison is a new agent test case; it is not presented on the website as a previously recorded agent run. The agent runs separately in the terminal.
 
 The [Sanity Studio](https://phoniex-market-evidence-desk.sanity.studio/) is for editing and reviewing the structured records. The website is for reading published records. Neither the Studio nor the website requires a Gemini key from visitors; only the locally run agent needs its own configured credentials.
 
@@ -17,7 +17,7 @@ cd market-evidence-desk
 python scripts/serve.py
 ```
 
-Open `http://127.0.0.1:8000/web/`. The default view reads the **published** `cxjysvlq/production` Sanity dataset through the local read-only `/api/graph` route; it does not need API keys or browser CORS settings. If Sanity returns no research questions, the desk shows an empty state. Select **Fictional demo** to see the separate illustrative graph; those entries are not market facts. The server binds to localhost and serves only the web assets, fictional JSON, and the scoped graph route. A private dataset will require a separate authenticated server-side integration later; never put a Sanity token in browser code.
+Open `http://127.0.0.1:8000/web/`. The default view reads the **published** `cxjysvlq/production` Sanity dataset through the local read-only `/api/evidence` route; it does not need API keys or browser CORS settings. If Sanity returns no research questions, the desk shows an empty state. The browser waits at most eight seconds before offering Retry and **Fictional demo**. Those demo entries are not market facts. The server binds to localhost and serves only the web assets, fictional JSON, and the scoped evidence route. A private dataset will require a separate authenticated server-side integration later; never put a Sanity token in browser code.
 
 Validate the source and claim graph with `python scripts/validate_demo.py`.
 Check the read-only graph boundary with `python -m unittest discover -s tests -v`.
@@ -31,7 +31,7 @@ and the Sanity `production` dataset. The [hosted Studio](https://phoniex-market-
 endpoint serves the dataset with a filter limited to `source`, `marketEvent`, and
 `evidenceClaim`; its earlier preview showed all three. The agent connects to the same
 endpoint in GROQ mode for the structured documents and in Knowledge Base mode for the
-Sourcebook, defaulting to this project's Knowledge Base ID. Rebuild and review
+Sourcebook, defaulting to this project's Knowledge Base ID. Refresh and review
 the Sourcebook after the corrected seed to spot repeated or outdated evidence.
 Create an **organization** API token with
 **Context Viewer** access; a project token will not authenticate to Context.
@@ -41,6 +41,8 @@ python -m pip install -r requirements.txt
 test -f .env || cp .env.example .env
 # Edit .env locally; never commit it or paste tokens into a public post.
 python agent.py "What evidence supports and conflicts with this research question?"
+python agent.py --case compare
+python agent.py --case price
 ```
 
 The `.env` file needs `SANITY_CONTEXT_MCP_URL`, `SANITY_ORGANIZATION_TOKEN`,
@@ -74,6 +76,20 @@ called both Sanity tools and correctly said these sources provide neither live p
 nor support for a buy recommendation. This verifies behavior on those two prompts, not
 a general guarantee against every unsupported answer. Never share the `.env`
 file or its token values.
+
+### Bring the Sourcebook up to date
+
+The public dataset now has Kraken and PCAOB records, but the last confirmed
+Knowledge Base build predates those additions. In the Sanity Dashboard, open
+**Context → Market Evidence Desk Sourcebook** (`kbu9WNgZ9ocF`), use **Check for
+changes**, inspect the detected source changes, and apply the resulting review
+issues. Verify that the resulting entries cite the published SEC, PCAOB, and
+Kraken documents as distinct origins. Confirm the dataset source's query includes
+`source`, `marketEvent`, and `evidenceClaim`. A scheduled refresh alone does not
+publish changed entries; a full rebuild is for a **Rebuild required** notice or
+purpose change. See [Sanity's maintenance guide](https://www.sanity.io/docs/ai/sanity-context-maintain-knowledge-base).
+The website's comparison uses the current published dataset independently of
+the Knowledge Base, so it does not claim this review has already happened.
 
 ## Edit real content in Sanity Studio
 
@@ -156,9 +172,10 @@ The web app does not offer a live AI chat route. The agent currently runs throug
 
 - A structured source → claim → event graph with a timestamp on each item.
 - A reader can inspect supporting and conflicting claims, stale sources, source links, and the human review state.
+- A two-question guided comparison of the published SEC, PCAOB, and Kraken claims, with a linked source trail and a clear boundary around live prices. The comparison reads records, not AI output.
 - A transparent, deterministic research brief assembled from published Sanity claims when available, plus a separate fictional sample view. All copied briefs are labeled drafts.
 - A Gemini research agent calling both Sanity Context `groq_query` and `knowledge_base_read`; a live SEC question matched the original alert, and a live Bitcoin price/buy question declined unsupported current-market claims.
-- The SEC page and three structured Sanity documents ingested into one Knowledge Base and rebuilt into five entries. The agent reads entries through Knowledge Base mode on the same Context endpoint. They are historical guidance, not live market data.
+- A previously built Sourcebook containing the SEC page and Sanity dataset source. The last confirmed build had five entries; review detected changes after the later records were seeded before claiming it represents them.
 - Deployed Sanity document schemas for sources, events, evidence claims, and briefs.
 
 ## Next integration steps

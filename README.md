@@ -15,10 +15,12 @@ Validate the source and claim graph with `python scripts/validate_demo.py`.
 
 ## Run the Sanity Context research agent
 
-First enable Context for the organization, deploy the Studio schema, publish actual
-research documents, create a Context MCP endpoint with the dataset or a built
-Knowledge Base as its source, and create an **organization** API token with
-**Context Viewer** access. A project token will not authenticate to Context.
+Context is enabled for organization `oso5hthoq`. An empty Knowledge Base,
+`kbu9WNgZ9ocF`, exists but has no sources or built entries. Deploy the Studio
+schema, publish actual research documents, add the dataset as a Knowledge Base
+source and build it, then create a Context MCP endpoint. Create an **organization**
+API token with **Context Viewer** access. A project token will not authenticate
+to Context.
 
 ```bash
 python -m pip install -r requirements.txt
@@ -56,8 +58,8 @@ Open `http://localhost:3333` and sign in with the Sanity account that owns the p
 
 ## Next integration steps
 
-1. Enable Context in the organization's **Labs** page. Publish real research documents in Studio; never present the demo examples as current news.
-2. Build a Knowledge Base from those documents in Sanity Context. Create an MCP endpoint, configure the local `.env` with an organization Context Viewer token and an OpenAI API key, and verify the agent returns source URLs and abstains when sources are missing or contradictory.
+1. Deploy the Studio schema and publish real research documents; never present the demo examples as current news.
+2. Add the published dataset as a source of the existing Knowledge Base and build its entries. Create a scoped MCP endpoint, configure the local `.env` with an organization Context Viewer token and an OpenAI API key, and verify the agent returns source URLs and abstains when sources are missing or contradictory.
 3. Replace demo JSON with scoped Sanity reads and add a human approval transition before publishing any brief.
 4. Record a Binance demo showing the research workflow, including one conflicting evidence case. Confirm the contest's full rules, posting method, and jurisdiction requirements from its original post before entering.
 5. For DEV's Sanity Challenge Path One, submit a DEV post with `#sanitychallenge`, the Sanity project ID, working demo, code, and an honest account of the agent's use of Context MCP. Deadline: October 4, 2026, 11:59 PM PDT. Entrants must meet the contest's age and other eligibility rules.

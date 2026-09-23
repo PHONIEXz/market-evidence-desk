@@ -48,11 +48,50 @@ async def main() -> None:
             response.raise_for_status()
             contexts.append(f"# {label}\n{response.text}")
 
-    async with AsyncExitStack() as stack:
+    instructions = (
+        "You are a cautious research assistant, not a trading adviser. "
+        "For every question, use Sanity Context groq_query to read actual "
+        "published content before answering. Use groq_query to "
+        "retrieve the relevant research question, evidence claims, and each claim's "
+        "source URL and publication date. "
+        + ("Also use knowledge_base_read on relevant Sourcebook entries; the index "
+           "may lag behind the live dataset. The same SEC page or dataset claim "
+           "appearing twice is one source, not independent corroboration. "
+           if knowledge_base_url else "")
+        + "Distinguish observed facts from "
+        "interpretation. Present supporting and conflicting evidence separately. "
+        "Include source URLs and timestamps that you actually retrieved. "
+        "If the content is absent, stale, contradictory, or lacks a source, say so "
+        "and do not invent an answer, URL, price, or prediction. Never place trades.\n\n"
+        "# Sanity Context reference\n"
+        + "\n\n".join(contexts)
+    )
+
+    async def run_with_fresh_mcp(model_options):
+        # A failed Runner.run can close MCP sessions; retries need new connections.
+        async with AsyncExitStack() as mcp_stack:
+            servers = []
+            for label, url in endpoints:
+                server = await mcp_stack.enter_async_context(MCPServerStreamableHttp(
+                    name=label,
+                    params={"url": url, "headers": {"Authorization": f"Bearer {token}"}},
+                    client_session_timeout_seconds=30,
+                    tool_filter=create_static_tool_filter(blocked_tool_names=["initial_context"]),
+                ))
+                servers.append(server)
+            agent = Agent(
+                name="Market Evidence Desk",
+                instructions=instructions,
+                mcp_servers=servers,
+                **model_options,
+            )
+            return await Runner.run(agent, question)
+
+    async with AsyncExitStack() as client_stack:
         model_options = {}
         if credentials[0] == "gemini":
             set_tracing_disabled(True)
-            client = await stack.enter_async_context(AsyncOpenAI(
+            client = await client_stack.enter_async_context(AsyncOpenAI(
                 api_key=credentials[1],
                 base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
                 max_retries=1,
@@ -60,51 +99,19 @@ async def main() -> None:
             model_options["model"] = OpenAIChatCompletionsModel(
                 model=credentials[2], openai_client=client
             )
-        servers = []
-        for label, url in endpoints:
-            server = await stack.enter_async_context(MCPServerStreamableHttp(
-                name=label,
-                params={"url": url, "headers": {"Authorization": f"Bearer {token}"}},
-                client_session_timeout_seconds=30,
-                tool_filter=create_static_tool_filter(blocked_tool_names=["initial_context"]),
-            ))
-            servers.append(server)
-        agent = Agent(
-            name="Market Evidence Desk",
-            instructions=(
-                "You are a cautious research assistant, not a trading adviser. "
-                "For every question, use Sanity Context groq_query to read actual "
-                "published content before answering. Use groq_query to "
-                "retrieve the relevant research question, evidence claims, and each claim's "
-                "source URL and publication date. "
-                + ("Also use knowledge_base_read on relevant Sourcebook entries; the index "
-                   "may lag behind the live dataset. The same SEC page or dataset claim "
-                   "appearing twice is one source, not independent corroboration. "
-                   if knowledge_base_url else "")
-                + "Distinguish observed facts from "
-                "interpretation. Present supporting and conflicting evidence separately. "
-                "Include source URLs and timestamps that you actually retrieved. "
-                "If the content is absent, stale, contradictory, or lacks a source, say so "
-                "and do not invent an answer, URL, price, or prediction. Never place trades.\n\n"
-                "# Sanity Context reference\n"
-                + "\n\n".join(contexts)
-            ),
-            mcp_servers=servers,
-            **model_options,
-        )
         try:
-            result = await Runner.run(agent, question)
+            result = await run_with_fresh_mcp(model_options)
         except InternalServerError as error:
             if credentials[0] != "gemini" or error.status_code != 503:
                 raise
             alternative = fallback_model(os.environ, credentials[2], error.status_code)
             if alternative:
                 print(f"Gemini {credentials[2]} is overloaded; trying {alternative}.", file=sys.stderr)
-                agent = agent.clone(model=OpenAIChatCompletionsModel(
+                alternative_options = {"model": OpenAIChatCompletionsModel(
                     model=alternative, openai_client=client
-                ))
+                )}
                 try:
-                    result = await Runner.run(agent, question)
+                    result = await run_with_fresh_mcp(alternative_options)
                 except InternalServerError as fallback_error:
                     if fallback_error.status_code != 503:
                         raise

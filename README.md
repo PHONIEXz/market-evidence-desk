@@ -18,7 +18,7 @@ Validate the source and claim graph with `python scripts/validate_demo.py`.
 Context is enabled for organization `oso5hthoq`. The **Market Evidence Desk Sourcebook**
 Knowledge Base (`kbu9WNgZ9ocF`) has two sources: a March 23, 2023
 [SEC investor alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities)
-and the Sanity `production` dataset. The Studio schema is deployed. The dataset has
+and the Sanity `production` dataset. The Studio schema is deployed. To use the dataset through Context MCP, deploy the hosted Studio application too with `npm run studio:deploy`; schema deployment alone does not register the Studio. The dataset has
 **three published documents**: a source, a research question, and an evidence claim,
 all grounded in that one historical alert. The Knowledge Base was rebuilt from both
 sources into five entries. The read-only `market-evidence-research` Context MCP
@@ -51,10 +51,11 @@ npm install
 npx sanity login
 npm run schema:deploy
 npx sanity documents create sanity/seed/sec-investor-alert.json --missing
+npm run studio:deploy
 npm run studio
 ```
 
-Open `http://localhost:3333` and sign in with the Sanity account that owns the project. The seed command has been run successfully for the three linked published documents (a Source, Research question, and Evidence claim) based on the March 23, 2023 SEC alert. `--missing` skips their fixed IDs if already created. Review the claim in Studio: its human review state is `needs-human-review`, and the seed records an observation time rather than a live price or market event. Add newer primary sources before making current-market claims. The `web/` demo still reads fictional JSON; it is not yet connected to the Studio dataset or an AI model.
+Open `http://localhost:3333` and sign in with the Sanity account that owns the project. The hosted Studio deployment asks for a unique `*.sanity.studio` hostname on the first run. The seed command has been run successfully for the three linked published documents (a Source, Research question, and Evidence claim) based on the March 23, 2023 SEC alert. `--missing` skips their fixed IDs if already created. Review the claim in Studio: its human review state is `needs-human-review`, and the seed records an observation time rather than a live price or market event. Add newer primary sources before making current-market claims. The `web/` demo still reads fictional JSON; it is not yet connected to the Studio dataset or an AI model.
 
 ## What works today
 

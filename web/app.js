@@ -50,13 +50,14 @@ function render() {
   });
   const supporting = eligible.filter((claim) => claim.stance === "supports");
   const conflicting = eligible.filter((claim) => claim.stance === "conflicts");
-  $("#brief-intro").textContent = `${supporting.length} supporting and ${conflicting.length} conflicting sourced claim(s) eligible as of ${dateText(asOf)}. Source dates show when evidence was published; eligibility does not make historical material current news.`;
+  const contextual = eligible.filter((claim) => claim.stance === "context");
+  $("#brief-intro").textContent = `${supporting.length} supporting, ${conflicting.length} conflicting, and ${contextual.length} contextual sourced claim(s) eligible as of ${dateText(asOf)}. Source dates show when evidence was published; eligibility does not make historical material current news.`;
   $("#brief-points").replaceChildren();
-  for (const claim of [...supporting, ...conflicting]) {
+  for (const claim of [...supporting, ...conflicting, ...contextual]) {
     const source = sources.get(claim.sourceId);
     addText($("#brief-points"), "li", `${claim.stance.toUpperCase()}: ${claim.text} — ${source.title}, published ${publishedDate(source.publishedAt)} (${source.url})`);
   }
-  if (!supporting.length && !conflicting.length) addText($("#brief-points"), "li", "No eligible sourced claims for this review date.");
+  if (!eligible.length) addText($("#brief-points"), "li", "No eligible sourced claims for this review date.");
   $("#brief-caution").textContent = "DRAFT — Human review is required before sharing this brief. Conflicting evidence remains visible in the source ledger.";
   briefText = [`DRAFT — ${mode === "demo" ? "FICTIONAL DEMO" : "SANITY RESEARCH"}`, graph.notice, event.title, $("#brief-intro").textContent, ...Array.from($("#brief-points").children, (li) => `• ${li.textContent}`), $("#brief-caution").textContent].join("\n");
 }

@@ -61,8 +61,10 @@ prototype. An authenticated Gemini run on September 23, 2026 logged both `groq_q
 and `knowledge_base_read`, then answered the SEC proof-of-reserves question with the
 source URL and March 23, 2023 publication date. Its detailed answer was compared to
 the original SEC alert. The two retrieval paths have therefore been exercised live;
-the agent's response to a current-market question remains unverified. Ask about this
-week's market and confirm it declines without new evidence. Never share the `.env`
+a second live question asked for today's Bitcoin price and a buy recommendation. The agent
+called both Sanity tools and correctly said these sources provide neither live pricing
+nor support for a buy recommendation. This verifies behavior on those two prompts, not
+a general guarantee against every unsupported answer. Never share the `.env`
 file or its token values.
 
 ## Edit real content in Sanity Studio
@@ -100,6 +102,31 @@ npm run studio:deploy -- --no-build
 
 Replace `RUN_ID` with the numeric run ID in the successful Actions run URL. The GitHub workflow builds only; the deploy command uses your existing local Sanity login. Artifacts expire after three days. The `--no-build` deployment still extracts and uploads the Studio manifest, so it needs the source project alongside `dist/`.
 
+### Expand the proof-of-reserves research question
+
+The first source is live. A second, **prepared but not yet imported** seed adds a
+research question, a March 8, 2023 [PCAOB Investor Advocate staff advisory](https://pcaobus.org/news-events/news-releases/news-release-detail/investor-advisory-exercise-caution-with-third-party-verification-proof-of-reserve-reports),
+and Kraken's November 28, 2022 [explanation of its own proof-of-reserves process](https://blog.kraken.com/news/what-is-proof-of-reserves-a-beginners-guide).
+It connects those sources and the existing SEC source to three claims. Kraken's
+statement is marked `context` because the ability to verify inclusion in a
+snapshot does not contradict the SEC/PCAOB warnings about broader assurance;
+it is a company statement, not independent evidence of current solvency.
+
+Once you have reviewed the six documents in
+`sanity/seed/proof-of-reserves-scope.json`, add them with your existing Sanity login:
+
+```bash
+npx sanity documents create sanity/seed/proof-of-reserves-scope.json --missing --project-id cxjysvlq --dataset production
+```
+
+Check the new research question and its three claims in Studio and through the
+unauthenticated `/api/graph` route. Leave its review state as
+`needs-human-review` until you have checked the sources yourself. Refresh or
+rebuild the Sourcebook Knowledge Base and review its entries before expecting
+`knowledge_base_read` to reflect the new documents. The old dotted-ID documents
+remain untouched. This command creates content only; the schema and Studio do
+not need a new build.
+
 The seeded evidence claim was checked against the linked [March 23, 2023 SEC alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities), specifically its proof-of-reserves discussion. It remains historical guidance and needs a human review decision in this project.
 
 ## What works today
@@ -107,14 +134,14 @@ The seeded evidence claim was checked against the linked [March 23, 2023 SEC ale
 - A structured source → claim → event graph with a timestamp on each item.
 - A reader can inspect supporting and conflicting claims, stale sources, source links, and the human review state.
 - A transparent, deterministic research brief assembled from published Sanity claims when available, plus a separate fictional sample view. All copied briefs are labeled drafts.
-- A Gemini research agent calling both Sanity Context `groq_query` and `knowledge_base_read`; the SEC question was checked against the original alert in a live run. Current-market abstention still needs a separate run.
+- A Gemini research agent calling both Sanity Context `groq_query` and `knowledge_base_read`; a live SEC question matched the original alert, and a live Bitcoin price/buy question declined unsupported current-market claims.
 - The SEC page and three structured Sanity documents ingested into one Knowledge Base and rebuilt into five entries. The agent reads entries through Knowledge Base mode on the same Context endpoint. They are historical guidance, not live market data.
 - Deployed Sanity document schemas for sources, events, evidence claims, and briefs.
 
 ## Next integration steps
 
 1. Review the published claim and the generated Knowledge Base entries against the source. Never present the demo examples or the 2023 alert as current news.
-2. Run an adversarial current-market question and confirm the agent declines unsupported live prices, predictions, and trades. Capture the exact tool names and final response for the demo.
+2. Add and review the prepared multi-source comparison below, then repeat the live agent checks. Keep the exact tool names and final responses for the demo.
 3. The corrected root-level seed documents are public and the scoped read is wired into the local desk. Add a reviewed `researchBrief` approval transition before publishing or sharing briefs automatically. Recheck Knowledge Base entries now that the new documents have been added to avoid duplicated evidence.
 4. Record a Binance demo showing the research workflow, including one conflicting evidence case. Confirm the contest's full rules, posting method, and jurisdiction requirements from its original post before entering.
 5. For DEV's Sanity Challenge Path One, submit a DEV post with `#sanitychallenge`, the Sanity project ID, working demo, code, and an honest account of the agent's use of Context MCP. Deadline: October 4, 2026, 11:59 PM PDT. Entrants must meet the contest's age and other eligibility rules.

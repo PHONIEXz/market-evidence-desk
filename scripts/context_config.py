@@ -1,7 +1,15 @@
 """Configure the two read-only Sanity Context retrieval modes."""
 
 import re
+from collections.abc import Mapping
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+
+DEFAULT_SOURCEBOOK_ID = "kbu9WNgZ9ocF"
+
+
+def sourcebook_id(environment: Mapping[str, str]) -> str:
+    """Use this project's Sourcebook even with an older .env file."""
+    return environment.get("SANITY_KNOWLEDGE_BASE_ID", "").strip() or DEFAULT_SOURCEBOOK_ID
 
 
 def context_urls(endpoint, knowledge_base_id=""):

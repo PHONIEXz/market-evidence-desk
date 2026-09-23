@@ -12,7 +12,7 @@
     <nav class="modes" aria-label="Data source"><button type="button" id="live-mode" aria-pressed="true">Published Sanity data</button><button type="button" id="demo-mode" aria-pressed="false">Fictional demo</button></nav>
     <div id="loading" role="status" class="panel" hidden>Loading research questions…</div>
     <div id="error" role="alert" hidden></div>
-    <div id="empty" class="panel" role="status" hidden>No published research questions were returned by Sanity. Check the project, dataset, and published documents in Studio. You can open the fictional demo above while resolving this.</div>
+    <div id="empty" class="panel" role="status" hidden>This public HTTP request returned no research questions. The Sanity CLI may show different results; check the seeded IDs and dataset visibility before changing documents. You can open the fictional demo above while resolving this.</div>
     <section class="grid" id="desk" hidden>
       <article class="panel"><p class="eyebrow">01 / THE QUESTION</p><label for="event-select">Research question</label><select id="event-select"></select><h2 id="event-title"></h2><p id="event-summary"></p><div class="meta"><span id="observed"></span><span id="review"></span></div><div class="callout" id="notice"></div></article>
       <article class="panel"><p class="eyebrow">02 / THE EVIDENCE</p><h2>Source ledger <span id="count"></span></h2><label for="as-of">Review evidence as of</label><input id="as-of" type="datetime-local"><div id="claims"></div></article>

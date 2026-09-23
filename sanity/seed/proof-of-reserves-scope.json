@@ -22,7 +22,7 @@
     "_type": "marketEvent",
     "title": "What can proof-of-reserves checks show, and what remains unverified?",
     "summary": "Historical source comparison: a 2023 SEC staff alert, a 2023 PCAOB Investor Advocate staff advisory, and Kraken's 2022 company explanation. A customer's ability to check inclusion in a snapshot does not establish all liabilities, asset availability after the snapshot, or present-day solvency.",
-    "observedAt": "2026-09-23T00:00:00Z",
+    "observedAt": "2026-09-23T17:58:46Z",
     "review": "needs-human-review"
   },
   {
@@ -32,7 +32,7 @@
     "source": {"_type": "reference", "_ref": "source-sec-investor-alert-2023-03-23"},
     "text": "In its March 2023 investor alert, SEC staff warned that proof-of-reserves assessments may not give meaningful assurance of sufficient assets, omit liabilities and intervening activity, and are less rigorous than audited financial statements. This is historical investor education, not an assessment of any company today.",
     "stance": "supports",
-    "observedAt": "2026-09-23T00:00:00Z"
+    "observedAt": "2026-09-23T17:58:46Z"
   },
   {
     "_id": "evidence-claim-pcaob-proof-of-reserves-scope-2023",
@@ -41,7 +41,7 @@
     "source": {"_type": "reference", "_ref": "source-pcaob-investor-advisory-2023-03-08"},
     "text": "The PCAOB Office of the Investor Advocate's March 2023 staff advisory said proof-of-reserve reports generally verify specified assets at one point in time; their procedures may leave liabilities, borrowed assets, later use of assets, and internal controls unaddressed. It said these engagements are not PCAOB audits and should not be relied on to conclude assets cover customer liabilities.",
     "stance": "supports",
-    "observedAt": "2026-09-23T00:00:00Z"
+    "observedAt": "2026-09-23T17:58:46Z"
   },
   {
     "_id": "evidence-claim-kraken-customer-snapshot-check-2022",
@@ -50,6 +50,6 @@
     "source": {"_type": "reference", "_ref": "source-kraken-proof-of-reserves-guide-2022-11-28"},
     "text": "Kraken stated in November 2022 that its clients could verify whether their covered balances were included in a third-party proof-of-reserves snapshot on the audit day. This is Kraken's description of its own process, not independent verification of its claims or proof that any exchange is solvent today.",
     "stance": "context",
-    "observedAt": "2026-09-23T00:00:00Z"
+    "observedAt": "2026-09-23T17:58:46Z"
   }
 ]

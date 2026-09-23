@@ -194,9 +194,12 @@ $("#jump-to-desk").addEventListener("click", () => $("#desk").scrollIntoView({be
 const titleReplay = $("#hero-title-replay");
 titleReplay.addEventListener("click", () => {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  titleReplay.classList.add("restarting");
+  titleReplay.classList.remove("is-unraveling");
   void titleReplay.offsetWidth;
-  titleReplay.classList.remove("restarting");
+  titleReplay.classList.add("is-unraveling");
+});
+titleReplay.querySelectorAll(".title-line")[1].addEventListener("animationend", (event) => {
+  if (event.animationName === "unravel-receipt") titleReplay.classList.remove("is-unraveling");
 });
 $("#copy").addEventListener("click", async () => { try { await navigator.clipboard.writeText(briefText); $("#copy-state").textContent = "Draft copied"; } catch { $("#copy-state").textContent = "Clipboard blocked; select the text above."; } });
 loadMode("live");

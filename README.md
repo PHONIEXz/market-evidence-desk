@@ -120,9 +120,11 @@ For a fresh dataset, review the documents in
 npx sanity documents create sanity/seed/proof-of-reserves-scope.json --missing --project-id cxjysvlq --dataset production
 ```
 
-Public visibility and source-reference resolution have **not yet been independently
-verified** after this import. Check the new research question and its three claims
-in Studio and through an unauthenticated public query or `/api/graph` route. Leave its review state as
+An unauthenticated public GROQ query returned the new research question and all
+three claims with populated source references: SEC and PCAOB are `supports`, and
+Kraken is `context`. The question's review state remains
+`needs-human-review`. Check the new question and claims in Studio before
+approving or sharing them. Leave its review state as
 `needs-human-review` until you have checked the sources yourself. Refresh or
 rebuild the Sourcebook Knowledge Base and review its entries before expecting
 `knowledge_base_read` to reflect the new documents. The old dotted-ID documents
@@ -130,6 +132,31 @@ remain untouched. This command creates content only; the schema and Studio do
 not need a new build.
 
 The seeded evidence claim was checked against the linked [March 23, 2023 SEC alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities), specifically its proof-of-reserves discussion. It remains historical guidance and needs a human review decision in this project.
+
+## Prepare the public read-only desk
+
+The repository now has a Vercel-ready **read-only website**, separate from the
+hosted Sanity Studio. It is **not deployed yet**. `vercel.json` builds the
+static `web/` files and the fictional demo into `public/`, serves the desk
+from `/`, and exposes a same-origin `/api/graph` Vercel Function. That
+function reads the published public Sanity dataset without an API token,
+filters unsafe or incomplete evidence links, and caches successful reads
+briefly. It serves source details for the browser; it cannot edit documents.
+The `context` claim is included in the ledger and copied draft brief.
+
+```bash
+npm run web:build
+node --test tests/test_web_graph.mjs
+```
+
+To make a preview, import this GitHub repository as a **separate Vercel project**
+with its root at the repository root and deploy the feature branch. The
+configuration sets the build command and output directory; no Gemini or Sanity
+organization tokens are required for this read-only site. Check `/`,
+`/api/graph`, both evidence questions, and the fictional-demo toggle on the
+preview URL before promoting it. The Gemini/Context research agent is still a
+local CLI and has **no browser chat route**. A later server-side chat endpoint
+will need private credentials and request limits before public exposure.
 
 ## What works today
 
@@ -143,7 +170,7 @@ The seeded evidence claim was checked against the linked [March 23, 2023 SEC ale
 ## Next integration steps
 
 1. Review the published claim and the generated Knowledge Base entries against the source. Never present the demo examples or the 2023 alert as current news.
-2. Add and review the prepared multi-source comparison below, then repeat the live agent checks. Keep the exact tool names and final responses for the demo.
+2. Review the imported multi-source comparison in Studio, refresh the Sourcebook, and repeat the agent check against both dated perspectives. Capture the exact tool names and final response for the demo.
 3. The corrected root-level seed documents are public and the scoped read is wired into the local desk. Add a reviewed `researchBrief` approval transition before publishing or sharing briefs automatically. Recheck Knowledge Base entries now that the new documents have been added to avoid duplicated evidence.
 4. Record a Binance demo showing the research workflow, including one conflicting evidence case. Confirm the contest's full rules, posting method, and jurisdiction requirements from its original post before entering.
 5. For DEV's Sanity Challenge Path One, submit a DEV post with `#sanitychallenge`, the Sanity project ID, working demo, code, and an honest account of the agent's use of Context MCP. Deadline: October 4, 2026, 11:59 PM PDT. Entrants must meet the contest's age and other eligibility rules.

@@ -149,12 +149,17 @@ contains only source-backed links.
 - [ ] Sourcebook status is ready and its rebuilt entries contain the new
       stablecoin and proof-of-reserves material.
 - [ ] No important unresolved issue is being presented as settled fact.
-- [ ] All three end-to-end agent tests pass with citations.
-- [ ] The website clearly states that live prices are out of scope.
-- [ ] Preview deployment works without exposing secrets.
-- [ ] Tests, build, and browser smoke checks pass.
+- [x] All three hosted agent cases returned source-backed answers and both Sanity tool receipts on the 2026-09-24 feature preview.
+- [x] The website clearly states that live prices are out of scope.
+- [x] Preview deployment works with model and Sanity credentials on the server side.
+- [x] Python and Node tests, public web build, and desktop browser smoke checks pass.
 - [ ] README, demo recording, and contest submission text are complete.
 - [ ] No new feature is added unless it directly improves this checklist.
+
+The hosted model had intermittent timeouts during verification. The final
+single-pass agent build completed `compare`, `dispute`, and `price` once each;
+that is a successful snapshot, not a guarantee of future model availability.
+Sourcebook Issues and the mobile layout still require a final human check.
 
 ## Change-control rule
 

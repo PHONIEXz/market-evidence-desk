@@ -14,8 +14,8 @@ This is the short demo path for the Sanity Challenge Path One. The DEV post draf
 
 - [ ] Open the feature preview and confirm every page and mobile menu work, including source links and the fictional demo label.
 - [ ] Check that the Sourcebook is Ready, the new stablecoin and reserve entries appear, and Issues do not present an unresolved material conflict as settled fact.
-- [ ] Run **compare**, **dispute**, and **price** against the *hosted* agent; confirm both Sanity tool names and cited original URLs. An earlier local CLI pass alone is not a hosted pass.
-- [ ] Check browser console errors and the built assets. Run `npm run web:build`, `node --test tests/test_web_graph.mjs`, and `python3 -m unittest discover -s tests -v`.
+- [x] On 2026-09-24, run **compare**, **dispute**, and **price** against the feature preview at commit `9d97e61`. Each returned `groq_query` and `knowledge_base_read`; comparison linked Kraken, PCAOB, and SEC; disagreement linked the two dated SEC views; price declined live data and linked historical sources. Earlier timed-out runs show the hosted model can still be intermittent.
+- [x] Built assets with `npm run web:build`; Node graph tests passed 6/6 and Python endpoint tests passed 3/3. Desktop browser pages and agent results rendered. The browser extension logged its own metadata errors; no app-script error was observed in the inspected logs.
 - [ ] Publish or promote the tested build to the URL used in the DEV post, if changing from feature preview. Recheck the ready state on that URL.
 - [ ] Publish the DEV Path One post using the `#sanitychallenge` tag, project ID `cxjysvlq`, demo and code links. Confirm age and location eligibility under the official rules. Only one entry per path. Deadline: October 4, 2026, 11:59 PM PDT.
 

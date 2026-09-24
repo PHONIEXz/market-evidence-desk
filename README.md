@@ -6,9 +6,9 @@ An early working slice for the DEV Sanity Challenge, Path One: an AI research ag
 
 1. Open the [public research-desk preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) and read **How it works**. The published view loads sources, questions, and claims from Sanity; **Fictional demo** is a separate illustration.
 2. Open **Compare evidence**. The first tab follows the published question through Kraken's contextual claim and the SEC and PCAOB supporting claims, with each dated original source. The second tab explains why this historical graph cannot give today's Bitcoin price. These are guided evidence views, not generated AI answers. If the dataset is slow or unavailable, a visible retry and fictional demo replace an indefinite spinner.
-3. Read the recorded SEC AI example below the desk, then run `python agent.py --case compare` with your private `.env`. This comparison is a new agent test case; it is not presented on the website as a previously recorded agent run. The agent runs separately in the terminal.
+3. Open **AI agent**, choose **Compare Kraken, PCAOB and SEC**, and run the actual Sanity Context agent when the hosted service is enabled. The answer and tool names appear on the page. Its earlier SEC run is labeled as recorded. If the hosted service is not configured, run `python agent.py --case compare` locally.
 
-The [Sanity Studio](https://phoniex-market-evidence-desk.sanity.studio/) is for editing and reviewing the structured records. The website is for reading published records. Neither the Studio nor the website requires a Gemini key from visitors; only the locally run agent needs its own configured credentials.
+The [Sanity Studio](https://phoniex-market-evidence-desk.sanity.studio/) is for editing and reviewing the structured records. The website is for reading published records. Visitors never enter an API key. The hosted agent uses private server environment variables when enabled; the local CLI uses your private `.env`.
 
 ## Run the research desk locally
 
@@ -66,8 +66,7 @@ Gemini calls or the agent's longer request.
 After confirming both generation routes return 503, use
 `python scripts/diagnose_gemini.py --catalog-only` to check key access without
 repeating the generation requests.
-It avoids counting a copied SEC fact as independent corroboration. It is a command-line
-prototype. An authenticated Gemini run on September 23, 2026 logged both `groq_query`
+It avoids counting a copied SEC fact as independent corroboration. An authenticated Gemini run on September 23, 2026 logged both `groq_query`
 and `knowledge_base_read`, then answered the SEC proof-of-reserves question with the
 source URL and March 23, 2023 publication date. Its detailed answer was compared to
 the original SEC alert. The two retrieval paths have therefore been exercised live;
@@ -104,7 +103,7 @@ npm run studio:deploy
 npm run studio
 ```
 
-Open `http://localhost:3333` for local development, or the [deployed Studio](https://phoniex-market-evidence-desk.sanity.studio/), and sign in with the Sanity account that owns the project. The original seed created three linked documents with dotted IDs such as `source.sec-investor-alert-2023-03-23`. Sanity treats every dotted ID as a private path even when the dataset is public. The corrected root-level seed was created in `cxjysvlq/production` and verified through unauthenticated HTTP. The older dotted documents remain in the dataset and are not modified or deleted. Run the corrected seed with `--missing` only if setting up a new dataset. Review the new claim in Studio: its human review state is `needs-human-review`, and the seed records an observation time rather than a live price or market event. Add newer primary sources before making current-market claims. The AI agent remains a separate command-line prototype.
+Open `http://localhost:3333` for local development, or the [deployed Studio](https://phoniex-market-evidence-desk.sanity.studio/), and sign in with the Sanity account that owns the project. The original seed created three linked documents with dotted IDs such as `source.sec-investor-alert-2023-03-23`. Sanity treats every dotted ID as a private path even when the dataset is public. The corrected root-level seed was created in `cxjysvlq/production` and verified through unauthenticated HTTP. The older dotted documents remain in the dataset and are not modified or deleted. Run the corrected seed with `--missing` only if setting up a new dataset. Review the new claim in Studio: its human review state is `needs-human-review`, and the seed records an observation time rather than a live price or market event. Add newer primary sources before making current-market claims.
 
 After creating the corrected documents, verify the public query without a token:
 
@@ -166,7 +165,9 @@ npm run web:build
 node --test tests/test_web_graph.mjs
 ```
 
-The web app does not offer a live AI chat route. The agent currently runs through `python agent.py` with server-side credentials on the operator's own machine. Its example on the site is explicitly labelled as a recorded run. The [production URL](https://market-evidence-desk.vercel.app/) may still show an older version until the feature pull request is merged.
+The site offers a fixed-question live research endpoint at `/api/ask`. The visitor can run **compare** (three dated source accounts) or **price** (insufficient historical evidence for a current price or recommendation). A public visitor cannot submit arbitrary prompts. The Python function reuses `agent.py`, checks that `groq_query` and `knowledge_base_read` ran, and returns the answer and tool names. The browser renders returned text safely and only links to sources already present in the published graph. The earlier SEC example is separately labeled as recorded.
+
+The endpoint is **off by default**. To switch it on, set `AGENT_DEMO_ENABLED=1`, `SANITY_CONTEXT_MCP_URL`, `SANITY_ORGANIZATION_TOKEN`, `SANITY_KNOWLEDGE_BASE_ID`, and `GEMINI_API_KEY` (or `OPENAI_API_KEY`) in the Vercel project's **Preview** environment for this branch, then redeploy. The Sanity token needs **Context Viewer** access to the organization. The client never receives these values. The two fixed questions limit exposure, but a public enabled endpoint still consumes model quota; monitor usage and turn `AGENT_DEMO_ENABLED` off if necessary. Set these environment values for Production only when you intentionally publish the agent there. Never put secrets in the repo or ask visitors to supply keys. Check `GET /api/ask` for `{"ready":true}` after redeploy, then run each case on the preview and inspect the actual cited source text. Network, model overload, and stale Sourcebook content can still make individual runs fail; the interface reports this instead of displaying a fabricated answer. The [production URL](https://market-evidence-desk.vercel.app/) may still show an older version until the feature pull request is merged.
 
 ## What works today
 
@@ -174,7 +175,7 @@ The web app does not offer a live AI chat route. The agent currently runs throug
 - A reader can inspect supporting and conflicting claims, stale sources, source links, and the human review state.
 - A two-question guided comparison of the published SEC, PCAOB, and Kraken claims, with a linked source trail and a clear boundary around live prices. The comparison reads records, not AI output.
 - A transparent, deterministic research brief assembled from published Sanity claims when available, plus a separate fictional sample view. All copied briefs are labeled drafts.
-- A Gemini research agent calling both Sanity Context `groq_query` and `knowledge_base_read`; a live SEC question matched the original alert, and a live Bitcoin price/buy question declined unsupported current-market claims.
+- A Gemini research agent available through the CLI and, when server credentials are configured, the hosted fixed-question interface. It calls both Sanity Context `groq_query` and `knowledge_base_read`; a live SEC question matched the original alert, and a live Bitcoin price/buy question declined unsupported current-market claims.
 - A previously built Sourcebook containing the SEC page and Sanity dataset source. The last confirmed build had five entries; review detected changes after the later records were seeded before claiming it represents them.
 - Deployed Sanity document schemas for sources, events, evidence claims, and briefs.
 

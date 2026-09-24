@@ -268,6 +268,37 @@
   margin: 13px 0 0;
 }
 
+.agent-console {
+  border: 1px solid #476d65;
+  border-radius: 14px;
+  padding: 24px;
+  background: linear-gradient(135deg, #15332f, #121c28 60%);
+}
+
+.agent-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.comparison-run button.button-primary { background: var(--mint); color: #092119; border-color: var(--mint); }
+.agent-controls label { flex: 1 1 100%; color: var(--mint); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.agent-controls select { flex: 1 1 290px; min-width: 0; padding: 12px; background: #101c28; color: #e4edeb; border: 1px solid #59746f; border-radius: 9px; font: inherit; }
+.agent-controls button, .comparison-run button.button-primary { cursor: pointer; }
+.agent-controls button:disabled, .comparison-run button:disabled { opacity: .55; cursor: not-allowed; }
+.agent-controls select:focus-visible, .agent-controls button:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+.agent-status { margin: 15px 0 0; color: #bfd3d2; font-size: 13px; line-height: 1.55; }
+.agent-result { margin-top: 20px; padding: 22px; border: 1px solid #435d56; border-radius: 11px; background: #0e1d25; }
+.agent-result[hidden] { display: none; }
+.agent-result > p { white-space: pre-wrap; overflow-wrap: anywhere; color: #e1e9e7; line-height: 1.68; font-size: 14px; }
+.agent-receipts { padding-top: 16px; border-top: 1px solid #39534e; }
+.agent-receipts .tool-list { margin-top: 12px; }
+.agent-sources { display: flex; flex-direction: column; align-items: start; gap: 9px; margin-top: 17px; }
+.agent-sources a { color: var(--mint); font-size: 12px; }
+.agent-recorded { margin-top: 16px; }
+.agent-recorded summary { cursor: pointer; color: #c6d9d4; font-size: 12px; padding: 9px 0; }
+.agent-recorded .agent-example { margin-top: 8px; }
+
+@media (max-width: 520px) {
+  .agent-console { padding: 17px; }
+  .agent-controls button { width: 100%; }
+}
+
 @media (max-width: 850px) {
   .comparison-head { align-items: start; flex-direction: column; gap: 10px; }
   .comparison-head > p { max-width: 680px; }

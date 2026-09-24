@@ -39,25 +39,21 @@ def resolve_question(arguments):
     return " ".join(arguments).strip()
 
 
-async def main() -> None:
-    load_dotenv()
-    question = resolve_question(sys.argv[1:])
+async def research_answer(question: str) -> dict:
+    """Run the same source-checked agent for the CLI and hosted demo."""
     if not question:
-        raise SystemExit('Usage: python agent.py --case compare | --case price | "Your question"')
+        raise ValueError("A research question is required")
 
     missing = missing_settings(os.environ)
     if missing:
-        raise SystemExit("Set these values in .env: " + ", ".join(missing))
+        raise ValueError("Missing agent settings: " + ", ".join(missing))
     mcp_url = configured_value(os.environ, "SANITY_CONTEXT_MCP_URL")
     token = configured_value(os.environ, "SANITY_ORGANIZATION_TOKEN")
     credentials = model_credentials(os.environ)
 
-    try:
-        dataset_url, knowledge_base_url = context_urls(
-            mcp_url, sourcebook_id(os.environ)
-        )
-    except ValueError as error:
-        raise SystemExit(str(error)) from error
+    dataset_url, knowledge_base_url = context_urls(
+        mcp_url, sourcebook_id(os.environ)
+    )
 
     endpoints = [("structured dataset", dataset_url)]
     if knowledge_base_url:
@@ -119,7 +115,7 @@ async def main() -> None:
                 mcp_servers=servers,
                 **model_options,
             )
-            return await Runner.run(agent, question)
+            return await Runner.run(agent, question, max_turns=12)
 
     async with AsyncExitStack() as client_stack:
         model_options = {}
@@ -149,21 +145,35 @@ async def main() -> None:
                 except InternalServerError as fallback_error:
                     if fallback_error.status_code != 503:
                         raise
-                    raise SystemExit(
+                    raise RuntimeError(
                         "Gemini is temporarily overloaded on both models. "
                         "Try again later or set GEMINI_MODEL to another available model in .env."
                     ) from None
             else:
-                raise SystemExit(
+                raise RuntimeError(
                     "Gemini is temporarily overloaded. Try again later or change "
                     "GEMINI_MODEL in .env."
                 ) from None
         names = called_tools(result.new_items)
         missing = missing_retrievals(names, require_knowledge_base=bool(knowledge_base_url))
         if missing:
-            raise SystemExit("Answer withheld: the agent did not call required Sanity tools: " + ", ".join(missing))
-        print("Sanity tools used: " + ", ".join(names), file=sys.stderr)
-        print(result.final_output)
+            raise RuntimeError("Answer withheld: the agent did not call required Sanity tools: " + ", ".join(missing))
+        if not isinstance(result.final_output, str) or not result.final_output.strip():
+            raise RuntimeError("Answer withheld: the agent returned no text.")
+        return {"answer": result.final_output, "tools": names}
+
+
+async def main() -> None:
+    load_dotenv()
+    question = resolve_question(sys.argv[1:])
+    if not question:
+        raise SystemExit('Usage: python agent.py --case compare | --case price | "Your question"')
+    try:
+        result = await research_answer(question)
+    except (ValueError, RuntimeError) as error:
+        raise SystemExit(str(error)) from None
+    print("Sanity tools used: " + ", ".join(result["tools"]), file=sys.stderr)
+    print(result["answer"])
 
 
 if __name__ == "__main__":

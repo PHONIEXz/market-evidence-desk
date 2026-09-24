@@ -271,4 +271,75 @@ titleReplay.querySelectorAll(".title-line")[1].addEventListener("animationend", 
   if (event.animationName === "unravel-receipt") titleReplay.classList.remove("is-unraveling");
 });
 $("#copy").addEventListener("click", async () => { try { await navigator.clipboard.writeText(briefText); $("#copy-state").textContent = "Draft copied"; } catch { $("#copy-state").textContent = "Clipboard blocked; select the text above."; } });
+let agentReady = false;
+let agentBusy = false;
+
+async function checkAgent() {
+  try {
+    const response = await fetch("/api/ask", {signal: AbortSignal.timeout(8000)});
+    if (!response.ok) throw new Error("Status unavailable");
+    const status = await response.json();
+    agentReady = status.ready === true;
+    $("#agent-status").textContent = agentReady
+      ? "Ready. This is a real Sanity Context agent run and may take up to a minute."
+      : "The hosted agent is awaiting server configuration. You can inspect the published evidence above or run the agent locally.";
+  } catch {
+    $("#agent-status").textContent = "The hosted agent is unavailable right now. You can run the agent locally.";
+  }
+  $("#agent-run").disabled = !agentReady;
+  $("#comparison-run-online").disabled = !agentReady;
+}
+
+async function runAgent() {
+  if (!agentReady || agentBusy) return;
+  agentBusy = true;
+  $("#agent-run").disabled = true;
+  $("#comparison-run-online").disabled = true;
+  $("#agent-case").disabled = true;
+  $("#agent-result").hidden = true;
+  $("#agent-status").textContent = "Reading published Sanity sources and the Sourcebook…";
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 65000);
+  try {
+    const response = await fetch("/api/ask", {
+      method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({case: $("#agent-case").value}), signal: controller.signal,
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || "The research run failed. Try again later.");
+    if (typeof result.answer !== "string" || !Array.isArray(result.tools)) throw new Error("The agent returned an incomplete answer.");
+    $("#agent-answer-text").textContent = result.answer;
+    const tools = $("#agent-tools"); clear(tools);
+    for (const name of result.tools) if (typeof name === "string") addText(tools, "span", name);
+    const sources = $("#agent-sources"); clear(sources);
+    const cited = (graph?.sources || []).filter((source) => result.answer.includes(source.url));
+    if (cited.length) addText(sources, "span", "SOURCE LINKS IN THE ANSWER", "example-label");
+    for (const source of cited) {
+      const link = addText(sources, "a", `${source.title} ↗`);
+      link.href = source.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+    }
+    $("#agent-result").hidden = false;
+    $("#agent-status").textContent = "Run finished. Check the linked original sources and review the draft answer.";
+  } catch (error) {
+    $("#agent-status").textContent = error.name === "AbortError"
+      ? "The run took too long. Try again later."
+      : error.message || "The agent is unavailable. Try again later.";
+  } finally {
+    clearTimeout(timeout);
+    agentBusy = false;
+    $("#agent-run").disabled = !agentReady;
+    $("#comparison-run-online").disabled = !agentReady;
+    $("#agent-case").disabled = false;
+  }
+}
+
+$("#agent-run").addEventListener("click", runAgent);
+$("#comparison-run-online").addEventListener("click", () => {
+  $("#agent-case").value = comparisonMode === "scope" ? "compare" : "price";
+  $("#agent-demo").scrollIntoView({behavior: "smooth", block: "start"});
+  runAgent();
+});
+checkAgent();
 loadMode("live");

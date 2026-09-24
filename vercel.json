@@ -3,5 +3,11 @@
   "framework": null,
   "buildCommand": "npm run web:build",
   "outputDirectory": "public",
+  "functions": {
+    "api/ask.py": {
+      "maxDuration": 60,
+      "excludeFiles": "{web/**,public/**,tests/**,data/**,sanity/**,node_modules/**}"
+    }
+  },
   "rewrites": [{"source": "/", "destination": "/web/index.html"}]
 }

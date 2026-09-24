@@ -42,7 +42,7 @@ EVIDENCE_QUERY = (
 
 def tool_text(result):
     """Use only successful, nonempty MCP responses as evidence."""
-    if result.isError:
+    if result.is_error:
         raise RuntimeError("The Sanity Context query failed.")
     content = "\n".join(
         block.text for block in result.content

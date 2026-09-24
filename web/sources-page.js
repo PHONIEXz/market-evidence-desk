@@ -14,19 +14,26 @@ let filter = "";
 
 function render() {
   const sources = graph.sources;
+  const groupsByUrl = new Map();
+  for (const source of sources) {
+    const group = groupsByUrl.get(source.url) || {source, ids: []};
+    group.ids.push(source.id);
+    groupsByUrl.set(source.url, group);
+  }
+  const groups = [...groupsByUrl.values()];
   const questions = new Map(graph.events.map((event) => [event.id, event]));
   const claims = new Map();
   for (const claim of graph.claims) {
     claims.set(claim.sourceId, [...(claims.get(claim.sourceId) || []), claim]);
   }
   const term = filter.trim().toLowerCase();
-  const visible = sources.filter((source) =>
+  const visible = groups.filter(({source}) =>
     !term || [source.title, source.url, source.kind].some((value) =>
       String(value || "").toLowerCase().includes(term)));
-  $("#source-count").textContent = `${visible.length} of ${sources.length} published source records`;
+  $("#source-count").textContent = `${visible.length} of ${groups.length} original publications from ${sources.length} Sanity records`;
   $("#source-cards").replaceChildren();
 
-  for (const source of visible) {
+  for (const {source, ids} of visible) {
     const card = add($("#source-cards"), "article", "", "source-card");
     card.setAttribute("role", "listitem");
     const top = add(card, "div", "", "source-card-top");
@@ -37,7 +44,7 @@ function render() {
     title.target = "_blank";
     title.rel = "noopener noreferrer";
     add(card, "p", source.url, "source-url");
-    const linked = claims.get(source.id) || [];
+    const linked = ids.flatMap((id) => claims.get(id) || []);
     if (linked.length) {
       const list = add(card, "ul", "", "source-claim-list");
       for (const claim of linked) {
@@ -59,14 +66,15 @@ function render() {
 
   const timeline = $("#timeline");
   timeline.replaceChildren();
-  for (const source of [...sources].sort((a, b) =>
-    Date.parse(a.publishedAt) - Date.parse(b.publishedAt))) {
+  for (const {source, ids} of [...groups].sort((a, b) =>
+    Date.parse(a.source.publishedAt) - Date.parse(b.source.publishedAt))) {
     const item = add(timeline, "div", "", "timeline-item");
     add(item, "span", source.publishedAt ? published(source.publishedAt) : "DATE UNVERIFIED", "timeline-date");
     add(item, "span", "", "timeline-marker supports");
     const content = add(item, "div", "", "timeline-content");
     add(content, "strong", source.title || "Untitled source");
-    add(content, "span", `${source.kind?.toUpperCase() || "SOURCE"} · ${claims.get(source.id)?.length || 0} linked claims`, "timeline-label");
+    const count = ids.reduce((total, id) => total + (claims.get(id)?.length || 0), 0);
+    add(content, "span", `${source.kind?.toUpperCase() || "SOURCE"} · ${count} linked ${count === 1 ? "claim" : "claims"}`, "timeline-label");
   }
 }
 

@@ -308,7 +308,11 @@ async function runAgent() {
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || "The research run failed. Try again later.");
     if (typeof result.answer !== "string" || !Array.isArray(result.tools)) throw new Error("The agent returned an incomplete answer.");
-    $("#agent-answer-text").textContent = result.answer;
+    // Keep untrusted model output as text while removing common Markdown markers.
+    $("#agent-answer-text").textContent = result.answer
+      .replace(/^#{1,6}\s+/gm, "")
+      .replace(/\*\*([^*\n]+)\*\*/g, "$1")
+      .replace(/(^|\n)[ \t]*-[ \t]+/g, "$1• ");
     const tools = $("#agent-tools"); clear(tools);
     for (const name of result.tools) if (typeof name === "string") addText(tools, "span", name);
     const sources = $("#agent-sources"); clear(sources);

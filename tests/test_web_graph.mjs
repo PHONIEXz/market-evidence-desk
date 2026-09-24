@@ -4,10 +4,12 @@ import test from "node:test";
 import handler, {normalizeGraph} from "../api/graph.js";
 import evidenceHandler from "../api/evidence.js";
 import {comparisonFromGraph} from "../web/comparison.js";
+import {disagreementFromGraph} from "../web/disagreement.js";
 
 const root = JSON.parse(readFileSync(new URL("../sanity/seed/sec-investor-alert.json", import.meta.url)));
 const additional = JSON.parse(readFileSync(new URL("../sanity/seed/proof-of-reserves-scope.json", import.meta.url)));
-const docs = [...root, ...additional];
+const dispute = JSON.parse(readFileSync(new URL("../sanity/seed/stablecoin-reserve-disagreement.json", import.meta.url)));
+const docs = [...root, ...additional, ...dispute];
 const graph = {
   events: docs.filter((d) => d._type === "marketEvent").map((d) => ({...d, id: d._id})),
   sources: docs.filter((d) => d._type === "source").map((d) => ({...d, id: d._id})),
@@ -18,10 +20,24 @@ const graph = {
 
 test("published comparison keeps all linked and contextual claims", () => {
   const result = normalizeGraph(graph);
-  assert.equal(result.events.length, 2);
-  assert.equal(result.sources.length, 3);
-  assert.equal(result.claims.length, 4);
-  assert.equal(result.claims.filter((claim) => claim.stance === "context").length, 1);
+  assert.equal(result.events.length, 3);
+  assert.equal(result.sources.length, 5);
+  assert.equal(result.claims.length, 7);
+  assert.equal(result.claims.filter((claim) => claim.stance === "context").length, 2);
+});
+
+test("same-day disagreement retains both distinct speakers and the earlier context", () => {
+  const normalized = normalizeGraph(graph);
+  const result = disagreementFromGraph(normalized, new Date("2026-09-24T06:00:00Z"));
+  assert.ok(result);
+  assert.deepEqual(result.views.map(({claim}) => claim.stance), ["supports", "conflicts"]);
+  assert.equal(new Set(result.views.map(({source}) => source.id)).size, 2);
+  assert.deepEqual(result.views.map(({source}) => source.publishedAt.slice(0, 10)), ["2025-04-04", "2025-04-04"]);
+  assert.equal(result.context.length, 1);
+  assert.equal(disagreementFromGraph(normalized, new Date("2025-04-05T00:00:00Z")), null);
+  const missing = normalizeGraph({...graph, claims: graph.claims.filter((claim) =>
+    claim.sourceId !== "source-crenshaw-stablecoins-2025-04-04")});
+  assert.equal(disagreementFromGraph(missing), null);
 });
 
 test("guided comparison requires all three distinct dated linked claims", () => {
@@ -57,8 +73,8 @@ test("unverifiable claims are removed before reaching a hosted browser", () => {
       {...graph.claims[0], id: "before-source", observedAt: "2020-01-01T00:00:00Z"},
     ],
   });
-  assert.equal(result.sources.length, 3);
-  assert.equal(result.claims.length, 4);
+  assert.equal(result.sources.length, 5);
+  assert.equal(result.claims.length, 7);
 });
 
 test("hosted graph route returns published data without credentials", async () => {
@@ -79,8 +95,8 @@ test("hosted graph route returns published data without credentials", async () =
   try {
     await handler({method: "GET"}, response);
     assert.equal(response.statusCode, 200);
-    assert.equal(body.claims.length, 4);
-    assert.equal(body.events.length, 2);
+    assert.equal(body.claims.length, 7);
+    assert.equal(body.events.length, 3);
   } finally {
     globalThis.fetch = originalFetch;
   }

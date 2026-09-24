@@ -100,6 +100,11 @@
 .comparison-source p { margin: 9px 0; font-size: 13px; line-height: 1.6; color: #dae6e6; }
 .comparison-source a { color: var(--mint); font-size: 11px; font-weight: 750; overflow-wrap: anywhere; text-decoration: none; }
 .comparison-source a:hover { text-decoration: underline; }
+.disagreement-views { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 20px 0; }
+.disagreement-view { padding: 17px; border: 1px solid #3a5454; border-radius: 11px; background: #132630; }
+.disagreement-view:first-of-type { margin: 0; }
+.disagreement-view.conflicts { border-color: #8c675b; }
+.disagreement-view p { overflow-wrap: anywhere; }
 .comparison-boundary { font-size: 17px !important; color: #e5eee9 !important; }
 .comparison-aside { color: #a5bbc2 !important; }
 .comparison-footnote { margin: 14px 0 0; color: #a1b8bf; font-size: 11px; line-height: 1.5; }
@@ -282,6 +287,12 @@
 .agent-controls button, .comparison-run button.button-primary { cursor: pointer; }
 .agent-controls button:disabled, .comparison-run button:disabled { opacity: .55; cursor: not-allowed; }
 .agent-controls select:focus-visible, .agent-controls button:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+.agent-custom { display: grid; gap: 9px; margin-top: 16px; }
+.agent-custom[hidden] { display: none; }
+.agent-custom label { color: var(--mint); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.agent-custom textarea { width: 100%; box-sizing: border-box; resize: vertical; border: 1px solid #59746f; border-radius: 9px; background: #101c28; color: #e4edeb; padding: 12px; font: inherit; line-height: 1.55; }
+.agent-custom textarea:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+.agent-custom small { color: #b5cac8; font-size: 12px; line-height: 1.5; }
 .agent-status { margin: 15px 0 0; color: #bfd3d2; font-size: 13px; line-height: 1.55; }
 .agent-result { margin-top: 20px; padding: 22px; border: 1px solid #435d56; border-radius: 11px; background: #0e1d25; }
 .agent-result[hidden] { display: none; }
@@ -297,6 +308,7 @@
 @media (max-width: 520px) {
   .agent-console { padding: 17px; }
   .agent-controls button { width: 100%; }
+  .disagreement-views { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 850px) {

@@ -1,4 +1,5 @@
 import {comparisonFromGraph} from "./comparison.js";
+import {disagreementFromGraph} from "./disagreement.js";
 
 const $ = (selector) => document.querySelector(selector);
 const dateText = (value) => new Date(value).toLocaleString(undefined, {dateStyle: "medium", timeStyle: "short"});
@@ -39,16 +40,20 @@ function renderComparison() {
   const output = $("#comparison-output");
   clear(output);
   const comparing = comparisonMode === "scope";
+  const disputing = comparisonMode === "dispute";
   $("#comparison-scope").setAttribute("aria-pressed", String(comparing));
-  $("#comparison-price").setAttribute("aria-pressed", String(!comparing));
+  $("#comparison-dispute").setAttribute("aria-pressed", String(disputing));
+  $("#comparison-price").setAttribute("aria-pressed", String(comparisonMode === "price"));
   $("#comparison-question").textContent = comparing
     ? "What can a customer check in a proof-of-reserves snapshot, and what does that leave unverified?"
+    : disputing ? "Do SEC staff and Commissioner Crenshaw agree about stablecoin reserve reports?"
     : "What is Bitcoin's price right now, and should I buy it today?";
   $("#comparison-context").textContent = comparing
     ? "Checking a customer's inclusion and assessing an exchange's overall liabilities are different questions."
+    : disputing ? "Two SEC voices used different language on the same day. Read what each actually said."
     : "A dated investor alert cannot supply a live market price or a trading decision.";
-  $("#comparison-command").textContent = `python agent.py --case ${comparing ? "compare" : "price"}`;
-  $("#comparison-label").textContent = comparing ? "PUBLISHED SANITY SOURCE TRAIL" : "EVIDENCE BOUNDARY";
+  $("#comparison-command").textContent = `python agent.py --case ${comparing ? "compare" : disputing ? "dispute" : "price"}`;
+  $("#comparison-label").textContent = comparing ? "PUBLISHED SANITY SOURCE TRAIL" : disputing ? "SAME-DAY SOURCE DISAGREEMENT" : "EVIDENCE BOUNDARY";
   $("#comparison-copy-status").textContent = "";
 
   if (mode !== "live") {
@@ -59,9 +64,30 @@ function renderComparison() {
     addText(output, "p", "Waiting for the published Sanity graph. If it is unavailable, retry below.");
     return;
   }
-  if (!comparing) {
+  if (comparisonMode === "price") {
     addText(output, "p", "This dated research graph has no live price feed or basis for a buy recommendation. The CLI agent's recorded test declined to provide either one.", "comparison-boundary");
     addText(output, "p", "The available source records are historical. Open the sourcebook below to check their dates before drawing any conclusion.", "comparison-aside");
+    return;
+  }
+  if (disputing) {
+    const disagreement = disagreementFromGraph(graph);
+    if (!disagreement) {
+      addText(output, "p", "The two dated statements are not both published and linked yet. Return after the source review is complete.");
+      return;
+    }
+    addText(output, "p", disagreement.event.summary, "comparison-summary");
+    const views = addText(output, "div", "", "disagreement-views");
+    for (const {claim, source, label} of disagreement.views) {
+      const row = addText(views, "article", "", `comparison-source disagreement-view ${claim.stance}`);
+      addText(row, "span", `${label} · ${publishedDate(source.publishedAt)}`, "comparison-source-meta");
+      addText(row, "p", claim.text);
+      const link = addText(row, "a", `Read ${source.title} ↗`);
+      link.href = source.url; link.target = "_blank"; link.rel = "noopener noreferrer";
+    }
+    for (const {claim, source} of disagreement.context) {
+      addText(output, "p", `Earlier context (${publishedDate(source.publishedAt)}): ${claim.text}`, "comparison-aside");
+    }
+    addText(output, "p", "Human review pending. A staff description and a Commissioner's criticism are different positions; neither verifies a stablecoin issuer's reserves today.", "comparison-aside");
     return;
   }
   const comparison = comparisonFromGraph(graph);
@@ -250,6 +276,7 @@ $("#demo-mode").addEventListener("click", () => loadMode("demo"));
 $("#refresh").addEventListener("click", () => loadMode(mode));
 $("#open-demo").addEventListener("click", () => loadMode("demo"));
 $("#comparison-scope").addEventListener("click", () => { comparisonMode = "scope"; renderComparison(); });
+$("#comparison-dispute").addEventListener("click", () => { comparisonMode = "dispute"; renderComparison(); });
 $("#comparison-price").addEventListener("click", () => { comparisonMode = "price"; renderComparison(); });
 $("#comparison-copy").addEventListener("click", async () => {
   try {
@@ -274,6 +301,21 @@ $("#copy").addEventListener("click", async () => { try { await navigator.clipboa
 let agentReady = false;
 let agentBusy = false;
 
+function updateAgentQuestion() {
+  $("#agent-custom").hidden = $("#agent-case").value !== "custom";
+}
+
+function agentRequest() {
+  if ($("#agent-case").value !== "custom") return {case: $("#agent-case").value};
+  const question = $("#agent-question").value.trim();
+  if (question.length < 20 || question.length > 240 || /[\r\n\t]/.test(question)) {
+    throw new Error("Ask one question in 20 to 240 characters.");
+  }
+  return {question};
+}
+
+$("#agent-case").addEventListener("change", updateAgentQuestion);
+
 async function checkAgent() {
   try {
     const response = await fetch("/api/ask", {signal: AbortSignal.timeout(8000)});
@@ -292,10 +334,19 @@ async function checkAgent() {
 
 async function runAgent() {
   if (!agentReady || agentBusy) return;
+  let request;
+  try {
+    request = agentRequest();
+  } catch (error) {
+    $("#agent-status").textContent = error.message;
+    $("#agent-question").focus();
+    return;
+  }
   agentBusy = true;
   $("#agent-run").disabled = true;
   $("#comparison-run-online").disabled = true;
   $("#agent-case").disabled = true;
+  $("#agent-question").disabled = true;
   $("#agent-result").hidden = true;
   $("#agent-status").textContent = "Reading published Sanity sources and the Sourcebook…";
   const controller = new AbortController();
@@ -303,7 +354,7 @@ async function runAgent() {
   try {
     const response = await fetch("/api/ask", {
       method: "POST", headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({case: $("#agent-case").value}), signal: controller.signal,
+      body: JSON.stringify(request), signal: controller.signal,
     });
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || "The research run failed. Try again later.");
@@ -336,12 +387,14 @@ async function runAgent() {
     $("#agent-run").disabled = !agentReady;
     $("#comparison-run-online").disabled = !agentReady;
     $("#agent-case").disabled = false;
+    $("#agent-question").disabled = false;
   }
 }
 
 $("#agent-run").addEventListener("click", runAgent);
 $("#comparison-run-online").addEventListener("click", () => {
-  $("#agent-case").value = comparisonMode === "scope" ? "compare" : "price";
+  $("#agent-case").value = comparisonMode === "scope" ? "compare" : comparisonMode === "dispute" ? "dispute" : "price";
+  updateAgentQuestion();
   $("#agent-demo").scrollIntoView({behavior: "smooth", block: "start"});
   runAgent();
 });

@@ -1,16 +1,36 @@
-"""Hosted, fixed-question Sanity Context agent. No credentials reach the browser."""
+"""Hosted, scoped Sanity Context agent. No credentials reach the browser."""
 
 import asyncio
 from http.server import BaseHTTPRequestHandler
 import json
 import os
 from pathlib import Path
+import re
 import sys
 from urllib.parse import urlparse
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from agent import CASES, research_answer  # noqa: E402
 from scripts.model_config import missing_settings  # noqa: E402
+
+TOPIC = re.compile(r"\b(?:reserves?|stablecoins?|bitcoin|btc|kraken|pcaob|sec|crypto|audits?|solvency|solvent|liabilit(?:y|ies))\b", re.I)
+
+
+def question_from_body(body):
+    """Accept preset cases or one short, in-scope, single-line question."""
+    if not isinstance(body, dict):
+        raise ValueError("Choose a research question.")
+    if set(body) == {"case"} and type(body["case"]) is str and body["case"] in CASES:
+        return body["case"], CASES[body["case"]]
+    if set(body) != {"question"} or type(body["question"]) is not str:
+        raise ValueError("Choose a preset or enter one research question.")
+    raw = body["question"]
+    question = " ".join(raw.split())
+    if len(raw) > 240 or not 20 <= len(question) <= 240 or any(ord(c) < 32 for c in raw):
+        raise ValueError("Ask one question in 20 to 240 characters.")
+    if not TOPIC.search(question):
+        raise ValueError("Ask about the reserve, stablecoin or crypto evidence in this desk.")
+    return "custom", question
 
 
 def is_ready():
@@ -46,17 +66,16 @@ class handler(BaseHTTPRequestHandler):
             return
         try:
             length = int(self.headers.get("Content-Length", "0"))
-            if not 1 <= length <= 256:
-                raise ValueError("Request must contain one short case ID.")
+            if not 1 <= length <= 768:
+                raise ValueError("Request must contain one short question.")
             body = json.loads(self.rfile.read(length))
-            if not isinstance(body, dict) or set(body) != {"case"} or body["case"] not in CASES:
-                raise ValueError("Choose compare or price.")
-        except (ValueError, TypeError, json.JSONDecodeError):
-            self.respond(400, {"error": "Choose the compare or price research question."})
+            case, question = question_from_body(body)
+        except (ValueError, TypeError, json.JSONDecodeError) as error:
+            self.respond(400, {"error": str(error) or "Choose a research question."})
             return
         try:
-            result = asyncio.run(asyncio.wait_for(research_answer(CASES[body["case"]]), timeout=52))
-            self.respond(200, {"case": body["case"], **result})
+            result = asyncio.run(asyncio.wait_for(research_answer(question), timeout=52))
+            self.respond(200, {"case": case, **result})
         except TimeoutError:
             self.respond(504, {"error": "The agent took too long. Please try again."})
         except RuntimeError as error:

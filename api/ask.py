@@ -74,7 +74,7 @@ class handler(BaseHTTPRequestHandler):
             self.respond(400, {"error": str(error) or "Choose a research question."})
             return
         try:
-            result = asyncio.run(asyncio.wait_for(research_answer(question), timeout=52))
+            result = asyncio.run(asyncio.wait_for(research_answer(question), timeout=110))
             self.respond(200, {"case": case, **result})
         except TimeoutError:
             self.respond(504, {"error": "The agent took too long. Please try again."})

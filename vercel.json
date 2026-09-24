@@ -5,7 +5,7 @@
   "outputDirectory": "public",
   "functions": {
     "api/ask.py": {
-      "maxDuration": 60,
+      "maxDuration": 120,
       "excludeFiles": "{web/**,public/**,tests/**,data/**,sanity/**,node_modules/**}"
     }
   },

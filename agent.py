@@ -87,14 +87,17 @@ async def research_answer(question: str) -> dict:
     if knowledge_base_url:
         endpoints.append(("Sourcebook Knowledge Base", knowledge_base_url))
 
-    contexts = []
+    async def fetch_context(http, label, url):
+        response = await http.get(
+            initial_context_url(url), headers={"Authorization": f"Bearer {token}"}
+        )
+        response.raise_for_status()
+        return f"# {label}\n{response.text}"
+
     async with httpx.AsyncClient(timeout=30) as http:
-        for label, url in endpoints:
-            response = await http.get(
-                initial_context_url(url), headers={"Authorization": f"Bearer {token}"}
-            )
-            response.raise_for_status()
-            contexts.append(f"# {label}\n{response.text}")
+        contexts = await asyncio.gather(*(
+            fetch_context(http, label, url) for label, url in endpoints
+        ))
 
     instructions = (
         "You are a careful research colleague. Answer the question directly in one or "

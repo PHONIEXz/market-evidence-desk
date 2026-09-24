@@ -17,6 +17,17 @@ const safeDate = (value) => {
   return Number.isFinite(date.getTime()) ? date : null;
 };
 
+function cleanAgentAnswer(value) {
+  return value
+    // Models sometimes escape Markdown punctuation when returning plain text.
+    .replace(/\\([*_`-])/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/\*\*([^*\n]+)\*\*/g, "$1")
+    .replace(/__([^_\n]+)__/g, "$1")
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, "$1 ($2)")
+    .replace(/(^|\n)[ \t]*[-*][ \t]+/g, "$1• ");
+}
+
 let graph;
 let mode = "live";
 let briefText = "";
@@ -359,11 +370,8 @@ async function runAgent() {
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || "The research run failed. Try again later.");
     if (typeof result.answer !== "string" || !Array.isArray(result.tools)) throw new Error("The agent returned an incomplete answer.");
-    // Keep untrusted model output as text while removing common Markdown markers.
-    $("#agent-answer-text").textContent = result.answer
-      .replace(/^#{1,6}\s+/gm, "")
-      .replace(/\*\*([^*\n]+)\*\*/g, "$1")
-      .replace(/(^|\n)[ \t]*-[ \t]+/g, "$1• ");
+    // Keep untrusted model output as text while making plain-text answers readable.
+    $("#agent-answer-text").textContent = cleanAgentAnswer(result.answer);
     const tools = $("#agent-tools"); clear(tools);
     for (const name of result.tools) if (typeof name === "string") addText(tools, "span", name);
     const sources = $("#agent-sources"); clear(sources);

@@ -39,7 +39,7 @@ CASES = {
 # Read the complete small published evidence graph. This is executed through
 # Sanity Context, so the model never has to decide whether to fetch evidence.
 EVIDENCE_QUERY = (
-    '*[_type in ["marketEvent", "evidenceClaim", "source"]][0...40]'
+    '*[_type in ["marketEvent", "evidenceClaim", "source"]][0...100]'
     '{_id,_type,title,summary,text,stance,review,publishedAt,url,kind,notes,'
     '"source":source->{_id,title,url,publishedAt,kind,notes},'
     '"event":event->{_id,title,summary,review}}'

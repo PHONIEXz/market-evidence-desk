@@ -1,12 +1,12 @@
 // Public, read-only Sanity graph for a hosted research desk.
 const QUERY = `{
-  "events": *[_type == "marketEvent"] | order(observedAt desc)[0...20]{
+  "events": *[_type == "marketEvent"] | order(observedAt desc)[0...100]{
     "id": _id, title, summary, observedAt, review
   },
-  "sources": *[_type == "source"][0...100]{
-    "id": _id, title, url, publishedAt, kind
+  "sources": *[_type == "source"][0...200]{
+    "id": _id, title, url, publishedAt, kind, notes
   },
-  "claims": *[_type == "evidenceClaim"][0...100]{
+  "claims": *[_type == "evidenceClaim"][0...300]{
     "id": _id, "eventId": event._ref, "sourceId": source._ref,
     text, stance, observedAt, expiresAt
   }
@@ -31,7 +31,7 @@ export function normalizeGraph(result) {
       const url = new URL(item.url);
       return url.protocol === "https:" && Boolean(url.hostname) && !url.username && !url.password;
     } catch { return false; }
-  }).map((item) => pick(item, ["id", "title", "url", "publishedAt", "kind"]));
+  }).map((item) => pick(item, ["id", "title", "url", "publishedAt", "kind", "notes"]));
   const eventIds = new Set(events.map((item) => item.id));
   const sourceById = new Map(sources.map((item) => [item.id, item]));
   const claims = result.claims.filter((item) => {

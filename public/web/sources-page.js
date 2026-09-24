@@ -27,8 +27,9 @@ function render() {
     claims.set(claim.sourceId, [...(claims.get(claim.sourceId) || []), claim]);
   }
   const term = filter.trim().toLowerCase();
-  const visible = groups.filter(({source}) =>
-    !term || [source.title, source.url, source.kind].some((value) =>
+  const visible = groups.filter(({source, ids}) =>
+    !term || [source.title, source.url, source.kind, source.notes,
+      ...ids.flatMap((id) => (claims.get(id) || []).map((claim) => claim.text))].some((value) =>
       String(value || "").toLowerCase().includes(term)));
   $("#source-count").textContent = `${visible.length} of ${groups.length} original publications from ${sources.length} Sanity records`;
   $("#source-cards").replaceChildren();
@@ -44,6 +45,7 @@ function render() {
     title.target = "_blank";
     title.rel = "noopener noreferrer";
     add(card, "p", source.url, "source-url");
+    if (source.notes) add(card, "p", source.notes, "source-scope");
     const linked = ids.flatMap((id) => claims.get(id) || []);
     if (linked.length) {
       const list = add(card, "ul", "", "source-claim-list");

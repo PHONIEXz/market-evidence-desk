@@ -1,0 +1,187 @@
+[
+  {
+    "_id": "source-fdic-crypto-deposit-insurance-2022-07-28",
+    "_type": "source",
+    "title": "Fact Sheet: What the Public Needs to Know About FDIC Deposit Insurance and Crypto Companies",
+    "url": "https://www.fdic.gov/news/fact-sheets/crypto-fact-sheet-7-28-22.html",
+    "publishedAt": "2022-07-28T00:00:00Z",
+    "kind": "official",
+    "notes": "US FDIC consumer fact sheet. Deposit insurance covers qualifying deposits at insured banks when an insured bank fails; it does not insure crypto assets or protect against a nonbank crypto company's failure. Historical publication date, not a determination of a particular customer's account coverage."
+  },
+  {
+    "_id": "source-fsb-crypto-asset-recommendations-2023-07-17",
+    "_type": "source",
+    "title": "High-level Recommendations for the Regulation, Supervision and Oversight of Crypto-asset Activities and Markets: Final report",
+    "url": "https://www.fsb.org/2023/07/high-level-recommendations-for-the-regulation-supervision-and-oversight-of-crypto-asset-activities-and-markets-final-report/",
+    "publishedAt": "2023-07-17T00:00:00Z",
+    "kind": "official",
+    "notes": "FSB recommendations addressed to national authorities; these are high-level international recommendations, not directly applicable rules or evidence that a specific service provider complies."
+  },
+  {
+    "_id": "source-fsb-global-stablecoin-recommendations-2023-07-17",
+    "_type": "source",
+    "title": "High-level Recommendations for the Regulation, Supervision and Oversight of Global Stablecoin Arrangements: Final report",
+    "url": "https://www.fsb.org/2023/07/high-level-recommendations-for-the-regulation-supervision-and-oversight-of-global-stablecoin-arrangements-final-report/",
+    "publishedAt": "2023-07-17T00:00:00Z",
+    "kind": "official",
+    "notes": "FSB recommendations for authorities concerning global stablecoin arrangements, including disclosure and redemption. This is a proposed regulatory baseline, not proof any stablecoin offers those protections or a universal law."
+  },
+  {
+    "_id": "source-iosco-crypto-market-recommendations-2023-11-16",
+    "_type": "source",
+    "title": "Policy Recommendations for Crypto and Digital Asset Markets",
+    "url": "https://www.iosco.org/library/pubdocs/pdf/IOSCOPD747.pdf",
+    "publishedAt": "2023-11-16T00:00:00Z",
+    "kind": "official",
+    "notes": "IOSCO final policy recommendations; primary PDF may block some automated readers. FSB standards directory independently lists the date and six topic areas. Recommendations address regulators, not a finding that any exchange has safeguarded assets."
+  },
+  {
+    "_id": "source-fsb-crypto-implementation-review-2025-10-16",
+    "_type": "source",
+    "title": "Thematic Review on FSB Global Regulatory Framework for Crypto-asset Activities",
+    "url": "https://www.fsb.org/2025/10/thematic-review-on-fsb-global-regulatory-framework-for-crypto-asset-activities/",
+    "publishedAt": "2025-10-16T00:00:00Z",
+    "kind": "official",
+    "notes": "FSB review published October 2025 using information available as of August 2025. It finds material differences in implementation across jurisdictions; it is not a live registry of current national law."
+  },
+  {
+    "_id": "source-bis-anchoring-trust-money-2026-06-23",
+    "_type": "source",
+    "title": "III. Anchoring trust in money: innovation beyond stablecoins",
+    "url": "https://www.bis.org/publications/aer-2026/anchoring-trust-money",
+    "publishedAt": "2026-06-23T00:00:00Z",
+    "kind": "official",
+    "notes": "BIS 2026 Annual Economic Report chapter, analysis of monetary design and stablecoin redemption. It distinguishes money-like payment instruments from investment-style instruments; it does not evaluate a particular issuer's live reserves. Date is calendar-day precise."
+  },
+  {
+    "_id": "market-event-crypto-deposit-insurance-boundary-2026",
+    "_type": "marketEvent",
+    "title": "Does FDIC deposit insurance protect crypto balances at a platform?",
+    "summary": "US consumer protection question. The FDIC distinguishes insured bank deposits from crypto assets and the failure of a nonbank platform. The 2023 SEC staff alert similarly warns that customers of crypto asset entities may lack bank deposit or securities account protections. Coverage of a specific account requires checking its legal structure and the insured bank; these dated publications cannot decide it for you.",
+    "observedAt": "2026-09-24T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "market-event-crypto-custody-and-conflicts-2026",
+    "_type": "marketEvent",
+    "title": "What protections are relevant when a crypto platform holds customer assets?",
+    "summary": "A historical, cross-jurisdiction comparison of SEC investor education and international IOSCO and FSB recommendations. Asset segregation, custody controls, disclosure, and conflicts matter, but recommendations do not establish compliance by a specific platform or apply identically in every jurisdiction.",
+    "observedAt": "2026-09-24T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "market-event-global-stablecoin-redemption-2026",
+    "_type": "marketEvent",
+    "title": "What would make a stablecoin redeemable under stress?",
+    "summary": "The FSB's 2023 global stablecoin recommendations call for clear redemption rights and disclosures. BIS 2026 analysis distinguishes payment-like par redemption from instruments with fees or gates. These publications explain design and oversight; neither verifies that any named token will redeem at par today.",
+    "observedAt": "2026-09-24T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "market-event-global-crypto-standards-implementation-2026",
+    "_type": "marketEvent",
+    "title": "Do international crypto recommendations mean the same protections exist everywhere?",
+    "summary": "FSB and IOSCO set international regulatory baselines in 2023; the FSB's 2025 review found gaps and differences in national implementation using information as of August 2025. International recommendations are not the same as local law or platform-level verification.",
+    "observedAt": "2026-09-24T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-fdic-nonbank-crypto-failure-2022",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-crypto-deposit-insurance-boundary-2026"},
+    "source": {"_type": "reference", "_ref": "source-fdic-crypto-deposit-insurance-2022-07-28"},
+    "text": "The FDIC's July 2022 consumer fact sheet says deposit insurance does not insure crypto assets and does not protect against the failure of a nonbank crypto company. It covers qualifying deposits when an FDIC-insured bank fails, under applicable conditions; the fact sheet does not decide whether a particular customer's arrangement qualifies.",
+    "stance": "supports",
+    "observedAt": "2026-09-24T00:00:00Z"
+  },
+  {
+    "_id": "evidence-claim-sec-crypto-account-protection-2023",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-crypto-deposit-insurance-boundary-2026"},
+    "source": {"_type": "reference", "_ref": "source-sec-investor-alert-2023-03-23"},
+    "text": "The SEC Office of Investor Education and Advocacy's March 2023 staff alert distinguishes protection of bank deposits and registered broker-dealer accounts from accounts placed with crypto asset entities, for which the alert says there are no such protections. The alert is investor education, not a Commission rule or a decision about an individual account.",
+    "stance": "context",
+    "observedAt": "2026-09-24T00:00:00Z"
+  },
+  {
+    "_id": "evidence-claim-sec-registered-broker-custody-2023",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-crypto-custody-and-conflicts-2026"},
+    "source": {"_type": "reference", "_ref": "source-sec-investor-alert-2023-03-23"},
+    "text": "The SEC's 2023 investor education staff alert explains that registered broker-dealers have customer asset safeguarding and separation requirements, and warns that combining exchange, broker and custodial functions at crypto asset platforms can create conflicts. It does not certify any platform's compliance today.",
+    "stance": "supports",
+    "observedAt": "2026-09-24T00:00:00Z"
+  },
+  {
+    "_id": "evidence-claim-iosco-crypto-custody-recommendations-2023",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-crypto-custody-and-conflicts-2026"},
+    "source": {"_type": "reference", "_ref": "source-iosco-crypto-market-recommendations-2023-11-16"},
+    "text": "IOSCO's November 2023 international policy recommendations include custody and client asset protection, conflicts arising from combined activities, market abuse and retail distribution. These are recommendations to regulators, not direct proof of safety or a finding about an individual platform.",
+    "stance": "supports",
+    "observedAt": "2026-09-24T00:00:00Z"
+  },
+  {
+    "_id": "evidence-claim-fsb-multiple-platform-functions-2023",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-crypto-custody-and-conflicts-2026"},
+    "source": {"_type": "reference", "_ref": "source-fsb-crypto-asset-recommendations-2023-07-17"},
+    "text": "FSB Recommendation 9 calls on authorities to address the risks of crypto service providers combining multiple functions, including conflicts of interest and separation of functions where appropriate. Recommendation 7 calls for clear disclosures about operations, risks and financial condition. These are high-level recommendations rather than universal enacted rules.",
+    "stance": "context",
+    "observedAt": "2026-09-24T00:00:00Z"
+  },
+  {
+    "_id": "evidence-claim-fsb-stablecoin-rights-2023",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-global-stablecoin-redemption-2026"},
+    "source": {"_type": "reference", "_ref": "source-fsb-global-stablecoin-recommendations-2023-07-17"},
+    "text": "The FSB's 2023 Recommendations 8 and 9 call on authorities to require disclosures of redemption rights and stabilisation arrangements, a robust legal claim, timely redemption and, for single-fiat global stablecoins, redemption at par into fiat. A recommendation does not establish that every stablecoin currently meets these conditions.",
+    "stance": "supports",
+    "observedAt": "2026-09-24T00:00:00Z"
+  },
+  {
+    "_id": "evidence-claim-bis-redemption-design-2026",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-global-stablecoin-redemption-2026"},
+    "source": {"_type": "reference", "_ref": "source-bis-anchoring-trust-money-2026-06-23"},
+    "text": "The BIS's 2026 annual report chapter distinguishes money-like stablecoins designed for par redemption under all conditions from investment-style instruments that may allow redemption restrictions, fees or deviations from par. The BIS says design, reserve quality, liquidity arrangements and regulation affect which function a stablecoin can perform; this is analysis rather than an issuer audit.",
+    "stance": "context",
+    "observedAt": "2026-09-24T00:00:00Z"
+  },
+  {
+    "_id": "evidence-claim-sec-covered-stablecoin-limited-category-2025",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-global-stablecoin-redemption-2026"},
+    "source": {"_type": "reference", "_ref": "source-sec-staff-stablecoins-2025-04-04"},
+    "text": "The April 2025 SEC Division of Corporation Finance staff statement discusses a defined class of Covered Stablecoins and conditions including specified reserve assets and redemption. It is a US staff view about that category, not a universal standard for all stablecoins or an independent verification of redemption under stress.",
+    "stance": "context",
+    "observedAt": "2026-09-24T00:00:00Z"
+  },
+  {
+    "_id": "evidence-claim-fsb-international-baseline-2023",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-global-crypto-standards-implementation-2026"},
+    "source": {"_type": "reference", "_ref": "source-fsb-crypto-asset-recommendations-2023-07-17"},
+    "text": "The FSB's July 2023 crypto market recommendations are addressed to financial authorities and provide flexible objectives for national frameworks. They are an international baseline, not directly binding local rules or proof of protection in a given jurisdiction.",
+    "stance": "context",
+    "observedAt": "2026-09-24T00:00:00Z"
+  },
+  {
+    "_id": "evidence-claim-fsb-global-stablecoin-baseline-2023",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-global-crypto-standards-implementation-2026"},
+    "source": {"_type": "reference", "_ref": "source-fsb-global-stablecoin-recommendations-2023-07-17"},
+    "text": "The FSB's separate 2023 global stablecoin recommendations address regulators in different jurisdictions and leave room for implementation under local mandates. Their publication alone does not mean a single uniform set of protections was enacted worldwide.",
+    "stance": "context",
+    "observedAt": "2026-09-24T00:00:00Z"
+  },
+  {
+    "_id": "evidence-claim-fsb-uneven-global-implementation-2025",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-global-crypto-standards-implementation-2026"},
+    "source": {"_type": "reference", "_ref": "source-fsb-crypto-implementation-review-2025-10-16"},
+    "text": "In an October 2025 review based on information through August 2025, the FSB reported progress but substantial gaps and inconsistencies in implementing its crypto and global stablecoin recommendations across jurisdictions. The review is a dated implementation snapshot and cannot certify today's legal status in a country.",
+    "stance": "supports",
+    "observedAt": "2026-09-24T00:00:00Z"
+  }
+]

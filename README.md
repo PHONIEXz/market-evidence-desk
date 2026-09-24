@@ -77,8 +77,9 @@ file or its token values.
 
 ### Bring the Sourcebook up to date
 
-The public dataset now has Kraken and PCAOB records, but the last confirmed
-Knowledge Base build predates those additions. In the Sanity Dashboard, open
+The previously confirmed Knowledge Base rebuild includes the early reserve
+and stablecoin comparison records. The new global protection bundle below
+requires another check and rebuild. In the Sanity Dashboard, open
 **Context → Market Evidence Desk Sourcebook** (`kbu9WNgZ9ocF`), use **Check for
 changes**, inspect the detected source changes, and apply the resulting review
 issues. Verify that the resulting entries cite the published SEC, PCAOB, and
@@ -154,6 +155,35 @@ remain untouched. This command creates content only; the schema and Studio do
 not need a new build.
 
 The seeded evidence claim was checked against the linked [March 23, 2023 SEC alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities), specifically its proof-of-reserves discussion. It remains historical guidance and needs a human review decision in this project.
+
+### Global investor protection research bundle
+
+`sanity/seed/global-investor-protections.json` prepares **21 new linked records**:
+six dated primary publications, four research questions, and eleven evidence
+claims. The topics are US deposit insurance and nonbank failures, custody and
+conflicts, stablecoin redemption, and the difference between international
+recommendations and local implementation. It uses FDIC, SEC, IOSCO, FSB, and
+BIS publications. A source's scope note explains its authority and limits;
+every new question remains `needs-human-review`.
+
+Validate the links and dates before importing, then review each claim against
+its original publication in Studio. The validation checks structural integrity;
+it is not an independent fact check. From the project root, with your existing
+Sanity login:
+
+```bash
+python3 scripts/validate_seed.py
+npx sanity documents create sanity/seed/global-investor-protections.json --missing --project-id cxjysvlq --dataset production
+```
+
+Confirm the four new questions and their source links on the public research
+desk. Then open **Context → Market Evidence Desk Sourcebook**, check for
+changes, rebuild or apply updates as indicated there, inspect the generated
+entries and Issues, and only approve material after a human checks the text.
+The hosted dataset graph changes after import; Sourcebook entries and AI answers
+can lag until the Knowledge Base is rebuilt. Studio code and schema do not need
+another deploy for content-only imports. Historical and international documents
+cannot establish today's coverage, solvency, or a country's current law.
 
 ## Public read-only desk
 

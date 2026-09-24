@@ -9,7 +9,8 @@ import {disagreementFromGraph} from "../web/disagreement.js";
 const root = JSON.parse(readFileSync(new URL("../sanity/seed/sec-investor-alert.json", import.meta.url)));
 const additional = JSON.parse(readFileSync(new URL("../sanity/seed/proof-of-reserves-scope.json", import.meta.url)));
 const dispute = JSON.parse(readFileSync(new URL("../sanity/seed/stablecoin-reserve-disagreement.json", import.meta.url)));
-const docs = [...root, ...additional, ...dispute];
+const global = JSON.parse(readFileSync(new URL("../sanity/seed/global-investor-protections.json", import.meta.url)));
+const docs = [...root, ...additional, ...dispute, ...global];
 const graph = {
   events: docs.filter((d) => d._type === "marketEvent").map((d) => ({...d, id: d._id})),
   sources: docs.filter((d) => d._type === "source").map((d) => ({...d, id: d._id})),
@@ -20,10 +21,12 @@ const graph = {
 
 test("published comparison keeps all linked and contextual claims", () => {
   const result = normalizeGraph(graph);
-  assert.equal(result.events.length, 3);
-  assert.equal(result.sources.length, 5);
-  assert.equal(result.claims.length, 7);
-  assert.equal(result.claims.filter((claim) => claim.stance === "context").length, 2);
+  assert.equal(result.events.length, 7);
+  assert.equal(result.sources.length, 11);
+  assert.equal(result.claims.length, 18);
+  assert.ok(result.claims.filter((claim) => claim.stance === "context").length >= 2);
+  assert.equal(result.events.filter((event) => event.review === "needs-human-review").length, 7);
+  assert.ok(result.sources.find((source) => source.id === "source-fsb-global-stablecoin-recommendations-2023-07-17").notes.includes("not proof"));
 });
 
 test("same-day disagreement retains both distinct speakers and the earlier context", () => {
@@ -83,8 +86,8 @@ test("unverifiable claims are removed before reaching a hosted browser", () => {
       {...graph.claims[0], id: "before-source", observedAt: "2020-01-01T00:00:00Z"},
     ],
   });
-  assert.equal(result.sources.length, 5);
-  assert.equal(result.claims.length, 7);
+  assert.equal(result.sources.length, 11);
+  assert.equal(result.claims.length, 18);
 });
 
 test("hosted graph route returns published data without credentials", async () => {
@@ -105,8 +108,8 @@ test("hosted graph route returns published data without credentials", async () =
   try {
     await handler({method: "GET"}, response);
     assert.equal(response.statusCode, 200);
-    assert.equal(body.claims.length, 7);
-    assert.equal(body.events.length, 3);
+    assert.equal(body.claims.length, 18);
+    assert.equal(body.events.length, 7);
   } finally {
     globalThis.fetch = originalFetch;
   }

@@ -6,7 +6,7 @@ import os
 import sys
 
 import httpx
-from agents import Agent, AsyncOpenAI, OpenAIChatCompletionsModel, Runner, set_tracing_disabled
+from agents import Agent, AsyncOpenAI, ModelSettings, OpenAIChatCompletionsModel, Runner, set_tracing_disabled
 from agents.mcp import MCPServerStreamableHttp, create_static_tool_filter
 from dotenv import load_dotenv
 from openai import InternalServerError
@@ -29,6 +29,28 @@ CASES = {
         "Use only the Sanity dataset and Sourcebook available to you."
     ),
 }
+
+# Read the complete small published evidence graph. This is executed through
+# Sanity Context, so the model never has to decide whether to fetch evidence.
+EVIDENCE_QUERY = (
+    '*[_type in ["marketEvent", "evidenceClaim", "source"]][0...40]'
+    '{_id,_type,title,summary,text,stance,review,publishedAt,url,kind,notes,'
+    '"source":source->{_id,title,url,publishedAt,kind,notes},'
+    '"event":event->{_id,title,summary,review}}'
+)
+
+
+def tool_text(result):
+    """Use only successful, nonempty MCP responses as evidence."""
+    if result.isError:
+        raise RuntimeError("The Sanity Context query failed.")
+    content = "\n".join(
+        block.text for block in result.content
+        if getattr(block, "type", None) == "text" and getattr(block, "text", None)
+    ).strip()
+    if not content:
+        raise RuntimeError("Sanity Context returned no published evidence.")
+    return content
 
 
 def resolve_question(arguments):
@@ -100,22 +122,56 @@ async def research_answer(question: str) -> dict:
     async def run_with_fresh_mcp(model_options):
         # A failed Runner.run can close MCP sessions; retries need new connections.
         async with AsyncExitStack() as mcp_stack:
-            servers = []
-            for label, url in endpoints:
-                server = await mcp_stack.enter_async_context(MCPServerStreamableHttp(
-                    name=label,
-                    params={"url": url, "headers": {"Authorization": f"Bearer {token}"}},
+            dataset = await mcp_stack.enter_async_context(MCPServerStreamableHttp(
+                name="structured dataset",
+                params={"url": dataset_url, "headers": {"Authorization": f"Bearer {token}"}},
+                client_session_timeout_seconds=30,
+            ))
+            published = tool_text(await dataset.call_tool("groq_query", {"query": EVIDENCE_QUERY}))
+            if "evidenceClaim" not in published or "source" not in published:
+                raise RuntimeError("Sanity Context returned no usable evidence graph.")
+
+            names = ["groq_query"]
+            sourcebook = "No Sourcebook Knowledge Base is configured."
+            if knowledge_base_url:
+                knowledge_base = await mcp_stack.enter_async_context(MCPServerStreamableHttp(
+                    name="Sourcebook Knowledge Base",
+                    params={"url": knowledge_base_url, "headers": {"Authorization": f"Bearer {token}"}},
                     client_session_timeout_seconds=30,
-                    tool_filter=create_static_tool_filter(blocked_tool_names=["initial_context"]),
+                    tool_filter=create_static_tool_filter(allowed_tool_names=["knowledge_base_read"]),
                 ))
-                servers.append(server)
+                reader = Agent(
+                    name="Sourcebook reader",
+                    instructions=("Read the Sourcebook entries relevant to the question using "
+                                  "knowledge_base_read. Copy entry paths exactly from the "
+                                  "Sourcebook outline below; never invent paths. "
+                                  "After the tool returns, report the relevant content "
+                                  "and any missing or stale coverage.\n\n" + contexts[-1]),
+                    mcp_servers=[knowledge_base],
+                    model_settings=ModelSettings(tool_choice="required"),
+                    **model_options,
+                )
+                read = await Runner.run(reader, question, max_turns=4)
+                read_names = called_tools(read.new_items)
+                if not any(name.endswith("knowledge_base_read") for name in read_names):
+                    raise RuntimeError("Answer withheld: the agent did not call required Sanity tools: knowledge_base_read")
+                if not isinstance(read.final_output, str) or not read.final_output.strip():
+                    raise RuntimeError("The Sourcebook returned no readable evidence.")
+                sourcebook = read.final_output
+                names.extend(read_names)
+
             agent = Agent(
                 name="Market Evidence Desk",
-                instructions=instructions,
-                mcp_servers=servers,
+                instructions=instructions + "\nUse only the retrieved evidence supplied with the question; "
+                             "both Sanity tools were called before synthesis.",
                 **model_options,
             )
-            return await Runner.run(agent, question, max_turns=12)
+            result = await Runner.run(
+                agent, f"Question: {question}\n\n# Published Sanity evidence graph\n{published}"
+                       f"\n\n# Sourcebook entries read through knowledge_base_read\n{sourcebook}",
+                max_turns=2,
+            )
+            return result, names
 
     async with AsyncExitStack() as client_stack:
         model_options = {}
@@ -130,7 +186,7 @@ async def research_answer(question: str) -> dict:
                 model=credentials[2], openai_client=client
             )
         try:
-            result = await run_with_fresh_mcp(model_options)
+            result, names = await run_with_fresh_mcp(model_options)
         except InternalServerError as error:
             if credentials[0] != "gemini" or error.status_code != 503:
                 raise
@@ -141,7 +197,7 @@ async def research_answer(question: str) -> dict:
                     model=alternative, openai_client=client
                 )}
                 try:
-                    result = await run_with_fresh_mcp(alternative_options)
+                    result, names = await run_with_fresh_mcp(alternative_options)
                 except InternalServerError as fallback_error:
                     if fallback_error.status_code != 503:
                         raise
@@ -154,7 +210,6 @@ async def research_answer(question: str) -> dict:
                     "Gemini is temporarily overloaded. Try again later or change "
                     "GEMINI_MODEL in .env."
                 ) from None
-        names = called_tools(result.new_items)
         missing = missing_retrievals(names, require_knowledge_base=bool(knowledge_base_url))
         if missing:
             raise RuntimeError("Answer withheld: the agent did not call required Sanity tools: " + ", ".join(missing))

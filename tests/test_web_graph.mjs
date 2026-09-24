@@ -52,13 +52,23 @@ test("guided comparison requires all three distinct dated linked claims", () => 
   assert.equal(comparisonFromGraph(normalizeGraph(graph), earlier), null);
 });
 
-test("the hosted page provides every required element before app.js runs", () => {
-  const html = readFileSync(new URL("../web/index.html", import.meta.url), "utf8");
-  const script = readFileSync(new URL("../web/app.js", import.meta.url), "utf8");
-  const ids = new Set([...html.matchAll(/\bid="([\w-]+)"/g)].map((match) => match[1]));
-  const selectors = [...script.matchAll(/\$\("#([\w-]+)"\)/g)].map((match) => match[1]);
-  for (const id of selectors) assert.ok(ids.has(id), `Missing #${id} in web/index.html`);
-  assert.ok(html.includes('src="/web/app.js" type="module"'));
+test("each public page includes the elements used by its page script", () => {
+  for (const [page, scriptName] of [
+    ["research", "research.js"],
+    ["compare", "compare-page.js"],
+    ["sources", "sources-page.js"],
+    ["agent", "agent-page.js"],
+  ]) {
+    const html = readFileSync(new URL(`../web/${page}.html`, import.meta.url), "utf8");
+    const script = readFileSync(new URL(`../web/${scriptName}`, import.meta.url), "utf8");
+    const ids = new Set([...html.matchAll(/\bid="([\w-]+)"/g)].map((match) => match[1]));
+    const selectors = [...script.matchAll(/\$\("#([\w-]+)"\)/g)].map((match) => match[1]);
+    for (const id of selectors) assert.ok(ids.has(id), `Missing #${id} in web/${page}.html`);
+    assert.ok(html.includes(`src="/web/${scriptName}" type="module"`));
+    assert.ok(html.includes('src="/web/site.js" type="module"'));
+  }
+  const config = JSON.parse(readFileSync(new URL("../vercel.json", import.meta.url), "utf8"));
+  assert.ok(config.rewrites.some(({source, destination}) => source === "/" && destination === "/web/index.html"));
   assert.equal(evidenceHandler, handler);
 });
 

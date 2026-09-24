@@ -2,6 +2,8 @@
 
 An early working slice for the DEV Sanity Challenge, Path One: an AI research agent that queries real structured content and a Knowledge Base. This project is deliberately **research only**: no wallet, keys, orders, price predictions, or live trading.
 
+The permanent scope lock and finish checklist are in [PROJECT_SCOPE.md](PROJECT_SCOPE.md). Use it before adding new work so the contest build stays focused.
+
 ## Start here: three-minute walkthrough
 
 1. Open the [public research-desk preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) and read **How it works**. The published view loads sources, questions, and claims from Sanity; **Fictional demo** is a separate illustration.
@@ -158,7 +160,18 @@ The seeded evidence claim was checked against the linked [March 23, 2023 SEC ale
 
 ## Public read-only desk
 
-The [feature preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) is the current walkthrough. The root page is served from `web/`; `/api/evidence` reads the published Sanity dataset through a same-origin, read-only Vercel Function. No Gemini or Sanity organization token is sent to a visitor's browser. The separate [Sanity Studio](https://phoniex-market-evidence-desk.sanity.studio/) is for editors.
+The [feature preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) is the current walkthrough. The root landing page and five focused pages are served from `web/`. The pages are:
+
+| Page | Purpose |
+| --- | --- |
+| `/` | Project overview and navigation |
+| `/web/research.html` | Published questions, linked claims, timeline, and draft brief |
+| `/web/compare.html` | Source comparison, disagreement, and evidence coverage |
+| `/web/sources.html` | Searchable source records with linked claims |
+| `/web/agent.html` | Hosted Sanity Context agent and tool receipts |
+| `/web/method.html` | Source, claim, review, and answer workflow |
+
+`/api/evidence` reads the published Sanity dataset through a same-origin, read-only Vercel Function; `/api/ask` runs the scoped agent. The public build copies the pages and their scripts into `public/web/`. No Gemini or Sanity organization token is sent to a visitor's browser. The separate [Sanity Studio](https://phoniex-market-evidence-desk.sanity.studio/) is for editors.
 
 ```bash
 npm run web:build

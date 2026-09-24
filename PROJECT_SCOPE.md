@@ -61,8 +61,9 @@ without a new scope decision.
 - Stablecoin reserve-backing disagreement material, including both dated
   perspectives.
 - A 21-record global investor protections bundle has been prepared and
-  structurally validated. It must be imported into Sanity and reviewed before
-  the website or Sourcebook can present it as published material.
+  structurally validated. The feature preview displays its four new research
+  questions and six new original publications. Human and Sourcebook review
+  remain outstanding.
 - Sourcebook Knowledge Base `kbu9WNgZ9ocF`, rebuilt successfully. The current
   outline visibly includes stablecoin regulation and proof-of-reserves topics.
 - Context MCP endpoint and the Python research agent.
@@ -80,8 +81,8 @@ without a new scope decision.
 
 ### 1. Final Sourcebook review
 
-- Import `sanity/seed/global-investor-protections.json` after checking the
-  original FDIC, SEC, FSB, IOSCO and BIS publications against each claim.
+- Check the original FDIC, SEC, FSB, IOSCO and BIS publications against each
+  claim in the imported global investor protection bundle.
 - Check that the four new questions keep `needs-human-review`; verify public
   Sanity results and the research/source pages after import.
 - Check changes and rebuild the Sourcebook for the new 21 records; inspect

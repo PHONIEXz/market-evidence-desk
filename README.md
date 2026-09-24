@@ -158,7 +158,7 @@ The seeded evidence claim was checked against the linked [March 23, 2023 SEC ale
 
 ### Global investor protection research bundle
 
-`sanity/seed/global-investor-protections.json` prepares **21 new linked records**:
+`sanity/seed/global-investor-protections.json` contains **21 linked records**:
 six dated primary publications, four research questions, and eleven evidence
 claims. The topics are US deposit insurance and nonbank failures, custody and
 conflicts, stablecoin redemption, and the difference between international
@@ -166,18 +166,21 @@ recommendations and local implementation. It uses FDIC, SEC, IOSCO, FSB, and
 BIS publications. A source's scope note explains its authority and limits;
 every new question remains `needs-human-review`.
 
-Validate the links and dates before importing, then review each claim against
-its original publication in Studio. The validation checks structural integrity;
-it is not an independent fact check. From the project root, with your existing
-Sanity login:
+The feature preview now displays seven published research questions and eleven
+distinct original publications, including the four new questions and six new
+sources. The Sourcebook build and generated entries still need checking.
+For a fresh dataset, validate links and dates before importing, then review
+each claim against its original publication in Studio. The validation checks
+structural integrity; it is not an independent fact check. From the project
+root, with your existing Sanity login:
 
 ```bash
 python3 scripts/validate_seed.py
 npx sanity documents create sanity/seed/global-investor-protections.json --missing --project-id cxjysvlq --dataset production
 ```
 
-Confirm the four new questions and their source links on the public research
-desk. Then open **Context → Market Evidence Desk Sourcebook**, check for
+After importing to a fresh dataset, confirm the four new questions and their
+source links on the public research desk. Then open **Context → Market Evidence Desk Sourcebook**, check for
 changes, rebuild or apply updates as indicated there, inspect the generated
 entries and Issues, and only approve material after a human checks the text.
 The hosted dataset graph changes after import; Sourcebook entries and AI answers

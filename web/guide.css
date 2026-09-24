@@ -605,6 +605,13 @@
 .brand strong { font-size: 13px; }
 .brand small { font-size: 12px; color: #b3c3c9; }
 .header-actions, .site-footer { font-size: 12px; color: #b3c3c9; }
+.hero-card-bottom, .hero-card-top .mono, .status-chip,
+.demo-path-links span, .answer-source span { font-size: 12px; color: #c0d0d7; }
+.status-chip { color: var(--mint); }
+.search-box input::placeholder, .agent-custom textarea::placeholder {
+  color: #b6c8d0;
+  opacity: 1;
+}
 .button-primary, .button-quiet { font-size: 14px; line-height: 1.4; }
 
 .question-panel > p,

@@ -189,13 +189,9 @@ The endpoint is **off by default**. To switch it on, set `AGENT_DEMO_ENABLED=1`,
 - A rebuilt Sourcebook containing the SEC page and Sanity dataset source, including newer stablecoin and reserve topics; generated entries still require human review.
 - Deployed Sanity document schemas for sources, events, evidence claims, and briefs.
 
-## Next integration steps
+## Before submission
 
-1. Review the published claim and the generated Knowledge Base entries against the source. Never present the demo examples or the 2023 alert as current news.
-2. Review the imported multi-source comparison and the new same-day stablecoin reserve disagreement in Studio, refresh the Sourcebook, and repeat the agent check against both dated perspectives. Capture the exact tool names and final response for the demo.
-3. The corrected root-level seed documents are public and the scoped read is wired into the local desk. Add a reviewed `researchBrief` approval transition before publishing or sharing briefs automatically. Recheck Knowledge Base entries now that the new documents have been added to avoid duplicated evidence.
-4. Record a Sanity Challenge demo showing the research workflow and, when sourced, a genuinely conflicting evidence case. The currently published proof-of-reserves comparison contains support and context; it does not yet contain a conflicting claim.
-5. For DEV's Sanity Challenge Path One, submit a DEV post with `#sanitychallenge`, the Sanity project ID, working demo, code, and an honest account of the agent's use of Context MCP. Deadline: October 4, 2026, 11:59 PM PDT. Entrants must meet the contest's age and other eligibility rules.
+The [judge walkthrough and verification list](DEMO_WALKTHROUGH.md) tracks the remaining release work. Review Sourcebook Issues and entries, verify all three hosted agent cases with actual URLs and tool receipts, check the mobile layout, then submit the [DEV post draft](SUBMISSION.md). The agent is server-configured and model/network latency can still interrupt a run; record only outcomes verified on the final deployed URL.
 
 ## Design guardrails
 

@@ -45,6 +45,27 @@ EVIDENCE_QUERY = (
     '"event":event->{_id,title,summary,review}}'
 )
 
+CASE_EVENT_IDS = {
+    "compare": "market-event-proof-of-reserves-scope-question-2023",
+    "dispute": "market-event-stablecoin-reserve-assurance-question-2025",
+    "price": "market-event-sec-proof-of-reserves-question-2023",
+}
+
+
+def evidence_query(question: str) -> str:
+    """Keep preset cases small while following their claim -> source links."""
+    case = next((name for name, prompt in CASES.items() if prompt == question), None)
+    if not case:
+        return EVIDENCE_QUERY
+    event_id = CASE_EVENT_IDS[case]
+    return (
+        '*[_type in ["marketEvent", "evidenceClaim"] && '
+        f'(_id == "{event_id}" || event._ref == "{event_id}")][0...20]'
+        '{_id,_type,title,summary,text,stance,review,publishedAt,url,kind,notes,'
+        '"source":source->{_id,title,url,publishedAt,kind,notes},'
+        '"event":event->{_id,title,summary,review}}'
+    )
+
 
 def tool_text(result):
     """Use only successful, nonempty MCP responses as evidence."""
@@ -130,7 +151,7 @@ async def research_answer(question: str) -> dict:
                 params={"url": dataset_url, "headers": {"Authorization": f"Bearer {token}"}},
                 client_session_timeout_seconds=30,
             ))
-            published = tool_text(await dataset.call_tool("groq_query", {"query": EVIDENCE_QUERY}))
+            published = tool_text(await dataset.call_tool("groq_query", {"query": evidence_query(question)}))
             if "evidenceClaim" not in published or "source" not in published:
                 raise RuntimeError("Sanity Context returned no usable evidence graph.")
 

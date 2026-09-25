@@ -1,0 +1,59 @@
+name: Render Market Evidence Desk Brag
+
+on:
+  push:
+    branches:
+      - feat/brag-market-evidence-desk
+    paths:
+      - .github/workflows/render-brag.yml
+      - 'brag-output/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+      - name: Ensure local render browser
+        run: npx --yes hyperframes@0.8.73 browser ensure
+        working-directory: brag-output/composition
+      - name: Install composition dependencies
+        run: npm ci --no-audit --no-fund
+        working-directory: brag-output/composition
+      - name: Check composition and render video
+        run: |
+          npm run check
+          npm run render -- --skill brag --fps 30 --workers 1 --low-memory-mode --quality looks --output ../brag.mp4
+        working-directory: brag-output/composition
+      - name: Pick poster and bake into first frame
+        run: |
+          ffmpeg -hide_banner -loglevel error -y -ss 2.4 -i brag.mp4 -frames:v 1 brag.jpg
+          ffmpeg -hide_banner -loglevel error -y -i brag.mp4 -i brag.jpg \
+            -filter_complex "[0:v][1:v]overlay=0:0:enable='eq(n,0)'[v]" \
+            -map "[v]" -map 0:a? -c:v libx264 -crf 18 -preset medium \
+            -pix_fmt yuv420p -c:a copy -movflags +faststart brag.poster.mp4
+          mv brag.poster.mp4 brag.mp4
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 brag.mp4
+        working-directory: brag-output
+      - uses: actions/upload-artifact@v4
+        with:
+          name: market-evidence-desk-brag
+          path: |
+            brag-output/brag.mp4
+            brag-output/brag.jpg
+            brag-output/share-copy.txt
+            brag-output/brag-plan.md
+            brag-output/composition-brief.md
+          if-no-files-found: error
+          retention-days: 7

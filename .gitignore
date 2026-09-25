@@ -1,6 +1,13 @@
 node_modules/
 .sanity/
 dist/
+brag-output/brag.mp4
+brag-output/brag.jpg
+brag-output/composition/renders/
+brag-output/composition/.hyperframes/
+brag-output/composition/assets/vendor/
+brag-output/composition/assets/music/*.mp3
+brag-output/composition/assets/music/*.wav
 public/
 .env
 .env.*

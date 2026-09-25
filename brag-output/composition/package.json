@@ -1,0 +1,15 @@
+{
+  "name": "composition",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "gsap": "3.14.2"
+  },
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.73 preview",
+    "prepare-assets": "mkdir -p assets/vendor && cp node_modules/gsap/dist/gsap.min.js assets/vendor/gsap.min.js && python3 assets/music/generate_bed.py && ffmpeg -hide_banner -loglevel error -y -i assets/music/market-evidence-bed.wav -codec:a libmp3lame -b:a 128k assets/music/market-evidence-bed.mp3 && rm assets/music/market-evidence-bed.wav",
+    "check": "npm run prepare-assets && npx --yes hyperframes@0.8.73 check",
+    "render": "npm run prepare-assets && npx --yes hyperframes@0.8.73 render",
+    "publish": "npx --yes hyperframes@0.8.73 publish"
+  }
+}

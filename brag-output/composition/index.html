@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280,height=720">
+  <title>Market Evidence Desk · Research with receipts</title>
+  <script src="assets/vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 1280px; height: 720px; margin: 0; overflow: hidden; background: #0a1019; }
+    body { color: #f2f5f6; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    #main { position: relative; width: 1280px; height: 720px; overflow: hidden; isolation: isolate;
+      background: radial-gradient(circle at 7% 0%, #173a3b 0%, transparent 38%),
+                  radial-gradient(circle at 93% 10%, #1b283f 0%, transparent 40%), #0a1019; }
+    .clip { position: absolute; inset: 0; overflow: hidden; }
+    .scene { padding: 52px 74px 47px; }
+    .line { height: 1px; background: #273646; }
+    .accent { color: #83e5c5; }
+    .muted { color: #91a1b1; }
+    .upper { text-transform: uppercase; letter-spacing: .18em; font-size: 14px; font-weight: 760; }
+    .label { color: #83e5c5; text-transform: uppercase; letter-spacing: .17em; font-size: 13px; font-weight: 770; }
+    .small { color: #91a1b1; font-size: 16px; line-height: 1.5; }
+    .brand { display: flex; align-items: center; gap: 15px; }
+    .brand svg { width: 49px; height: 49px; flex: none; }
+    .brand strong { display: block; font-size: 16px; letter-spacing: .17em; }
+    .brand small { color: #91a1b1; font-size: 12px; letter-spacing: .06em; }
+    .brandline { position: relative; display: flex; justify-content: space-between; align-items: center; }
+    .brandline .upper { color: #d0ad70; font-size: 11px; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: 83px; line-height: 1.11; font-weight: 700; letter-spacing: -.067em; }
+    h2 { font-size: 55px; line-height: 1.12; font-weight: 680; letter-spacing: -.06em; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 7px; padding: 8px 11px;
+      background: #1a3440; color: #83e5c5; letter-spacing: .12em; font-size: 10px; font-weight: 800; }
+    .pill:before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #83e5c5; }
+    .panel { background: #121c28; border: 1px solid #30404c; border-radius: 20px;
+      box-shadow: 0 30px 85px rgba(0,0,0,.20); }
+    .foot { position: absolute; bottom: 44px; left: 74px; right: 74px; display: flex; align-items: center;
+      justify-content: space-between; color: #66808d; letter-spacing: .16em; font-weight: 750; font-size: 10px; }
+    .foot .line { flex: 1; margin: 0 20px; }
+    #hook { display: flex; flex-direction: column; justify-content: center; }
+    #hook .brand { position: absolute; top: 56px; left: 74px; }
+    #hook-kicker { margin-top: 8px; color: #e9bd70; }
+    #hook-title { margin-top: 26px; max-width: 1100px; }
+    #hook-rule { margin-top: 36px; width: 450px; height: 2px; background: #83e5c5; transform-origin: left; }
+    #hook-under { margin-top: 22px; font-size: 23px; color: #bdc8d1; }
+    .scene-heading { margin-top: 49px; }
+    .scene-heading h2 { margin-top: 15px; }
+    .scene-heading p { margin-top: 16px; max-width: 850px; }
+    #desk .scene-heading { margin-top: 36px; }
+    #desk .scene-heading h2 { font-size: 45px; }
+    .desk-card { margin-top: 32px; display: grid; grid-template-columns: .9fr 1.2fr; gap: 16px; }
+    .question { padding: 24px 27px; height: 291px; }
+    .question .panel-tag { display: flex; justify-content: space-between; align-items: center; }
+    .question .panel-tag span:last-child { color: #e9bd70; font-size: 10px; letter-spacing: .15em; }
+    .question h3 { margin-top: 29px; font-size: 28px; line-height: 1.27; letter-spacing: -.04em; }
+    .question .state { margin-top: 25px; padding-top: 16px; border-top: 1px solid #273646;
+      display: flex; justify-content: space-between; color: #91a1b1; font-size: 12px; }
+    .evidence { padding: 23px 27px; height: 291px; }
+    .evidence .top { display: flex; justify-content: space-between; align-items: center; }
+    .evidence h3 { font-size: 23px; letter-spacing: -.035em; }
+    .evidence .row { border-top: 1px solid #273646; padding: 15px 0 10px; }
+    .evidence .row.first { margin-top: 18px; }
+    .row span { display: inline-block; padding: 5px 7px; background: #1d3336; color: #83e5c5;
+      border-radius: 5px; font-size: 10px; font-weight: 800; letter-spacing: .08em; }
+    .row span.context { color: #b8b7e7; background: #29293c; }
+    .row b { display: block; margin-top: 8px; font-weight: 580; font-size: 15px; color: #d8e4e7; }
+    .evidence .source-link { color: #83e5c5; font-size: 12px; font-weight: 650; }
+    #compare .scene-heading { margin-top: 37px; }
+    #compare .scene-heading h2 { font-size: 53px; }
+    .compare-grid { margin-top: 38px; display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+    .scope { padding: 27px 28px; height: 225px; }
+    .scope .num { font: 14px ui-monospace, monospace; color: #7395a0; }
+    .scope h3 { margin-top: 21px; font-size: 30px; letter-spacing: -.04em; }
+    .scope p { margin-top: 10px; color: #bdc8d1; font-size: 17px; line-height: 1.35; }
+    #compare-conclusion { display: flex; justify-content: space-between; align-items: center;
+      margin-top: 20px; padding: 13px 18px; border-left: 3px solid #e9bd70;
+      color: #e9bd70; background: #27261f; font-size: 16px; }
+    #compare-conclusion span { color: #b7b2a0; font-size: 14px; }
+    #atlas .scene-heading { margin-top: 35px; }
+    #atlas .scene-heading h2 { max-width: 850px; }
+    .atlas-card { margin-top: 29px; padding: 24px 28px 26px; }
+    .atlas-card-head { display: flex; justify-content: space-between; align-items: center; }
+    .atlas-card-head strong { font-size: 22px; }
+    .atlas-card-head span { color: #e9bd70; font-size: 11px; letter-spacing: .12em; }
+    .atlas-path { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .atlas-step { min-height: 120px; padding: 17px; background: #172432; border: 1px solid #30404c; border-radius: 10px; }
+    .atlas-step b { display: block; font-size: 18px; }
+    .atlas-step small { display: block; margin-top: 9px; color: #9baeb8; font-size: 13px; line-height: 1.3; }
+    .atlas-note { margin-top: 14px; font-size: 13px; color: #e9bd70; }
+    #outro { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+    #outro-mark svg { width: 95px; height: 95px; }
+    #outro-title { margin-top: 18px; font-size: 47px; letter-spacing: -.045em; }
+    #outro-tag { margin-top: 12px; font-size: 27px; color: #83e5c5; }
+    #outro-rule { width: 385px; height: 1px; background: #36505b; margin-top: 37px; }
+    #outro-boundary { margin-top: 22px; color: #e9bd70; font-size: 18px; }
+    #outro-note { margin-top: 13px; color: #91a1b1; font-size: 13px; letter-spacing: .055em; }
+  </style>
+</head>
+<body>
+  <div id="main" data-composition-id="main" data-start="0" data-duration="21" data-width="1280" data-height="720">
+    <section class="clip scene" id="hook" data-start="0" data-duration="3.2" data-track-index="0">
+      <div class="brand" id="hook-brand"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="13" fill="#10262f" stroke="#3d756d"/><circle cx="24" cy="24" r="17" fill="none" stroke="#57998b"/><path d="M13 32 24 15 35 29" fill="none" stroke="#f0d398" stroke-width="2.4" stroke-linejoin="round"/><circle cx="13" cy="32" r="3" fill="#83e5c5"/><circle cx="24" cy="15" r="3" fill="#f0d398"/><circle cx="35" cy="29" r="3" fill="#83e5c5"/></svg><div><strong>MARKET EVIDENCE</strong><small>Research with receipts</small></div></div>
+      <p class="upper" id="hook-kicker">SOURCE-LINKED RESEARCH</p>
+      <h1 id="hook-title">Make the claim.<br><span class="accent">Show the receipt.</span></h1>
+      <div id="hook-rule"></div>
+      <p id="hook-under">Evidence, with the missing pieces left visible.</p>
+      <div class="foot"><span>PUBLISHED EVIDENCE</span><div class="line"></div><span>01 / 05</span></div>
+    </section>
+    <section class="clip scene" id="desk" data-start="3.2" data-duration="4.3" data-track-index="1">
+      <div class="brandline"><div class="brand"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="13" fill="#10262f" stroke="#3d756d"/><path d="M13 32 24 15 35 29" fill="none" stroke="#f0d398" stroke-width="2.4"/><circle cx="13" cy="32" r="3" fill="#83e5c5"/><circle cx="24" cy="15" r="3" fill="#f0d398"/><circle cx="35" cy="29" r="3" fill="#83e5c5"/></svg><div><strong>MARKET EVIDENCE</strong><small>Research desk</small></div></div><span class="upper">01 / INSPECT</span></div>
+      <div class="scene-heading" id="desk-heading"><span class="label">RESEARCH DESK</span><h2>Read the question before<br>you read the answer.</h2></div>
+      <div class="desk-card"><div class="panel question" id="desk-question"><div class="panel-tag"><span class="pill">PUBLISHED EVIDENCE</span><span>AS OF / DATED</span></div><h3>What does a reserve snapshot actually prove?</h3><div class="state"><span>Choose a research question</span><span class="accent">Inspect linked claims ↗</span></div></div>
+      <div class="panel evidence" id="desk-evidence"><div class="top"><h3>Linked evidence</h3><span class="muted upper" style="font-size:10px">SOURCE TRAIL</span></div><div class="row first"><span>SUPPORTS</span><b>A dated claim with a primary publication</b></div><div class="row"><span class="context">CONTEXT</span><b>Scope and review status stay visible</b></div><div class="source-link">Open original publication ↗</div></div></div>
+      <div class="foot"><span>QUESTION → CLAIM → SOURCE</span><div class="line"></div><span>02 / 05</span></div>
+    </section>
+    <section class="clip scene" id="compare" data-start="7.5" data-duration="4.5" data-track-index="2">
+      <div class="brandline"><span class="label">02 / COMPARE EVIDENCE</span><span class="upper">PUBLISHED SANITY SOURCE TRAIL</span></div>
+      <div class="scene-heading" id="compare-heading"><h2>Same question.<br><span class="accent">Different kinds of proof.</span></h2><p class="small">What can a customer check in a proof-of-reserves snapshot?</p></div>
+      <div class="compare-grid"><div class="panel scope" id="scope-left"><span class="num">01 / CUSTOMER VIEW</span><h3>Inclusion</h3><p>Can a customer check their account in a snapshot?</p></div><div class="panel scope" id="scope-right"><span class="num">02 / BROADER QUESTION</span><h3>Liabilities</h3><p>Does that establish an exchange's overall position?</p></div></div>
+      <div id="compare-conclusion"><strong>Scope matters.</strong><span>Read the original publications ↗</span></div>
+      <div class="foot"><span>COMPARE WHAT EACH SOURCE CAN SUPPORT</span><div class="line"></div><span>03 / 05</span></div>
+    </section>
+    <section class="clip scene" id="atlas" data-start="12" data-duration="4.8" data-track-index="3">
+      <div class="brandline"><span class="label">EVIDENCE ATLAS / GUIDED READING</span><span class="upper">PUBLISHED QUESTION MAP</span></div>
+      <div class="scene-heading" id="atlas-heading"><h2>Explore the questions<br><span class="accent">behind the claims.</span></h2><p class="small">Follow the question. Inspect its receipts.</p></div>
+      <div class="panel atlas-card" id="atlas-card"><div class="atlas-card-head"><strong>What does the published record show?</strong><span>GUIDED DOSSIER / RESEARCH THREAD</span></div><div class="atlas-path"><div class="atlas-step" id="atlas-one"><b>Linked claims</b><small>Read each dated statement</small></div><div class="atlas-step" id="atlas-two"><b>Original publications</b><small>Check source type and scope</small></div><div class="atlas-step" id="atlas-three"><b>What remains open</b><small>Keep the limits visible</small></div></div><p class="atlas-note">Published evidence · Human review</p></div>
+      <div class="foot"><span>RESERVES · CUSTODY · REDEMPTION</span><div class="line"></div><span>04 / 05</span></div>
+    </section>
+    <section class="clip scene" id="outro" data-start="16.8" data-duration="4.2" data-track-index="4">
+      <div id="outro-mark"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="13" fill="#10262f" stroke="#3d756d"/><circle cx="24" cy="24" r="17" fill="none" stroke="#57998b"/><path d="M13 32 24 15 35 29" fill="none" stroke="#f0d398" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="32" r="3" fill="#83e5c5"/><circle cx="24" cy="15" r="3" fill="#f0d398"/><circle cx="35" cy="29" r="3" fill="#83e5c5"/></svg></div>
+      <h2 id="outro-title">Market Evidence Desk</h2><p id="outro-tag">Research with receipts.</p>
+      <div id="outro-rule"></div><p id="outro-boundary">No live prices. No trading signals.</p><p id="outro-note">PUBLISHED EVIDENCE · HUMAN REVIEW</p>
+      <div class="foot"><span>MAKE THE CLAIM. SHOW THE RECEIPT.</span><div class="line"></div><span>05 / 05</span></div>
+    </section>
+    <audio id="music" src="assets/music/market-evidence-bed.mp3" data-start="0" data-duration="21" data-track-index="10" data-volume="0.34" data-fade-in="0.4" data-fade-out="1.1"></audio>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    const enter = (selector, time, distance = 22) => tl.fromTo(selector,
+      { opacity: 0, y: distance }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, time);
+    enter("#hook-brand", 0.08, 15);
+    enter("#hook-kicker", 0.19);
+    enter("#hook-title", 0.45, 31);
+    tl.fromTo("#hook-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.53, ease: "power2.out" }, 0.89);
+    enter("#hook-under", 1.05);
+    enter("#desk-heading", 3.30);
+    enter("#desk-question", 3.65, 32);
+    enter("#desk-evidence", 4.01, 32);
+    enter("#compare-heading", 7.63);
+    enter("#scope-left", 8.13, 29);
+    enter("#scope-right", 8.45, 29);
+    enter("#compare-conclusion", 9.05, 12);
+    enter("#atlas-heading", 12.13);
+    enter("#atlas-card", 12.65, 25);
+    enter("#atlas-one", 12.94, 14);
+    enter("#atlas-two", 13.23, 14);
+    enter("#atlas-three", 13.52, 14);
+    enter("#outro-mark", 16.93, 25);
+    enter("#outro-title", 17.24, 17);
+    enter("#outro-tag", 17.66, 15);
+    enter("#outro-rule", 17.95, 8);
+    enter("#outro-boundary", 18.28, 12);
+    enter("#outro-note", 18.70, 10);
+    window.__timelines["main"] = tl;
+    tl.seek(0);
+  </script>
+</body>
+</html>

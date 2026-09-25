@@ -6,7 +6,7 @@ The scope lock and finish checklist are in [PROJECT_SCOPE.md](PROJECT_SCOPE.md).
 
 ## Start here: three-minute walkthrough
 
-1. Open the [feature preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/). The home page offers three real-agent questions and links to five focused pages.
+1. Open the [public production site](https://market-evidence-desk.vercel.app/). The home page offers three real-agent questions and links to five focused pages.
 2. Open **Compare** to see the dated Kraken, PCAOB, and SEC positions side by side, then the separate 2025 staff and Commissioner disagreement. These are guided views built from Sanity records, not AI answers.
 3. Open **AI agent**, select a question and press **Ask the sources**. When the hosted service is available, the answer and tool names appear on the page. If it is unavailable, the page says so; the local alternative is `python agent.py --case compare` with private credentials. **Fictional demo** on the Research desk is labeled separately.
 
@@ -239,7 +239,7 @@ bash scripts/publish_question_bundle.sh --apply
 
 `--apply` uses `documents create --missing`, then checks every expected ID through an **anonymous, published-perspective** API query. The previous dotted-ID issue is avoided by root-level IDs. When verification succeeds, the dataset should contain at least **101 published research questions**. A later content change requires a Sourcebook check for changes, rebuild, and review of Entries and Issues; the Knowledge Base does not ingest new dataset material just because the public graph displays it. This is the first substantial batch toward hundreds; neither the live dataset nor this batch contains hundreds yet.
 
-The [feature preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) is the current walkthrough. The root landing page and six focused pages are served from `web/`. The pages are:
+The [feature preview](https://market-evidence-desk.vercel.app/) is the current walkthrough. The root landing page and six focused pages are served from `web/`. The pages are:
 
 | Page | Purpose |
 | --- | --- |

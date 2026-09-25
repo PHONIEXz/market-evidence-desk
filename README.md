@@ -190,11 +190,12 @@ cannot establish today's coverage, solvency, or a country's current law.
 
 ## Public read-only desk
 
-The [feature preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) is the current walkthrough. The root landing page and five focused pages are served from `web/`. The pages are:
+The [feature preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) is the current walkthrough. The root landing page and six focused pages are served from `web/`. The pages are:
 
 | Page | Purpose |
 | --- | --- |
 | `/` | Project overview and navigation |
+| `/web/atlas.html` | Searchable guided dossiers for published questions, linked claims, original publications and open limits |
 | `/web/research.html` | Published questions, linked claims, timeline, and draft brief |
 | `/web/compare.html` | Source comparison, disagreement, and evidence coverage |
 | `/web/sources.html` | Searchable source records with linked claims |
@@ -216,6 +217,7 @@ The endpoint is **off by default**. To switch it on, set `AGENT_DEMO_ENABLED=1`,
 
 - A structured source → claim → event graph with a timestamp on each item.
 - A reader can inspect supporting and conflicting claims, stale sources, source links, and the human review state.
+- An evidence atlas groups published research questions into reserve assurance, customer protection, and redemption/global standards. Each dossier is assembled from the published graph, links every claim to its dated original publication, and opens the same question in the research ledger. When the graph is unavailable, the atlas reports that state rather than displaying fictional content as fact.
 - Guided comparisons of the published SEC, PCAOB, and Kraken claims, a same-day SEC staff/Commissioner disagreement, and a clear boundary around live prices. The comparison reads records, not AI output.
 - A transparent, deterministic research brief assembled from published Sanity claims when available, plus a separate fictional sample view. All copied briefs are labeled drafts.
 - A Gemini research agent available through the CLI and, when server credentials are configured, the hosted fixed-question interface. It calls both Sanity Context `groq_query` and `knowledge_base_read`; a live SEC question matched the original alert, and a live Bitcoin price/buy question declined unsupported current-market claims.

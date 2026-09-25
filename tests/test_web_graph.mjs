@@ -61,6 +61,7 @@ test("each public page includes the elements used by its page script", () => {
     ["compare", "compare-page.js"],
     ["sources", "sources-page.js"],
     ["agent", "agent-page.js"],
+    ["atlas", "atlas-page.js"],
   ]) {
     const html = readFileSync(new URL(`../web/${page}.html`, import.meta.url), "utf8");
     const script = readFileSync(new URL(`../web/${scriptName}`, import.meta.url), "utf8");
@@ -73,6 +74,21 @@ test("each public page includes the elements used by its page script", () => {
   const config = JSON.parse(readFileSync(new URL("../vercel.json", import.meta.url), "utf8"));
   assert.ok(config.rewrites.some(({source, destination}) => source === "/" && destination === "/web/index.html"));
   assert.equal(evidenceHandler, handler);
+});
+
+test("atlas dossier links every seeded question to an original publication", () => {
+  const normalized = normalizeGraph(graph);
+  const sourceIds = new Set(normalized.sources.map((source) => source.id));
+  for (const event of normalized.events) {
+    const links = normalized.claims.filter((claim) => claim.eventId === event.id);
+    assert.ok(links.length > 0, `No claims for ${event.title}`);
+    assert.ok(links.every((claim) => sourceIds.has(claim.sourceId)));
+  }
+  const page = readFileSync(new URL("../web/atlas.html", import.meta.url), "utf8");
+  const script = readFileSync(new URL("../web/atlas-page.js", import.meta.url), "utf8");
+  assert.ok(page.includes('id="atlas-dossier"'));
+  assert.ok(script.includes("/api/evidence"));
+  assert.ok(script.includes("encodeURIComponent(event.id)"));
 });
 
 test("unverifiable claims are removed before reaching a hosted browser", () => {

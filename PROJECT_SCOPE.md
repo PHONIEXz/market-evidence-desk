@@ -1,6 +1,6 @@
 # Market Evidence Desk: Project Scope and Finish Checklist
 
-Last reviewed: 2026-09-24
+Last reviewed: 2026-09-25
 
 This document is the scope lock for the project. New work should map to this
 document. Anything outside the scope belongs in the parking lot until the
@@ -72,6 +72,9 @@ without a new scope decision.
 - Scoped question validation and prompt-injection protections.
 - Public web desk with comparison, disagreement, source graph, loading, retry,
   and fictional-demo fallback states.
+- Evidence atlas with seven grouped question dossiers populated from the
+  published graph, source scope notes, review status and links into the ledger.
+  Reading guides across the other pages explain stance, date and authority.
 - Concise AI answer style: direct answer first, short bullets, source section,
   no invented URLs/dates, and explicit limits.
 - Vercel web deployment and local tests/builds passing during the last verified

@@ -15,6 +15,7 @@ The site lets a visitor inspect published source records, follow each claim to i
 ## Demo
 
 - [Open Market Evidence Desk](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/)
+- [Browse question dossiers and original publications](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/web/atlas.html)
 - [Compare the linked evidence](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/web/compare.html)
 - [Inspect original sources and claims](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/web/sources.html)
 - [Ask the Sanity Context agent](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/web/agent.html?case=dispute)

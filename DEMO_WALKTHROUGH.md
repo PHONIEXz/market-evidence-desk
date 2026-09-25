@@ -4,10 +4,10 @@ This is the short demo path for the Sanity Challenge Path One. The DEV post draf
 
 ## Screen recording, about 90 seconds
 
-1. **Home, 0:00–0:10.** Say: “Market Evidence Desk answers research questions from dated, published Sanity records. It does not show live prices or trading advice.” Show the three agent cases.
-2. **Compare, 0:10–0:30.** Show Kraken's company description next to PCAOB and SEC limits; switch to the 2025 SEC staff versus Commissioner disagreement. State that the positions remain attributed to their actual speakers.
-3. **Sources, 0:30–0:45.** Open an FSB or FDIC publication and its linked claim; point out the publication date, scope note, and research question. The Sourcebook Knowledge Base also ingests the dataset; verify that its latest build includes these records before saying so on camera.
-4. **Agent, 0:45–1:15.** Run the **dispute** case if hosted service is ready. Point out `groq_query`, `knowledge_base_read`, dated source URLs, and the human review label. The generated answer may take up to two minutes; recording can cut the wait without claiming it was instantaneous.
+1. **Home and atlas, 0:00–0:18.** Say: “Market Evidence Desk answers research questions from dated, published Sanity records. It does not show live prices or trading advice.” Open the evidence atlas, select a dossier and point to its linked source and review status.
+2. **Compare, 0:18–0:35.** Show Kraken's company description next to PCAOB and SEC limits; switch to the 2025 SEC staff versus Commissioner disagreement. State that the positions remain attributed to their actual speakers.
+3. **Sources, 0:35–0:50.** Open an FSB or FDIC publication and its linked claim; point out the publication date, scope note, and research question. The Sourcebook Knowledge Base also ingests the dataset; verify that its latest build includes these records before saying so on camera.
+4. **Agent, 0:50–1:15.** Run the **dispute** case if hosted service is ready. Point out `groq_query`, `knowledge_base_read`, dated source URLs, and the human review label. The generated answer may take up to two minutes; recording can cut the wait without claiming it was instantaneous.
 5. **Boundary, 1:15–1:30.** Show the **price** case declining unsupported live data, or the guided Data coverage panel if the hosted model is unavailable. End at the Method page's record → link → review → answer workflow.
 
 ## Release checks

@@ -14,13 +14,13 @@ The site lets a visitor inspect published source records, follow each claim to i
 
 ## Demo
 
-- [Open Market Evidence Desk](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/)
-- [Browse question dossiers and original publications](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/web/atlas.html)
-- [Compare the linked evidence](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/web/compare.html)
-- [Inspect original sources and claims](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/web/sources.html)
-- [Ask the Sanity Context agent](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/web/agent.html?case=dispute)
+- [Open Market Evidence Desk](https://market-evidence-desk.vercel.app/)
+- [Browse question dossiers and original publications](https://market-evidence-desk.vercel.app/web/atlas.html)
+- [Compare the linked evidence](https://market-evidence-desk.vercel.app/web/compare.html)
+- [Inspect original sources and claims](https://market-evidence-desk.vercel.app/web/sources.html)
+- [Ask the Sanity Context agent](https://market-evidence-desk.vercel.app/web/agent.html?case=dispute)
 
-For a short judge walkthrough, start on the home page, open **Show the disagreement**, press **Ask the sources**, then compare the cited answer with the original sources and the guided comparison. On the Research desk, switch to the question about worldwide protections: the 2023 international recommendations and the 2025 implementation review are linked as different kinds of evidence. Try the **live-price boundary** case as a negative test. The agent can take up to two minutes; if the hosted service is unavailable, the guided comparison and source graph still work, and the local agent can be run with private credentials using the README. The **Fictional demo** on the Research desk is explicitly separate from published records.
+For a short judge walkthrough, start on the home page, open **Show the disagreement**, press **Ask the sources**, then compare the cited answer with the original sources and the guided comparison. On the Research desk, switch to the question about worldwide protections: the 2023 international recommendations and the 2025 implementation review are linked as different kinds of evidence. Try the **live-price boundary** case as a negative test. On September 25, 2026, all three hosted cases (compare, dispute, price) returned cited answers using `groq_query` and `knowledge_base_read` on the public production URL. The agent can take up to two minutes; if the hosted service is temporarily unavailable, the guided comparison and source graph still work, and the local agent can be run with private credentials using the README. The **Fictional demo** on the Research desk is explicitly separate from published records.
 
 ## Code
 
@@ -46,4 +46,4 @@ The hard case is the same-day April 4, 2025 stablecoin material. The SEC Divisio
 
 Structured content matters most where sources disagree or cover different scopes. Dates, authors, stances, and source references let the interface show what each source can establish. Sanity Context gives the agent a way to read both records and the Sourcebook, while the human review state reminds readers that a generated explanation is a draft. The useful boundary is as visible as the answer: historical evidence cannot provide a current price or investment recommendation.
 
-<!-- Before publishing: verify all three hosted cases on the final deployment; confirm the Sourcebook Issues view has no material unresolved conflict presented as settled fact; update the demo URL if the feature branch is promoted; remove this comment. Optional: add a short screen recording or a public Agent Session after checking the transcript for secrets. -->
+<!-- Before publishing: inspect Sourcebook Entries and Issues, and verify mobile page navigation and original source links on the public site. Remove this comment. Optional: add a short screen recording after checking the transcript for secrets. -->

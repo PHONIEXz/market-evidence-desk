@@ -24,7 +24,7 @@ For a short judge walkthrough, start on the home page, open **Show the disagreem
 
 ## Code
 
-[GitHub repository, feature branch](https://github.com/PHONIEXz/market-evidence-desk/tree/feat/live-sanity-research-desk) · [Architecture and setup](https://github.com/PHONIEXz/market-evidence-desk/blob/feat/live-sanity-research-desk/README.md) · [Scope and limitations](https://github.com/PHONIEXz/market-evidence-desk/blob/feat/live-sanity-research-desk/PROJECT_SCOPE.md)
+[GitHub repository, production branch](https://github.com/PHONIEXz/market-evidence-desk/tree/main) · [Architecture and setup](https://github.com/PHONIEXz/market-evidence-desk/blob/main/README.md) · [Scope and limitations](https://github.com/PHONIEXz/market-evidence-desk/blob/main/PROJECT_SCOPE.md)
 
 ## How I Used Sanity
 

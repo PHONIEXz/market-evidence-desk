@@ -251,4 +251,9 @@
   .header-actions {
     display: none;
   }
+  .hero h1 { font-size: clamp(38px, 12vw, 50px); }
+  .hero-title-trigger, .hero h1 .title-line:nth-child(2) {
+    width: 100%;
+    min-width: 0;
+  }
 }

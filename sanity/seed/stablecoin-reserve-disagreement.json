@@ -1,0 +1,55 @@
+[
+  {
+    "_id": "source-sec-staff-stablecoins-2025-04-04",
+    "_type": "source",
+    "title": "Statement on Stablecoins",
+    "url": "https://www.sec.gov/newsroom/speeches-statements/statement-stablecoins-040425",
+    "publishedAt": "2025-04-04T00:00:00Z",
+    "kind": "official",
+    "notes": "Views of the SEC Division of Corporation Finance staff about a defined category of Covered Stablecoins. It describes issuers using proof-of-reserves reports as a verification method to demonstrate backing. This is a description of issuer practice, not a staff audit or a Commission rule. Publication date is calendar-day precise."
+  },
+  {
+    "_id": "source-crenshaw-stablecoins-2025-04-04",
+    "_type": "source",
+    "title": "“Stable” Coins or Risky Business?",
+    "url": "https://www.sec.gov/newsroom/speeches-statements/crenshaw-statement-stablecoins-040425",
+    "publishedAt": "2025-04-04T00:00:00Z",
+    "kind": "official",
+    "notes": "SEC Commissioner Caroline A. Crenshaw's own statement criticizing a same-day Division of Corporation Finance staff statement. She disputes the suggestion that proof-of-reserves reports demonstrate adequate backing. Her view is not a vote or a rule of the Commission. Publication date is calendar-day precise."
+  },
+  {
+    "_id": "market-event-stablecoin-reserve-assurance-question-2025",
+    "_type": "marketEvent",
+    "title": "Do proof-of-reserves reports demonstrate sufficient stablecoin backing?",
+    "summary": "A same-day difference in how an SEC staff statement describes issuers' use of reserve reports and how Commissioner Crenshaw assesses those reports' assurance value. The staff's description is limited to its Covered Stablecoins category; the Commissioner's criticism directly challenges the inference of sufficient backing. Neither document independently verifies any issuer's reserves today. Human review pending.",
+    "observedAt": "2026-09-24T05:39:19Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-sec-staff-stablecoin-reserve-description-2025",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-stablecoin-reserve-assurance-question-2025"},
+    "source": {"_type": "reference", "_ref": "source-sec-staff-stablecoins-2025-04-04"},
+    "text": "The Division of Corporation Finance staff describes some Covered Stablecoin issuers as publishing proof-of-reserves reports that those issuers use to demonstrate sufficient reserve backing. It characterizes an issuer's practice under specified conditions; it does not report an independent verification of a named issuer or establish a binding SEC rule.",
+    "stance": "supports",
+    "observedAt": "2026-09-24T05:39:19Z"
+  },
+  {
+    "_id": "evidence-claim-crenshaw-stablecoin-reserve-challenge-2025",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-stablecoin-reserve-assurance-question-2025"},
+    "source": {"_type": "reference", "_ref": "source-crenshaw-stablecoins-2025-04-04"},
+    "text": "Commissioner Crenshaw explicitly challenges the staff statement's description of proof-of-reserves reports as demonstrating sufficient backing. She argues that these reports cannot substantiate that conclusion and that their scope and reliability are not standardized. This is her own position, not an SEC Commission finding.",
+    "stance": "conflicts",
+    "observedAt": "2026-09-24T05:39:19Z"
+  },
+  {
+    "_id": "evidence-claim-pcaob-stablecoin-reserve-context-2023",
+    "_type": "evidenceClaim",
+    "event": {"_type": "reference", "_ref": "market-event-stablecoin-reserve-assurance-question-2025"},
+    "source": {"_type": "reference", "_ref": "source-pcaob-investor-advisory-2023-03-08"},
+    "text": "Earlier PCAOB Investor Advocate staff guidance warns that proof-of-reserves reports may omit liabilities and borrowed assets, and cannot establish sufficient assets for customer obligations. It supplies historical context for the 2025 dispute, not a third vote on the Division staff's wording.",
+    "stance": "context",
+    "observedAt": "2026-09-24T05:39:19Z"
+  }
+]

@@ -18,7 +18,7 @@ function linked(event) {
 
 function renderDossier(event) {
   const theme = themeFor(event.id);
-  const claims = linked(event);
+  const claims = linked(event).sort((a, b) => Date.parse(sourceMap.get(a.sourceId).publishedAt) - Date.parse(sourceMap.get(b.sourceId).publishedAt));
   const origins = [...new Map(claims.map((claim) => [sourceMap.get(claim.sourceId).url, sourceMap.get(claim.sourceId)])).values()];
   $("#dossier-category").textContent = theme?.name.toUpperCase() || "OTHER PUBLISHED QUESTION";
   $("#dossier-title").textContent = event.title;
@@ -74,13 +74,17 @@ function renderQuestions() {
       const button = make(cards, "button", "", "atlas-question");
       button.type = "button"; button.dataset.question = event.id;
       button.setAttribute("aria-pressed", String(event.id === new URLSearchParams(location.search).get("question")));
-      make(button, "span", `${linked(event).length} linked claims · ${date(event.observedAt)}`, "atlas-card-meta");
+      const count = linked(event).length;
+      make(button, "span", `${count} linked ${count === 1 ? "claim" : "claims"} · ${date(event.observedAt)}`, "atlas-card-meta");
       make(button, "strong", event.title);
       make(button, "span", event.summary || "Open the linked claims and sources.", "atlas-card-summary");
       make(button, "span", "Read dossier ↗", "atlas-card-action");
       button.addEventListener("click", () => { renderDossier(event); $("#atlas-dossier").scrollIntoView({behavior: "smooth", block: "start"}); });
     }
   }
+  const selected = visible.find((event) => event.id === new URLSearchParams(location.search).get("question"));
+  if (!visible.length) $("#atlas-dossier").hidden = true;
+  else if (!selected || $("#atlas-dossier").hidden) renderDossier(selected || visible[0]);
 }
 
 $("#atlas-search").addEventListener("input", renderQuestions);
@@ -93,11 +97,7 @@ try {
   $("#atlas-status").hidden = graph.events.length > 0;
   $("#atlas-content").hidden = !graph.events.length;
   renderQuestions();
-  const requested = new URLSearchParams(location.search).get("question");
-  const selected = graph.events.find((event) => event.id === requested);
-  if (selected) renderDossier(selected);
-  else if (graph.events.length) renderDossier(graph.events.find((event) => themeFor(event.id)) || graph.events[0]);
-  else $("#atlas-status").textContent = "No published research questions are available yet.";
+  if (!graph.events.length) $("#atlas-status").textContent = "No published research questions are available yet.";
 } catch {
   $("#atlas-status").textContent = "Published evidence is unavailable right now. Retry this page or open the research desk's fictional demo.";
 }

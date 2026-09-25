@@ -77,6 +77,40 @@ file or its token values.
 
 ### Bring the Sourcebook up to date
 
+**After the 101-question import:** the Sourcebook shows 238 dataset documents plus
+one website source, exceeding the organization's 150 indexed-document plan
+limit. The 101 questions and their linked claims remain published in Sanity;
+this limit concerns the separate, generated Knowledge Base index. Do not delete
+the published research questions to work around it. In **Context → Market
+Evidence Desk Sourcebook → Sources**, edit the **Dataset** source's complete
+GROQ query to the following bounded selection. Keep the existing SEC website
+source:
+
+```groq
+*[_type in ["source", "evidenceClaim"]] | order(_type desc, observedAt desc, _id asc)[0...140]{_id,_type,title,url,publishedAt,kind,notes,text,stance,"question":event->title,"questionSummary":event->summary,"sourceTitle":source->title,"sourceUrl":source->url,"sourcePublishedAt":source->publishedAt}
+```
+
+This prioritizes original source records, then claims, and includes question
+titles and source URLs with each claim. It selects no more than 140 dataset
+documents, leaving room for the one SEC website record and a few other
+organization records. Before saving in Context, run
+`python3 scripts/verify_context_scope.py` on a machine that can reach Sanity;
+it checks the **anonymous published** selection and reports how many records
+would be excluded. Save the query, use **Check for changes** and follow the
+Sourcebook's refresh or rebuild notice, then inspect its Entries and Issues.
+The organization-wide meter may still show the old count until Sanity processes
+the changed source. If it remains over 150 after that, inspect other Knowledge
+Bases or sources in the organization before narrowing the query further.
+
+The dataset Context MCP endpoint uses GROQ mode and can still read the full
+published graph at request time. The Knowledge Base is a curated index, and
+once the number of source and claim documents exceeds 140 it will omit some
+claims: review its coverage before trusting an AI answer on a newly added
+topic. The public website's `/api/evidence` reads the published dataset
+independently of the Sourcebook. No Studio build or content re-import is needed.
+
+The notes below describe the earlier Sourcebook maintenance workflow.
+
 The previously confirmed Knowledge Base rebuild includes the early reserve
 and stablecoin comparison records. The new global protection bundle below
 requires another check and rebuild. In the Sanity Dashboard, open

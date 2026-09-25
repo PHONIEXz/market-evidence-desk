@@ -9,6 +9,7 @@ import unittest
 from scripts.evidence_retrieval import scoped_query
 from scripts.build_question_bundle import QUESTIONS, SOURCES, build
 from scripts import verify_published_questions
+from scripts import verify_context_scope
 from unittest.mock import patch
 
 
@@ -50,6 +51,22 @@ class EvidenceExpansionTests(unittest.TestCase):
         with patch.object(verify_published_questions, 'public_query', side_effect=response):
             with contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(verify_published_questions.verify(), 1)
+
+    def test_sourcebook_index_scope_stays_within_plan(self):
+        self.assertIn('[0...140]', verify_context_scope.DATASET_SOURCE_QUERY)
+        self.assertIn('"question":event->title', verify_context_scope.DATASET_SOURCE_QUERY)
+        self.assertIn('"sourceUrl":source->url', verify_context_scope.DATASET_SOURCE_QUERY)
+        selection = [dict(_type='source')] * 22 + [dict(_type='evidenceClaim')] * 113
+
+        def response(query):
+            if query.startswith('count('):
+                return len(selection)
+            return selection
+
+        with patch.object(verify_context_scope, 'public_query', side_effect=response):
+            with contextlib.redirect_stdout(io.StringIO()) as output:
+                verify_context_scope.preview()
+            self.assertIn('136/150', output.getvalue())
 
 
 if __name__ == '__main__':

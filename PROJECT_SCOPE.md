@@ -76,8 +76,11 @@ without a new scope decision.
   published graph, source scope notes, review status and links into the ledger.
   Reading guides across the other pages explain stance, date and authority.
 - A second, locally validated batch contains 94 new questions and ten original
-  dated publications. It is awaiting authenticated import; do not count it as
-  published until the anonymous published-perspective verification succeeds.
+  dated publications. The user imported all 198 new records, and anonymous
+  verification returned 101 published questions on September 25, 2026.
+- The Sourcebook reports 240 indexed documents against an organization limit of
+  150 after the import. Its dataset source must use the bounded source/claim
+  GROQ selection in README; the public graph and the GROQ MCP remain separate.
 - The public graph can return more than 100 questions and the atlas displays
   results in 24-card batches. Custom agent retrieval is bounded to linked
   claims instead of dumping the entire expanded dataset into a model prompt.

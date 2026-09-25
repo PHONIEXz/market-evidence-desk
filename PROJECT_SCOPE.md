@@ -78,9 +78,11 @@ without a new scope decision.
 - A second, locally validated batch contains 94 new questions and ten original
   dated publications. The user imported all 198 new records, and anonymous
   verification returned 101 published questions on September 25, 2026.
-- The Sourcebook reports 240 indexed documents against an organization limit of
-  150 after the import. Its dataset source must use the bounded source/claim
-  GROQ selection in README; the public graph and the GROQ MCP remain separate.
+- The Sourcebook previously reported 240 indexed documents against an
+  organization limit of 150. The user changed its dataset selection to the
+  bounded source/claim query in README and reported a rebuild; verify the final
+  indexed count, entries, and issues before treating it as submission-ready.
+  The public graph and GROQ MCP remain separate.
 - The public graph can return more than 100 questions and the atlas displays
   results in 24-card batches. Custom agent retrieval is bounded to linked
   claims instead of dumping the entire expanded dataset into a model prompt.
@@ -102,8 +104,9 @@ without a new scope decision.
 - Open the rebuilt Sourcebook Entries and inspect the stablecoin and
   proof-of-reserves entries.
 - Check Issues and Instructions for unresolved or misleading conflicts.
-- Confirm the dataset source includes `source`, `marketEvent`, and
-  `evidenceClaim` documents.
+- Confirm the bounded Sourcebook query includes `source` and
+  `evidenceClaim` documents, with linked `marketEvent` title and summary
+  projected onto each claim; verify the GROQ MCP can still read all events.
 - Confirm the entries cite distinct SEC, PCAOB, Kraken, SEC staff, and
   Commissioner sources where applicable.
 - Leave questionable claims in human review rather than approving them blindly.

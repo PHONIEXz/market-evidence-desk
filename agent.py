@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 from openai import InternalServerError
 
 from scripts.context_config import called_tools, context_urls, initial_context_url, missing_retrievals, sourcebook_id
+from scripts.evidence_retrieval import scoped_query
 from scripts.model_config import configured_value, fallback_model, missing_settings, model_credentials
 
 CASES = {
@@ -36,14 +37,6 @@ CASES = {
     ),
 }
 
-# Read the complete small published evidence graph. This is executed through
-# Sanity Context, so the model never has to decide whether to fetch evidence.
-EVIDENCE_QUERY = (
-    '*[_type in ["marketEvent", "evidenceClaim", "source"]][0...100]'
-    '{_id,_type,title,summary,text,stance,review,publishedAt,url,kind,notes,'
-    '"source":source->{_id,title,url,publishedAt,kind,notes},'
-    '"event":event->{_id,title,summary,review}}'
-)
 
 CASE_EVENT_IDS = {
     "compare": "market-event-proof-of-reserves-scope-question-2023",
@@ -53,18 +46,9 @@ CASE_EVENT_IDS = {
 
 
 def evidence_query(question: str) -> str:
-    """Keep preset cases small while following their claim -> source links."""
+    """Use bounded, source-linked retrieval even as the dataset grows."""
     case = next((name for name, prompt in CASES.items() if prompt == question), None)
-    if not case:
-        return EVIDENCE_QUERY
-    event_id = CASE_EVENT_IDS[case]
-    return (
-        '*[_type in ["marketEvent", "evidenceClaim"] && '
-        f'(_id == "{event_id}" || event._ref == "{event_id}")][0...20]'
-        '{_id,_type,title,summary,text,stance,review,publishedAt,url,kind,notes,'
-        '"source":source->{_id,title,url,publishedAt,kind,notes},'
-        '"event":event->{_id,title,summary,review}}'
-    )
+    return scoped_query(question, CASE_EVENT_IDS[case] if case else None)
 
 
 def tool_text(result):

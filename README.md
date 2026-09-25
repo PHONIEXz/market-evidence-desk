@@ -190,6 +190,21 @@ cannot establish today's coverage, solvency, or a country's current law.
 
 ## Public read-only desk
 
+### Publish the next checked question batch
+
+The dated [EU consumer warnings](https://www.esma.europa.eu/press-news/esma-news/eu-supervisory-authorities-warn-consumers-risks-and-limited-protection-certain), [EBA/ESMA DeFi report summary](https://www.esma.europa.eu/press-news/esma-news/eba-and-esma-analyse-recent-developments-crypto-assets), [SEC investor alerts](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-scams), and [FINRA investment-group alert](https://www.finra.org/investors/insights/investment-group-imposter-scams) support a curated batch of **94 additional questions and 94 linked claims** across ten original publications. The seed file is `sanity/seed/investor-protection-questions.json`. Every new question remains `needs-human-review`. Preparing this file does not publish it.
+
+On the machine already logged in to the Sanity CLI, from the repository root:
+
+```bash
+git pull --ff-only origin feat/live-sanity-research-desk
+bash scripts/publish_question_bundle.sh
+# Read the new source records and claims in Studio before the next command:
+bash scripts/publish_question_bundle.sh --apply
+```
+
+`--apply` uses `documents create --missing`, then checks every expected ID through an **anonymous, published-perspective** API query. The previous dotted-ID issue is avoided by root-level IDs. When verification succeeds, the dataset should contain at least **101 published research questions**. A later content change requires a Sourcebook check for changes, rebuild, and review of Entries and Issues; the Knowledge Base does not ingest new dataset material just because the public graph displays it. This is the first substantial batch toward hundreds; neither the live dataset nor this batch contains hundreds yet.
+
 The [feature preview](https://market-evidence-desk-git-feat-live-sanity-2575b2-phoenixr3born.vercel.app/) is the current walkthrough. The root landing page and six focused pages are served from `web/`. The pages are:
 
 | Page | Purpose |

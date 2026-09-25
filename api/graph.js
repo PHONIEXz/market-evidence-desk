@@ -1,12 +1,12 @@
 // Public, read-only Sanity graph for a hosted research desk.
 const QUERY = `{
-  "events": *[_type == "marketEvent"] | order(observedAt desc)[0...100]{
+  "events": *[_type == "marketEvent"] | order(observedAt desc)[0...600]{
     "id": _id, title, summary, observedAt, review
   },
-  "sources": *[_type == "source"][0...200]{
+  "sources": *[_type == "source"][0...600]{
     "id": _id, title, url, publishedAt, kind, notes
   },
-  "claims": *[_type == "evidenceClaim"][0...300]{
+  "claims": *[_type == "evidenceClaim"][0...1800]{
     "id": _id, "eventId": event._ref, "sourceId": source._ref,
     text, stance, observedAt, expiresAt
   }

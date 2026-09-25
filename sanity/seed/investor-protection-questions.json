@@ -1,0 +1,2254 @@
+[
+  {
+    "_id": "source-esa-crypto-consumer-warning-2022-03-17",
+    "_type": "source",
+    "title": "EU financial regulators warn consumers on the risks of crypto-assets",
+    "url": "https://www.esma.europa.eu/press-news/esma-news/eu-financial-regulators-warn-consumers-risks-crypto-assets",
+    "publishedAt": "2022-03-17T00:00:00Z",
+    "kind": "official",
+    "notes": "Joint warning by the EBA, ESMA and EIOPA to EU consumers in March 2022. It predates the later MiCA regime and does not state the current rights of an individual investor."
+  },
+  {
+    "_id": "source-esa-mica-consumer-warning-2025-10-06",
+    "_type": "source",
+    "title": "EU Supervisory Authorities warn consumers of risks and limited protection for certain crypto-assets and providers",
+    "url": "https://www.esma.europa.eu/press-news/esma-news/eu-supervisory-authorities-warn-consumers-risks-and-limited-protection-certain",
+    "publishedAt": "2025-10-06T00:00:00Z",
+    "kind": "official",
+    "notes": "Joint EU consumer warning by the EBA, EIOPA and ESMA. Describes categories and checks under MiCA as of October 2025; it cannot establish a provider's current authorisation or guarantee recovery for an individual case."
+  },
+  {
+    "_id": "source-eba-esma-defi-report-2025-01-16",
+    "_type": "source",
+    "title": "The EBA and ESMA analyse recent developments in crypto-assets",
+    "url": "https://www.esma.europa.eu/press-news/esma-news/eba-and-esma-analyse-recent-developments-crypto-assets",
+    "publishedAt": "2025-01-16T00:00:00Z",
+    "kind": "official",
+    "notes": "EBA and ESMA summary of a joint report on DeFi and crypto lending, borrowing and staking. Market estimates and risk observations are dated 2025 analysis, not current measures or findings about a named protocol."
+  },
+  {
+    "_id": "source-esa-online-fraud-factsheets-2025-12-15",
+    "_type": "source",
+    "title": "ESAs publish key tips to help consumers detect, prevent, and act on online frauds and scams",
+    "url": "https://www.esma.europa.eu/press-news/esma-news/esas-publish-key-tips-help-consumers-detect-prevent-and-act-online-frauds-and",
+    "publishedAt": "2025-12-15T00:00:00Z",
+    "kind": "official",
+    "notes": "Joint EU authorities' consumer announcement introducing fraud factsheets. Examples and preventive tips are educational; they cannot identify whether a particular message or person is genuine."
+  },
+  {
+    "_id": "source-finra-investment-group-imposter-2025-12-09",
+    "_type": "source",
+    "title": "Investor Alert: Social Media ‘Investment Group’ Imposter Scams Continue to Rise",
+    "url": "https://www.finra.org/investors/insights/investment-group-imposter-scams",
+    "publishedAt": "2025-12-09T00:00:00Z",
+    "kind": "official",
+    "notes": "FINRA US investor alert about reported social-media investment-group scams, including crypto pitches. Reported patterns are historical warnings, not a finding that any specific group or individual is fraudulent."
+  },
+  {
+    "_id": "source-sec-five-crypto-scams-2024-05-29",
+    "_type": "source",
+    "title": "5 Ways Fraudsters May Lure Victims Into Scams Involving Crypto Asset Securities",
+    "url": "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-scams",
+    "publishedAt": "2024-05-29T00:00:00Z",
+    "kind": "official",
+    "notes": "SEC Office of Investor Education and Advocacy staff alert. Describes hypothetical and reported fraud tactics, not findings about a named opportunity or a Commission rule."
+  },
+  {
+    "_id": "source-sec-crypto-interest-accounts-2022-02-14",
+    "_type": "source",
+    "title": "Investor Bulletin: Crypto Asset Interest-bearing Accounts",
+    "url": "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/investor-bulletin-crypto-asset-interest-bearing-accounts",
+    "publishedAt": "2022-02-14T00:00:00Z",
+    "kind": "official",
+    "notes": "SEC investor education bulletin about crypto interest-bearing accounts at publication. Insurance descriptions and the BlockFi order are historical and do not determine current account coverage or a company's current legal status."
+  },
+  {
+    "_id": "source-sec-relationship-investment-scams-2024-09-10",
+    "_type": "source",
+    "title": "Relationship Investment Scams – Investor Alert",
+    "url": "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/relationship-investment-scams-investor-alert",
+    "publishedAt": "2024-09-10T00:00:00Z",
+    "kind": "official",
+    "notes": "Joint SEC, CFTC, FINRA and NASAA investor alert on relationship investment scams. Illustrative warning signs do not establish that an individual correspondent is a fraudster."
+  },
+  {
+    "_id": "source-sec-group-chat-scams-2025-12-22",
+    "_type": "source",
+    "title": "Group Chats as a Gateway to Investment Scams – Investor Alert",
+    "url": "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/gateway-to-investment-scams",
+    "publishedAt": "2025-12-22T00:00:00Z",
+    "kind": "official",
+    "notes": "SEC Office of Investor Education and Assistance staff alert. Morocoin allegations are SEC charges, not a final adjudication; general examples are not findings about a named chat."
+  },
+  {
+    "_id": "source-finra-relationship-scams-2025-05-28",
+    "_type": "source",
+    "title": "Relationship Investment Scams: What They Are and Tips to Avoid Them",
+    "url": "https://www.finra.org/investors/insights/avoiding-relationship-investment-scams",
+    "publishedAt": "2025-05-28T00:00:00Z",
+    "kind": "official",
+    "notes": "FINRA investor education article on historical relationship investment scam patterns and diligence. Cannot validate a live platform, account or person."
+  },
+  {
+    "_id": "market-event-eu-total-loss-2022",
+    "_type": "marketEvent",
+    "title": "What did EU supervisors warn about losing an entire crypto investment in 2022?",
+    "summary": "This is the 2022 consumer warning, not a prediction for a particular asset or today's portfolio.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-eu-total-loss-2022",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-eu-total-loss-2022"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-crypto-consumer-warning-2022-03-17"
+    },
+    "text": "The joint EU supervisory warning said consumers buying many crypto-assets faced a real possibility of losing all the money invested.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-eu-misleading-ads-2022",
+    "_type": "marketEvent",
+    "title": "How did the 2022 EU warning describe misleading crypto advertisements?",
+    "summary": "Marketing language is not evidence of a product's risk or legal status.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-eu-misleading-ads-2022",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-eu-misleading-ads-2022"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-crypto-consumer-warning-2022-03-17"
+    },
+    "text": "The EBA, ESMA and EIOPA told consumers to watch for misleading crypto promotions, including advertisements through social media and influencers.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-eu-fast-returns-2022",
+    "_type": "marketEvent",
+    "title": "Why did EU supervisors single out promises of fast crypto returns?",
+    "summary": "A promised return is a warning sign to investigate, not proof that a specific offer is fraudulent.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-eu-fast-returns-2022",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-eu-fast-returns-2022"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-crypto-consumer-warning-2022-03-17"
+    },
+    "text": "The joint 2022 warning urged particular caution about promises of fast or high returns, especially offers that appear too good to be true.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-eu-recourse-2022",
+    "_type": "marketEvent",
+    "title": "What did the 2022 EU warning say about recourse for crypto consumers?",
+    "summary": "The 2022 position predates later regulation and cannot decide anyone's present legal rights.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-eu-recourse-2022",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-eu-recourse-2022"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-crypto-consumer-warning-2022-03-17"
+    },
+    "text": "The authorities warned that crypto-assets and related services often fell outside existing EU financial-services protections at that publication date, limiting recourse for consumers.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-eu-payment-suitability-2022",
+    "_type": "marketEvent",
+    "title": "Did the 2022 EU warning treat crypto as suitable for most retail payments?",
+    "summary": "This is a broad historical consumer warning, not advice on an individual transaction.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-eu-payment-suitability-2022",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-eu-payment-suitability-2022"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-crypto-consumer-warning-2022-03-17"
+    },
+    "text": "The 2022 joint warning said many crypto-assets were not suited to most retail consumers as an investment or as a means of payment or exchange.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-eu-social-promotion-2022",
+    "_type": "marketEvent",
+    "title": "What role did social-media promotion play in the 2022 EU crypto warning?",
+    "summary": "The warning addresses the marketing environment without assessing a particular promoter.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-eu-social-promotion-2022",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-eu-social-promotion-2022"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-crypto-consumer-warning-2022-03-17"
+    },
+    "text": "The authorities described aggressive public promotion of crypto-assets, including through social media, as context for their consumer warning.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-eu-highly-speculative-2022",
+    "_type": "marketEvent",
+    "title": "How did the EU supervisors characterize many crypto-assets in 2022?",
+    "summary": "The description concerns many assets as a category, not a measured risk score for a named token.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-eu-highly-speculative-2022",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-eu-highly-speculative-2022"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-crypto-consumer-warning-2022-03-17"
+    },
+    "text": "The EBA, ESMA and EIOPA jointly warned that many crypto-assets were highly risky and speculative.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-mica-provider-authorisation-2025",
+    "_type": "marketEvent",
+    "title": "What provider check did EU supervisors recommend in October 2025?",
+    "summary": "A dated recommendation is no substitute for checking the current official register and the exact legal entity.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-mica-provider-authorisation-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-mica-provider-authorisation-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-mica-consumer-warning-2025-10-06"
+    },
+    "text": "The EU authorities recommended checking whether a crypto-asset service provider was authorised in the EU before using it.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-mica-wallet-security-2025",
+    "_type": "marketEvent",
+    "title": "What did EU supervisors recommend checking about crypto wallets?",
+    "summary": "The source provides a general precaution, not a security assessment of any wallet.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-mica-wallet-security-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-mica-wallet-security-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-mica-consumer-warning-2025-10-06"
+    },
+    "text": "The October 2025 warning advised consumers to ensure that wallets used to store crypto-assets were sufficiently secured.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-mica-product-risk-2025",
+    "_type": "marketEvent",
+    "title": "Why learn about a crypto product before investing under the EU warning?",
+    "summary": "The warning does not endorse any individual product or investment strategy.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-mica-product-risk-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-mica-product-risk-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-mica-consumer-warning-2025-10-06"
+    },
+    "text": "The EU authorities recommended learning about the crypto product or service and evaluating its risk before investing.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-mica-coverage-varies-2025",
+    "_type": "marketEvent",
+    "title": "Does MiCA give identical protection for every crypto-asset?",
+    "summary": "The source does not determine which protections attach to a particular token or account today.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-mica-coverage-varies-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-mica-coverage-varies-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-mica-consumer-warning-2025-10-06"
+    },
+    "text": "The October 2025 EU warning said consumer protection, if any, can be limited and can vary by the type of crypto-asset and service.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-mica-scope-2025",
+    "_type": "marketEvent",
+    "title": "Did the 2025 EU warning say MiCA covers every crypto-asset?",
+    "summary": "The publication distinguishes covered categories; an individual token still needs a separate legal classification.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-mica-scope-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-mica-scope-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-mica-consumer-warning-2025-10-06"
+    },
+    "text": "The supervisors described MiCA as applying to certain types of crypto-assets, with a supervisory regime for relevant issuers and service providers.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-mica-claims-handling-2025",
+    "_type": "marketEvent",
+    "title": "What claims-handling limitation did EU supervisors identify?",
+    "summary": "This is a category-level consumer warning, not a finding about a particular provider's complaints process.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-mica-claims-handling-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-mica-claims-handling-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-mica-consumer-warning-2025-10-06"
+    },
+    "text": "The 2025 warning said some consumers may lack a transparent and uniform claims-handling procedure for the crypto-assets or services they use.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-mica-information-2025",
+    "_type": "marketEvent",
+    "title": "What information gaps did the 2025 EU warning flag?",
+    "summary": "The document does not certify the disclosure quality of a particular offer.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-mica-information-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-mica-information-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-mica-consumer-warning-2025-10-06"
+    },
+    "text": "The supervisors warned that consumer protection may be limited for some products or services, including lack of access to comprehensive information.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-mica-finfluencers-2025",
+    "_type": "marketEvent",
+    "title": "Why did the 2025 EU warning mention finfluencers?",
+    "summary": "A popular endorsement is not a verified source of risk or regulatory status.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-mica-finfluencers-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-mica-finfluencers-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-mica-consumer-warning-2025-10-06"
+    },
+    "text": "The authorities highlighted aggressive crypto promotion on social media by finfluencers as a reason for consumers to take care when evaluating products and services.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-mica-supervision-2025",
+    "_type": "marketEvent",
+    "title": "How did the EU authorities describe MiCA supervision in 2025?",
+    "summary": "A regime existing at publication does not prove a named service provider is authorised today.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-mica-supervision-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-mica-supervision-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-mica-consumer-warning-2025-10-06"
+    },
+    "text": "The October 2025 publication said MiCA had applied to certain crypto-assets since December 2024 and established a supervisory regime at national and EU levels.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-defi-market-share-2025",
+    "_type": "marketEvent",
+    "title": "How large did EBA and ESMA estimate DeFi was in their 2025 review?",
+    "summary": "This is a historical estimate; it must never be displayed as a live market share.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-defi-market-share-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-defi-market-share-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-eba-esma-defi-report-2025-01-16"
+    },
+    "text": "The joint report summary estimated value locked in DeFi at about four percent of global crypto-asset market value at the time of its analysis.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-defi-adoption-2025",
+    "_type": "marketEvent",
+    "title": "How did EBA and ESMA compare EU DeFi adoption with other economies?",
+    "summary": "The comparison is a dated assessment, not a live ranking.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-defi-adoption-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-defi-adoption-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-eba-esma-defi-report-2025-01-16"
+    },
+    "text": "The 2025 summary described EU DeFi adoption as above the global average yet below several other developed economies.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-defi-hacks-2025",
+    "_type": "marketEvent",
+    "title": "What relationship did EBA and ESMA observe between DeFi size and hacks?",
+    "summary": "The observation is historical and does not predict breaches at an individual protocol.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-defi-hacks-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-defi-hacks-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-eba-esma-defi-report-2025-01-16"
+    },
+    "text": "EBA and ESMA said the number of DeFi hacks and the value of stolen assets had generally moved with DeFi market size in their analysis.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-defi-dex-share-2025",
+    "_type": "marketEvent",
+    "title": "What did the 2025 EU report say about decentralised-exchange trading share?",
+    "summary": "This figure is a dated estimate and must not be presented as today's trading share.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-defi-dex-share-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-defi-dex-share-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-eba-esma-defi-report-2025-01-16"
+    },
+    "text": "The report summary described decentralised-exchange flows as around ten percent of global spot crypto trading volumes in its analysis.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-defi-mev-2025",
+    "_type": "marketEvent",
+    "title": "What did EBA and ESMA say about maximal extractable value in DeFi?",
+    "summary": "That analysis does not evaluate the protections of any named transaction or protocol.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-defi-mev-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-defi-mev-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-eba-esma-defi-report-2025-01-16"
+    },
+    "text": "The joint summary described MEV effects as widespread in DeFi and said their negative externalities would require technical solutions.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-defi-leverage-2025",
+    "_type": "marketEvent",
+    "title": "Why did the EU report flag leverage in crypto lending?",
+    "summary": "It is a general risk category, not a finding that a particular service is over-leveraged.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-defi-leverage-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-defi-leverage-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-eba-esma-defi-report-2025-01-16"
+    },
+    "text": "The EBA and ESMA analysis listed excessive leverage among risks of crypto lending, borrowing and staking business models.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-defi-information-asymmetry-2025",
+    "_type": "marketEvent",
+    "title": "What information imbalance did the EU crypto-lending report flag?",
+    "summary": "A named provider's disclosure still needs examination on its own terms.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-defi-information-asymmetry-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-defi-information-asymmetry-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-eba-esma-defi-report-2025-01-16"
+    },
+    "text": "The joint report listed information asymmetries among the risks of crypto lending, borrowing and staking services.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-defi-rehypothecation-2025",
+    "_type": "marketEvent",
+    "title": "Why did the EU authorities mention rehypothecation in crypto lending?",
+    "summary": "The report is not proof that any specific customer assets were reused.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-defi-rehypothecation-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-defi-rehypothecation-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-eba-esma-defi-report-2025-01-16"
+    },
+    "text": "The 2025 report identified possible systemic risks from rehypothecation and collateral chains among the risk channels it analysed.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-defi-collateral-changes-2025",
+    "_type": "marketEvent",
+    "title": "What collateral information might a crypto-lending user lack?",
+    "summary": "This is a disclosure-risk observation, not a finding about any specific contract.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-defi-collateral-changes-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-defi-collateral-changes-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-eba-esma-defi-report-2025-01-16"
+    },
+    "text": "EBA and ESMA said some users might receive insufficient information about changes to collateral requirements in crypto lending and related services.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-defi-fees-2025",
+    "_type": "marketEvent",
+    "title": "What fee disclosures did the EU crypto-lending analysis call into question?",
+    "summary": "The source does not establish what an individual platform currently charges.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-defi-fees-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-defi-fees-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-eba-esma-defi-report-2025-01-16"
+    },
+    "text": "The joint report noted that users might receive insufficient information about fees for lending, borrowing and staking services.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-defi-yields-2025",
+    "_type": "marketEvent",
+    "title": "What did EBA and ESMA say about disclosure of staking yields?",
+    "summary": "A quoted yield should be checked against current terms and risk, outside this historical record.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-defi-yields-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-defi-yields-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-eba-esma-defi-report-2025-01-16"
+    },
+    "text": "The report said users might receive insufficient information about interest rates paid or yields in crypto lending and staking services.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-fraud-ai-voices-2025",
+    "_type": "marketEvent",
+    "title": "How can AI-generated voices complicate crypto-fraud checks?",
+    "summary": "This consumer warning cannot authenticate or identify a particular call or video.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-fraud-ai-voices-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-fraud-ai-voices-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-online-fraud-factsheets-2025-12-15"
+    },
+    "text": "The EU supervisors' December 2025 announcement said AI-generated voices or videos can imitate friends or family, making financial scams harder to spot.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-fraud-phishing-2025",
+    "_type": "marketEvent",
+    "title": "Which phishing tactic did the EU fraud factsheet announcement cover?",
+    "summary": "The announcement describes a fraud pattern; a particular message needs independent verification.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-fraud-phishing-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-fraud-phishing-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-online-fraud-factsheets-2025-12-15"
+    },
+    "text": "The ESAs said their new consumer factsheets explain phishing as one of the common tricks used in online financial and crypto scams.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-fraud-impersonation-2025",
+    "_type": "marketEvent",
+    "title": "Why did the EU supervisors highlight impersonation scams?",
+    "summary": "The source does not establish whether a specific sender is an impersonator.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-fraud-impersonation-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-fraud-impersonation-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-online-fraud-factsheets-2025-12-15"
+    },
+    "text": "The December 2025 announcement listed impersonation among the tricks consumers should learn to recognise in online and crypto-related fraud.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-fraud-ponzi-2025",
+    "_type": "marketEvent",
+    "title": "Did the 2025 EU consumer factsheets cover Ponzi schemes?",
+    "summary": "This is an educational classification, not a claim about a particular investment.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-fraud-ponzi-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-fraud-ponzi-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-online-fraud-factsheets-2025-12-15"
+    },
+    "text": "The EU authorities said their factsheets include Ponzi schemes among the fraud patterns explained to consumers.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-fraud-message-source-2025",
+    "_type": "marketEvent",
+    "title": "What did EU supervisors advise before acting on a suspicious message?",
+    "summary": "That general precaution does not certify any individual communication.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-fraud-message-source-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-fraud-message-source-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-online-fraud-factsheets-2025-12-15"
+    },
+    "text": "The December 2025 announcement recommended pausing to think and checking the source of a message before acting.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-fraud-personal-data-2025",
+    "_type": "marketEvent",
+    "title": "What personal-information precaution did the EU fraud announcement give?",
+    "summary": "This is general educational guidance, not an assessment of a specific sender.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-fraud-personal-data-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-fraud-personal-data-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-online-fraud-factsheets-2025-12-15"
+    },
+    "text": "The authorities advised consumers never to share personal or banking information in response to suspected scams.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-fraud-technology-2025",
+    "_type": "marketEvent",
+    "title": "How did the ESAs say technology can affect online fraud?",
+    "summary": "Technology alone does not prove that an individual project or transaction is fraudulent.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-fraud-technology-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-fraud-technology-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-esa-online-fraud-factsheets-2025-12-15"
+    },
+    "text": "The 2025 announcement said AI and blockchain technology can make frauds and scams more convincing and harder to detect.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-group-encrypted-crypto-2025",
+    "_type": "marketEvent",
+    "title": "How did FINRA describe crypto pitches in encrypted investment groups?",
+    "summary": "This is a reported scam pattern rather than a finding about a specific group.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-group-encrypted-crypto-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-group-encrypted-crypto-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-investment-group-imposter-2025-12-09"
+    },
+    "text": "FINRA's December 2025 alert described bad actors using encrypted group chats to promote lesser-known crypto-assets, often leaving investors with losses they cannot recover.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-group-mixed-pitches-2025",
+    "_type": "marketEvent",
+    "title": "Can one fraudulent investment group pitch both stocks and crypto?",
+    "summary": "The report describes complaints and observed tactics, not every investment group.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-group-mixed-pitches-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-group-mixed-pitches-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-investment-group-imposter-2025-12-09"
+    },
+    "text": "FINRA reported that some fraudulent groups solicit investors to buy stocks and crypto through communications within the same group.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-group-professional-impersonation-2025",
+    "_type": "marketEvent",
+    "title": "How might a group impersonate a registered investment professional?",
+    "summary": "A professional's name in a chat does not authenticate who is speaking.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-group-professional-impersonation-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-group-professional-impersonation-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-investment-group-imposter-2025-12-09"
+    },
+    "text": "FINRA described scammers copying a real professional's name and publicly available details to create a false appearance of legitimacy.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-group-deepfake-2025",
+    "_type": "marketEvent",
+    "title": "What role can deepfake videos play in investment-group scams?",
+    "summary": "A video appearance alone does not verify an endorsement or a person's identity.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-group-deepfake-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-group-deepfake-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-investment-group-imposter-2025-12-09"
+    },
+    "text": "The FINRA alert reported deepfake videos impersonating known investment professionals in social-media investment pitches.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-group-uninvited-2025",
+    "_type": "marketEvent",
+    "title": "What did FINRA say about being added to an investment chat without asking?",
+    "summary": "Unexpected membership is a reason to investigate, not proof by itself of fraud.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-group-uninvited-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-group-uninvited-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-investment-group-imposter-2025-12-09"
+    },
+    "text": "FINRA said some investors were placed into encrypted group chats without prior contact as part of investment-group scam patterns.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-group-verify-2025",
+    "_type": "marketEvent",
+    "title": "How did FINRA recommend checking a claimed investment professional?",
+    "summary": "A matching name may be impersonated; checking a listing alone does not authenticate the person messaging you.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-group-verify-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-group-verify-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-investment-group-imposter-2025-12-09"
+    },
+    "text": "FINRA recommended using BrokerCheck and comparing the person's name, firm and location with independent research.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-group-research-2025",
+    "_type": "marketEvent",
+    "title": "What independent research did FINRA recommend before following a group tip?",
+    "summary": "This describes an investor diligence step, not a guarantee of safety.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-group-research-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-group-research-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-investment-group-imposter-2025-12-09"
+    },
+    "text": "FINRA advised searching for the group and investment product independently rather than trusting an unsolicited encrypted-chat pitch.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-group-loss-recovery-2025",
+    "_type": "marketEvent",
+    "title": "How can a scam group exploit someone after a trading loss?",
+    "summary": "The alert describes a reported pressure tactic and does not assess a particular recovery service.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-group-loss-recovery-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-group-loss-recovery-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-investment-group-imposter-2025-12-09"
+    },
+    "text": "FINRA reported scammers promising to recover earlier losses if the investor transferred more funds into their account.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-group-reporting-2025",
+    "_type": "marketEvent",
+    "title": "Where did FINRA direct targets of investment-group scams to report concerns?",
+    "summary": "Reporting paths in a 2025 US alert may change; check the authorities' current pages before filing.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-group-reporting-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-group-reporting-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-investment-group-imposter-2025-12-09"
+    },
+    "text": "FINRA invited regulatory tips and pointed potential criminal or cybercrime reports to law enforcement and the FBI's IC3.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-group-solicitation-2025",
+    "_type": "marketEvent",
+    "title": "Which social channels did FINRA associate with investment-group pitches?",
+    "summary": "The use of a particular app does not itself establish that an offer is fraudulent.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-group-solicitation-2025",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-group-solicitation-2025"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-investment-group-imposter-2025-12-09"
+    },
+    "text": "FINRA described advertisements on social-media channels followed by one-to-one or group conversations in encrypted messaging apps.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-sec24-fake-app",
+    "_type": "marketEvent",
+    "title": "Can an app-store listing prove that a crypto investment platform is genuine?",
+    "summary": "App distribution is not independent verification of an investment platform.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-sec24-fake-app",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-sec24-fake-app"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-five-crypto-scams-2024-05-29"
+    },
+    "text": "The May 2024 SEC staff alert said scammers may use a widely available app or a plausible-looking fake website to make a fraudulent investment seem legitimate.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-sec24-small-withdrawal",
+    "_type": "marketEvent",
+    "title": "Why might a scam platform permit a small early withdrawal?",
+    "summary": "A successful small withdrawal does not establish whether an individual platform is sound.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-sec24-small-withdrawal",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-sec24-small-withdrawal"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-five-crypto-scams-2024-05-29"
+    },
+    "text": "The SEC staff described scammers letting targets withdraw a small purported profit to gain their trust before soliciting larger investments.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-sec24-withdrawal-tax",
+    "_type": "marketEvent",
+    "title": "What did the SEC alert say about taxes demanded before withdrawal?",
+    "summary": "A payment demand should be examined independently; the alert does not judge an individual account.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-sec24-withdrawal-tax",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-sec24-withdrawal-tax"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-five-crypto-scams-2024-05-29"
+    },
+    "text": "The SEC staff described scammers inventing extra fees or taxes when a victim tries to withdraw purported investment proceeds.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-sec24-ai-bots",
+    "_type": "marketEvent",
+    "title": "How can a claim about AI trading bots be used in a crypto scam?",
+    "summary": "A marketing claim about AI is not evidence that any particular system performs as promised.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-sec24-ai-bots",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-sec24-ai-bots"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-five-crypto-scams-2024-05-29"
+    },
+    "text": "The SEC staff warned that scammers may claim AI bots can find superior crypto-related investments as a way to attract investors.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-sec24-deepfake-loved-ones",
+    "_type": "marketEvent",
+    "title": "Whose voices or faces can scammers imitate with deepfakes?",
+    "summary": "The warning does not authenticate an individual video or voice recording.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-sec24-deepfake-loved-ones",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-sec24-deepfake-loved-ones"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-five-crypto-scams-2024-05-29"
+    },
+    "text": "The SEC alert described AI-generated imitations of celebrities, officials and loved ones used to build trust or seek funds.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-sec24-hijacked-account",
+    "_type": "marketEvent",
+    "title": "Can an investment pitch from a friend's social account still be suspicious?",
+    "summary": "A familiar account alone does not identify who controlled it when the message was sent.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-sec24-hijacked-account",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-sec24-hijacked-account"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-five-crypto-scams-2024-05-29"
+    },
+    "text": "SEC staff warned that attackers can hijack friends' or family members' social accounts and post investment pitches in their names.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-sec24-memecoin-presale",
+    "_type": "marketEvent",
+    "title": "How can a memecoin presale be used in a pump-and-dump scheme?",
+    "summary": "The scenario is a risk pattern, not a finding about a named token.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-sec24-memecoin-presale",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-sec24-memecoin-presale"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-five-crypto-scams-2024-05-29"
+    },
+    "text": "The SEC alert described promoters touting a memecoin on social media, sometimes as a presale, to drive purchases before promoters sell.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-sec24-refund-trick",
+    "_type": "marketEvent",
+    "title": "What fake refund story can extract an extra payment from an investor?",
+    "summary": "A claimed account credit needs independent confirmation.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-sec24-refund-trick",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-sec24-refund-trick"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-five-crypto-scams-2024-05-29"
+    },
+    "text": "The SEC staff warned that scammers may falsely claim they deposited money by mistake and ask a target to refund funds never actually sent.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-sec24-recovery-key",
+    "_type": "marketEvent",
+    "title": "Why is a recovery service asking for a crypto private key a warning sign?",
+    "summary": "The warning does not evaluate a particular recovery provider.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-sec24-recovery-key",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-sec24-recovery-key"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-five-crypto-scams-2024-05-29"
+    },
+    "text": "The 2024 SEC alert warned that scammers may target past victims by requesting private keys or advance payments under the pretext of recovering lost funds.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-sec24-fomo",
+    "_type": "marketEvent",
+    "title": "How did SEC staff link fear of missing out with crypto investment pitches?",
+    "summary": "Novelty does not establish the merits or fraud status of any particular opportunity.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-sec24-fomo",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-sec24-fomo"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-five-crypto-scams-2024-05-29"
+    },
+    "text": "The alert cautioned investors against fear of missing out on a purported new or cutting-edge investment opportunity.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-yield22-deposit-comparison",
+    "_type": "marketEvent",
+    "title": "Why is a crypto interest account different from an insured bank deposit?",
+    "summary": "The source compares products at publication, not current coverage for an individual account.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-yield22-deposit-comparison",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-yield22-deposit-comparison"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-crypto-interest-accounts-2022-02-14"
+    },
+    "text": "The SEC's February 2022 bulletin distinguished crypto interest-bearing accounts from bank and credit-union deposits, which benefit from banking regulation and specified deposit-insurance protections.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-yield22-sipc-market-loss",
+    "_type": "marketEvent",
+    "title": "Does SIPC insurance reimburse losses from falling security prices?",
+    "summary": "The exact coverage for a current account requires checking applicable current rules.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-yield22-sipc-market-loss",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-yield22-sipc-market-loss"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-crypto-interest-accounts-2022-02-14"
+    },
+    "text": "The SEC bulletin stated that SIPC protection for qualifying broker failures does not cover losses caused by a decline in the market value of securities.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-yield22-sipc-crypto",
+    "_type": "marketEvent",
+    "title": "Did the SEC bulletin say SIPC covers most crypto assets?",
+    "summary": "The statement is dated and does not determine protection for a particular asset today.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-yield22-sipc-crypto",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-yield22-sipc-crypto"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-crypto-interest-accounts-2022-02-14"
+    },
+    "text": "The February 2022 investor bulletin said SIPC protection did not cover the loss of most crypto assets or unregistered investment contracts.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-yield22-lending-use",
+    "_type": "marketEvent",
+    "title": "How might a crypto interest account generate its advertised return?",
+    "summary": "A particular provider's present activity must be checked separately.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-yield22-lending-use",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-yield22-lending-use"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-crypto-interest-accounts-2022-02-14"
+    },
+    "text": "The SEC bulletin explained that providers may lend deposited crypto assets to borrowers or pursue other crypto-related activities to fund interest payments.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-yield22-illiquidity",
+    "_type": "marketEvent",
+    "title": "What liquidity risk did the SEC identify for crypto interest accounts?",
+    "summary": "This identifies general historical risks rather than a current liquidity reading.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-yield22-illiquidity",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-yield22-illiquidity"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-crypto-interest-accounts-2022-02-14"
+    },
+    "text": "The SEC listed illiquidity and crypto market volatility among risks affecting assets held through interest-bearing accounts.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-yield22-company-failure",
+    "_type": "marketEvent",
+    "title": "What happens to an interest-account holder if the crypto company fails?",
+    "summary": "It did not determine recovery rights for any specific failure; those depend on applicable facts and law.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-yield22-company-failure",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-yield22-company-failure"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-crypto-interest-accounts-2022-02-14"
+    },
+    "text": "The bulletin identified company failure or bankruptcy as a risk that can adversely affect deposited crypto holdings.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-yield22-untradable-asset",
+    "_type": "marketEvent",
+    "title": "Can a crypto asset held in an interest account become untradable?",
+    "summary": "This is a possible outcome, not a prediction for a named asset.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-yield22-untradable-asset",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-yield22-untradable-asset"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-crypto-interest-accounts-2022-02-14"
+    },
+    "text": "The SEC bulletin identified a risk that a crypto asset's market could disappear and the asset might no longer trade anywhere.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-yield22-fraud-technical",
+    "_type": "marketEvent",
+    "title": "Which operational threats did the SEC list for crypto interest accounts?",
+    "summary": "The source does not assess any named service's present security.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-yield22-fraud-technical",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-yield22-fraud-technical"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-crypto-interest-accounts-2022-02-14"
+    },
+    "text": "The bulletin listed potential fraud, technical glitches, hackers and malware among risks to crypto assets deployed by an interest-account company.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-yield22-blockfi-registration",
+    "_type": "marketEvent",
+    "title": "What did the SEC's 2022 BlockFi example say about registration?",
+    "summary": "The example is a dated specific enforcement outcome, not a rule classifying every crypto yield product.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-yield22-blockfi-registration",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-yield22-blockfi-registration"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-crypto-interest-accounts-2022-02-14"
+    },
+    "text": "The SEC bulletin recounted an order finding that BlockFi Interest Accounts were securities offered without registration at the time of that action.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-yield22-blockfi-collateral",
+    "_type": "marketEvent",
+    "title": "Why did the SEC bulletin mention BlockFi's collateral statement?",
+    "summary": "The finding concerns the conduct in that order, not another company's collateral arrangements.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-yield22-blockfi-collateral",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-yield22-blockfi-collateral"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-crypto-interest-accounts-2022-02-14"
+    },
+    "text": "The bulletin recounted an SEC order finding BlockFi made a materially false or misleading statement about collateral practices, understating lending-program risk.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-relation24-wrong-number",
+    "_type": "marketEvent",
+    "title": "How can a wrong-number message start a relationship investment scam?",
+    "summary": "An unexpected message alone does not prove fraud by its sender.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-relation24-wrong-number",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-relation24-wrong-number"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-relationship-investment-scams-2024-09-10"
+    },
+    "text": "The September 2024 joint alert described scammers pretending to contact the wrong person to begin a conversation and build trust.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-relation24-platform-switch",
+    "_type": "marketEvent",
+    "title": "Why might a scammer move a conversation to another messaging platform?",
+    "summary": "This is a described tactic, not a diagnosis of a particular conversation.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-relation24-platform-switch",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-relation24-platform-switch"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-relationship-investment-scams-2024-09-10"
+    },
+    "text": "The joint investor alert said fraudsters may move conversations away from the initial platform to a different, sometimes unmonitored, space.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-relation24-long-con",
+    "_type": "marketEvent",
+    "title": "What does the joint investor alert mean by a relationship investment 'long con'?",
+    "summary": "The pattern does not prove the intentions of a specific person.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-relation24-long-con",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-relation24-long-con"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-relationship-investment-scams-2024-09-10"
+    },
+    "text": "The alert described trust developing through friendship, romance or financial advice over time before an investment request appears.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-relation24-fake-ico",
+    "_type": "marketEvent",
+    "title": "How might an alleged initial coin offering conceal a direct transfer to a fraudster?",
+    "summary": "The example does not evaluate a particular token offering.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-relation24-fake-ico",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-relation24-fake-ico"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-relationship-investment-scams-2024-09-10"
+    },
+    "text": "The 2024 joint alert warned that a target may think they are investing in an ICO while funds actually go straight to a fraudster's wallet.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-relation24-payment-mismatch",
+    "_type": "marketEvent",
+    "title": "Why check whether the payee matches the firm offering an investment?",
+    "summary": "It is an investigation prompt, not a definitive legal finding.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-relation24-payment-mismatch",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-relation24-payment-mismatch"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-relationship-investment-scams-2024-09-10"
+    },
+    "text": "The joint alert flagged transfers to an individual or unrelated business rather than the expected investment firm as a suspicious payment pattern.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-relation24-false-trade-screen",
+    "_type": "marketEvent",
+    "title": "Can an investment dashboard show fabricated trades and gains?",
+    "summary": "A screen is not independent proof of an investor's assets.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-relation24-false-trade-screen",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-relation24-false-trade-screen"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-relationship-investment-scams-2024-09-10"
+    },
+    "text": "The 2024 alert said fraudsters can manipulate an online account or show fake screenshots and purported real-time trading data to suggest gains.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-relation24-loan-trap",
+    "_type": "marketEvent",
+    "title": "How can a fake trading loan block a withdrawal?",
+    "summary": "The source illustrates a fraud tactic without assessing a specific contract.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-relation24-loan-trap",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-relation24-loan-trap"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-relationship-investment-scams-2024-09-10"
+    },
+    "text": "The joint alert warned that scammers may pretend to lend funds for trading and demand loan repayment before permitting withdrawal of principal or supposed profits.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-relation24-paid-testimonial",
+    "_type": "marketEvent",
+    "title": "Why might a glowing testimonial inside an investment group mislead?",
+    "summary": "Testimonials need independent corroboration; a named speaker is not assessed here.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-relation24-paid-testimonial",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-relation24-paid-testimonial"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-relationship-investment-scams-2024-09-10"
+    },
+    "text": "The alert warned that scammers may pay actors or influencers to tout an opportunity and that members claiming huge profits might participate in the fraud.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-relation24-fake-celebrity",
+    "_type": "marketEvent",
+    "title": "How can altered images create a false investment endorsement?",
+    "summary": "The statement does not establish whether an individual advertisement is authentic.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-relation24-fake-celebrity",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-relation24-fake-celebrity"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-relationship-investment-scams-2024-09-10"
+    },
+    "text": "The joint alert described altered or AI-generated photos or videos that falsely imply investment gains or celebrity endorsement.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-relation24-contact-independent",
+    "_type": "marketEvent",
+    "title": "How should someone respond to an unexpected message claiming to be their financial institution?",
+    "summary": "Contact the institution through an independently verified channel for a current case.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-relation24-contact-independent",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-relation24-contact-independent"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-relationship-investment-scams-2024-09-10"
+    },
+    "text": "The joint alert advised against clicking links or using contact details supplied in an unexpected message claiming to come from an institution.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-chats25-expert-imposter",
+    "_type": "marketEvent",
+    "title": "What expert identities might a fraudulent investment group chat impersonate?",
+    "summary": "This is a described scam tactic, not a finding about a named expert.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-chats25-expert-imposter",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-chats25-expert-imposter"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-group-chat-scams-2025-12-22"
+    },
+    "text": "The December 2025 SEC staff alert said a fake investment chat may pose as a famous financial expert, professor or CEO, including through a deepfake.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-chats25-ai-signals",
+    "_type": "marketEvent",
+    "title": "Why are supposed AI trading signals in group chats worth checking?",
+    "summary": "The named SEC case is an allegation; the alert does not validate any current algorithm.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-chats25-ai-signals",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-chats25-ai-signals"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-group-chat-scams-2025-12-22"
+    },
+    "text": "The SEC staff described chats promoting AI-generated stock picks or algorithms, and cited allegations involving investment clubs claiming AI-based signals.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-chats25-app-store",
+    "_type": "marketEvent",
+    "title": "Does an investment group chat's recommended mobile app gain credibility from an app store?",
+    "summary": "The warning does not evaluate an individual app.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-chats25-app-store",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-chats25-app-store"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-group-chat-scams-2025-12-22"
+    },
+    "text": "The SEC alert cautioned that availability in a familiar app store does not demonstrate legitimate trading or account activity.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-chats25-frozen-account",
+    "_type": "marketEvent",
+    "title": "How can a fake regulatory account freeze be used to demand money?",
+    "summary": "A purported freeze must be checked independently through official channels.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-chats25-frozen-account",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-chats25-frozen-account"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-group-chat-scams-2025-12-22"
+    },
+    "text": "The 2025 SEC staff alert described fraudsters falsely claiming a regulator froze, or was about to freeze, an account to extract a fee, tax or deposit.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-chats25-form-crs",
+    "_type": "marketEvent",
+    "title": "What independent contact route did SEC staff suggest for a chat claiming to represent a broker?",
+    "summary": "Confirm the form is genuine and current before relying on it.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-chats25-form-crs",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-chats25-form-crs"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-group-chat-scams-2025-12-22"
+    },
+    "text": "The SEC alert suggested contacting a professional through a phone number or website listed in the firm's Form CRS rather than contact details supplied in the chat.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-chats25-entity-lookup",
+    "_type": "marketEvent",
+    "title": "How did SEC staff describe finding a genuine firm's Form CRS?",
+    "summary": "A firm record does not prove that an online sender works there.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-chats25-entity-lookup",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-chats25-entity-lookup"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-group-chat-scams-2025-12-22"
+    },
+    "text": "The 2025 alert described searching Investor.gov for the firm, opening its details, and viewing its relationship summary.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-chats25-professional-spoof",
+    "_type": "marketEvent",
+    "title": "Can a group chat impersonate a registered adviser or broker?",
+    "summary": "Check the sender through the firm's independently listed contact details.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-chats25-professional-spoof",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-chats25-professional-spoof"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-group-chat-scams-2025-12-22"
+    },
+    "text": "The SEC staff warned that scammers may pretend to be registered brokers or advisers or may falsely associate a chat with a real firm.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-chats25-stock-pump",
+    "_type": "marketEvent",
+    "title": "How can a group chat orchestrate a stock pump-and-dump?",
+    "summary": "The scenario is a general warning and does not classify any particular recommendation.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-chats25-stock-pump",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-chats25-stock-pump"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-group-chat-scams-2025-12-22"
+    },
+    "text": "The SEC staff described chats using false stock tips to build a buying frenzy before promoters sell shares at investors' expense.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-chats25-phony-license",
+    "_type": "marketEvent",
+    "title": "What did the SEC allege about trading platforms' regulatory licenses in the Morocoin case?",
+    "summary": "These are allegations in an enforcement complaint, not final judicial findings.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-chats25-phony-license",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-chats25-phony-license"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-group-chat-scams-2025-12-22"
+    },
+    "text": "The December 2025 alert summarized SEC complaint allegations that certain promoted crypto platforms falsely claimed regulatory licenses, including from the SEC.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-chats25-club-roles",
+    "_type": "marketEvent",
+    "title": "What 'professor' and 'assistant' roles appeared in the SEC's Morocoin allegations?",
+    "summary": "These are case allegations, not a judgment about all groups using those titles.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-chats25-club-roles",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-chats25-club-roles"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-sec-group-chat-scams-2025-12-22"
+    },
+    "text": "The SEC alert reported complaint allegations that purported investment clubs used a professor to post market commentary and an assistant to communicate with members.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-finra-rel25-personal-info",
+    "_type": "marketEvent",
+    "title": "Why did FINRA say scammers ask about an online contact's personal life?",
+    "summary": "This describes a pattern, not a conclusion about an individual friendship.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-finra-rel25-personal-info",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-finra-rel25-personal-info"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-relationship-scams-2025-05-28"
+    },
+    "text": "FINRA's May 2025 article described scammers mirroring personal details and collecting information to build trust and later manipulate a target.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-finra-rel25-small-first",
+    "_type": "marketEvent",
+    "title": "Why might a relationship scam start with a modest investment?",
+    "summary": "A small initial amount does not establish an offer's legitimacy.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-finra-rel25-small-first",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-finra-rel25-small-first"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-relationship-scams-2025-05-28"
+    },
+    "text": "FINRA described small initial solicitations as a way to strengthen confidence before a scammer requests larger investments.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-finra-rel25-trade-screenshot",
+    "_type": "marketEvent",
+    "title": "Why might an online contact demand a screenshot of your trade?",
+    "summary": "The article does not characterize any particular person's request.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-finra-rel25-trade-screenshot",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-finra-rel25-trade-screenshot"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-relationship-scams-2025-05-28"
+    },
+    "text": "FINRA described stock-scam promoters requesting a screenshot confirming a specific trade had been executed.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-finra-rel25-phony-dashboard",
+    "_type": "marketEvent",
+    "title": "What can a fabricated crypto-platform dashboard conceal?",
+    "summary": "A screenshot is not independent evidence of custody or holdings.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-finra-rel25-phony-dashboard",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-finra-rel25-phony-dashboard"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-relationship-scams-2025-05-28"
+    },
+    "text": "FINRA explained that a fake trading venue may display fictitious account growth even when funds went directly to scammers.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-finra-rel25-unavailable-platform",
+    "_type": "marketEvent",
+    "title": "What may happen to a fake crypto platform when an investor tries to withdraw?",
+    "summary": "It is an illustrative risk pattern, not an assessment of a named venue.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-finra-rel25-unavailable-platform",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-finra-rel25-unavailable-platform"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-relationship-scams-2025-05-28"
+    },
+    "text": "FINRA warned that victims may discover their purported account cannot be withdrawn or that the site becomes inaccessible.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-finra-rel25-independent-opinion",
+    "_type": "marketEvent",
+    "title": "Whose opinion might help evaluate an unfamiliar investment pitch?",
+    "summary": "A second opinion cannot guarantee an investment's safety.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-finra-rel25-independent-opinion",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-finra-rel25-independent-opinion"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-relationship-scams-2025-05-28"
+    },
+    "text": "FINRA suggested asking an independent third party or an investment professional with no stake in the transaction to review an unfamiliar offer.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-finra-rel25-platform-control",
+    "_type": "marketEvent",
+    "title": "Which platform-control questions did FINRA recommend asking?",
+    "summary": "These questions require current independent checks on the actual operator.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-finra-rel25-platform-control",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-finra-rel25-platform-control"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-relationship-scams-2025-05-28"
+    },
+    "text": "FINRA suggested checking who controls a trading platform, its security measures, and how funds could be withdrawn.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-finra-rel25-broker-history",
+    "_type": "marketEvent",
+    "title": "Can BrokerCheck reveal a promoter's disciplinary history?",
+    "summary": "A registration match does not authenticate the person contacting you.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-finra-rel25-broker-history",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-finra-rel25-broker-history"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-relationship-scams-2025-05-28"
+    },
+    "text": "FINRA recommended BrokerCheck to review whether someone is or was registered and to inspect any disclosed disciplinary history.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-finra-rel25-guaranteed",
+    "_type": "marketEvent",
+    "title": "Why did FINRA flag supposedly guaranteed unusually high investment returns?",
+    "summary": "A marketing promise alone does not quantify any individual product's actual risk.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-finra-rel25-guaranteed",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-finra-rel25-guaranteed"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-relationship-scams-2025-05-28"
+    },
+    "text": "The May 2025 FINRA article listed exaggerated or guaranteed returns among warning signs in relationship investment scams.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  },
+  {
+    "_id": "market-event-finra-rel25-emotional-appeal",
+    "_type": "marketEvent",
+    "title": "What emotional pressure might appear in an investment relationship scam?",
+    "summary": "An emotional appeal is a reason for caution, not proof of fraud.",
+    "observedAt": "2026-09-25T00:00:00Z",
+    "review": "needs-human-review"
+  },
+  {
+    "_id": "evidence-claim-finra-rel25-emotional-appeal",
+    "_type": "evidenceClaim",
+    "event": {
+      "_type": "reference",
+      "_ref": "market-event-finra-rel25-emotional-appeal"
+    },
+    "source": {
+      "_type": "reference",
+      "_ref": "source-finra-relationship-scams-2025-05-28"
+    },
+    "text": "FINRA described scammers appealing to family goals or other emotions to encourage a target to invest more money.",
+    "stance": "supports",
+    "observedAt": "2026-09-25T00:00:00Z"
+  }
+]

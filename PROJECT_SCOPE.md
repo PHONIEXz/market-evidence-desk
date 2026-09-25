@@ -75,6 +75,12 @@ without a new scope decision.
 - Evidence atlas with seven grouped question dossiers populated from the
   published graph, source scope notes, review status and links into the ledger.
   Reading guides across the other pages explain stance, date and authority.
+- A second, locally validated batch contains 94 new questions and ten original
+  dated publications. It is awaiting authenticated import; do not count it as
+  published until the anonymous published-perspective verification succeeds.
+- The public graph can return more than 100 questions and the atlas displays
+  results in 24-card batches. Custom agent retrieval is bounded to linked
+  claims instead of dumping the entire expanded dataset into a model prompt.
 - Concise AI answer style: direct answer first, short bullets, source section,
   no invented URLs/dates, and explicit limits.
 - Vercel web deployment and local tests/builds passing during the last verified

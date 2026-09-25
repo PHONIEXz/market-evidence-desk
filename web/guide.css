@@ -725,6 +725,7 @@
 .atlas-toolbar p { color: #bdcdd3; font-size: 14px; }
 .atlas-toolbar .search-box { min-width: min(100%, 290px); }
 .atlas-groups { display: grid; gap: 36px; }
+.atlas-more { display: block; margin: 30px auto 0; }
 .atlas-group-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; border-bottom: 1px solid #39515b; margin-bottom: 17px; }
 .atlas-group-heading h3 { margin: 0 0 14px; font-size: 24px; letter-spacing: -.025em; }
 .atlas-group-heading p { max-width: 52ch; margin: 0 0 14px; font-size: 14px; }

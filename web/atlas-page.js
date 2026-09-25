@@ -3,14 +3,18 @@ const THEMES = [
   {name: "Reserve assurance", description: "A snapshot can answer a narrow question while leaving the broader balance sheet untested.", ids: ["market-event-sec-proof-of-reserves-question-2023", "market-event-proof-of-reserves-scope-question-2023", "market-event-stablecoin-reserve-assurance-question-2025"], limit: "A historical assessment cannot verify current asset availability, all liabilities or present solvency."},
   {name: "Customer protection", description: "Follow the difference between a consumer protection, a policy recommendation and an individual account's legal position.", ids: ["market-event-crypto-deposit-insurance-boundary-2026", "market-event-crypto-custody-and-conflicts-2026"], limit: "The records do not decide insurance eligibility or certify the custody practices of any named platform."},
   {name: "Redemption and global rules", description: "Read what international bodies recommend, then check what those documents do and do not establish locally.", ids: ["market-event-global-stablecoin-redemption-2026", "market-event-global-crypto-standards-implementation-2026"], limit: "Recommendations and dated analysis do not verify a token's redemption today or establish the current law in every jurisdiction."},
+  {name: "EU consumer safeguards", description: "Compare dated warnings before and after MiCA and check the category of product and provider.", prefixes: ["market-event-eu-", "market-event-mica-"], limit: "These warnings cannot determine a particular customer's current legal rights or a provider's present authorisation."},
+  {name: "DeFi and lending risks", description: "Read the dated joint EBA and ESMA analysis of DeFi, lending, borrowing and staking.", prefixes: ["market-event-defi-"], limit: "Market estimates and risk categories from 2025 do not describe a named protocol or today's market."},
+  {name: "Fraud and impersonation", description: "Check how consumer authorities describe tactics without treating an individual account as proven fraudulent.", prefixes: ["market-event-fraud-", "market-event-group-"], limit: "A pattern in an investor alert cannot identify a particular sender, offer or group without independent checking."},
 ];
 
 const $ = (selector) => document.querySelector(selector);
 const make = (parent, tag, content, className) => { const node = document.createElement(tag); node.textContent = content ?? ""; if (className) node.className = className; parent.append(node); return node; };
 const date = (value) => { const parsed = new Date(value); return Number.isFinite(parsed.getTime()) ? parsed.toLocaleDateString(undefined, {dateStyle: "medium", timeZone: "UTC"}) : "Date unverified"; };
-const themeFor = (id) => THEMES.find((theme) => theme.ids.includes(id));
+const themeFor = (id) => THEMES.find((theme) => theme.ids?.includes(id) || theme.prefixes?.some((prefix) => id.startsWith(prefix)));
 const sourceMap = new Map();
 let graph;
+let limit = 24;
 
 function linked(event) {
   return graph.claims.filter((claim) => claim.eventId === event.id && sourceMap.has(claim.sourceId));
@@ -59,11 +63,16 @@ function renderQuestions() {
     return [event.title, event.summary, themeFor(event.id)?.name, ...linked(event).flatMap((claim) => [claim.text, sourceMap.get(claim.sourceId)?.title])]
       .some((value) => String(value || "").toLowerCase().includes(term));
   });
-  $("#atlas-count").textContent = `${visible.length} of ${graph.events.length} published questions`;
+  const requested = new URLSearchParams(location.search).get("question");
+  const requestedIndex = visible.findIndex((event) => event.id === requested);
+  if (requestedIndex >= limit) limit = Math.ceil((requestedIndex + 1) / 24) * 24;
+  $("#atlas-count").textContent = `Showing ${Math.min(limit, visible.length)} of ${visible.length} matching questions · ${graph.events.length} published in total`;
   $("#atlas-no-results").hidden = visible.length > 0;
+  $("#atlas-more").hidden = visible.length <= limit;
   $("#atlas-groups").replaceChildren();
-  for (const theme of [...THEMES, {name: "Other published questions", description: "Questions added in Sanity also appear here.", ids: graph.events.filter((event) => !themeFor(event.id)).map((event) => event.id)}]) {
-    const events = theme.ids.map((id) => visible.find((event) => event.id === id)).filter(Boolean);
+  const shown = visible.slice(0, limit);
+  for (const theme of [...THEMES, {name: "Other published questions", description: "Questions added in Sanity also appear here."}]) {
+    const events = shown.filter((event) => (themeFor(event.id)?.name || "Other published questions") === theme.name);
     if (!events.length) continue;
     const group = make($("#atlas-groups"), "section", "", "atlas-group");
     const heading = make(group, "div", "", "atlas-group-heading");
@@ -82,12 +91,13 @@ function renderQuestions() {
       button.addEventListener("click", () => { renderDossier(event); $("#atlas-dossier").scrollIntoView({behavior: "smooth", block: "start"}); });
     }
   }
-  const selected = visible.find((event) => event.id === new URLSearchParams(location.search).get("question"));
+  const selected = visible.find((event) => event.id === requested);
   if (!visible.length) $("#atlas-dossier").hidden = true;
   else if (!selected || $("#atlas-dossier").hidden) renderDossier(selected || visible[0]);
 }
 
-$("#atlas-search").addEventListener("input", renderQuestions);
+$("#atlas-search").addEventListener("input", () => { limit = 24; renderQuestions(); });
+$("#atlas-more").addEventListener("click", () => { limit += 24; renderQuestions(); });
 try {
   const response = await fetch("/api/evidence", {signal: AbortSignal.timeout(8000)});
   if (!response.ok) throw new Error("Published graph unavailable");

@@ -12,7 +12,7 @@ This is the short demo path for the Sanity Challenge Path One. The DEV post draf
 
 ## Release checks
 
-- [ ] Confirm mobile menu, source links, and fictional demo label. Desktop Sources and Research pages previously rendered the larger reading scale on the feature preview; repeat visual and mobile checks on the new public production deployment.
+- [ ] Check the mobile menu on an actual phone and confirm the fictional demo label. On 2026-09-25, the production Sources page displayed 21 distinct original-publication links from 22 Sanity source records, and the Atlas displayed 101 published questions. A narrow-header CSS fix was deployed for widths at or below 520px, but this browser cannot emulate a phone viewport, so the visual mobile check remains open.
 - [x] On 2026-09-25, verified the dataset Sourcebook import is `complete`: 140 selected, 140 distilled, zero unsupported, zero errors. The selection is bounded to `source` and `evidenceClaim` with linked question fields projected onto claims. The public published query currently returns 134 source and claim records, so these counts describe different views and must not be treated as a one-to-one match.
 - [ ] Open Sourcebook Entries to confirm that the new stablecoin and reserve entries appear; inspect Issues to ensure no unresolved material conflict is presented as settled fact.
 - [x] On 2026-09-24, run **compare**, **dispute**, and **price** against the feature preview at commit `9d97e61`. Each returned `groq_query` and `knowledge_base_read`; comparison linked Kraken, PCAOB, and SEC; disagreement linked the two dated SEC views; price declined live data and linked historical sources. Earlier timed-out runs show the hosted model can still be intermittent.

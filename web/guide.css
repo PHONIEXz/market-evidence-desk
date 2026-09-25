@@ -782,3 +782,31 @@
   .atlas-dossier { padding: 20px; }
   .dossier-side { padding: 18px; }
 }
+
+/* Keep the page itself inside a phone viewport; oversized glow artwork is decorative. */
+html, body { max-width: 100%; overflow-x: clip; }
+.hero-copy, .hero-card, .scope-banner > div, .atlas-intro > *,
+.atlas-toolbar > *, .atlas-group-heading > *, .atlas-next > *,
+.dossier-heading > *, .dossier-grid > *, .method-deep > *,
+.comparison-head > *, .comparison-card > *, .agent-page-grid > *,
+.page-toolbar > * { min-width: 0; }
+.agent-sources a, .dossier-source a, .source-claim-list a,
+.page-link-card, .page-note, .atlas-question strong { overflow-wrap: anywhere; }
+
+@media (max-width: 760px) {
+  .hero, .workspace, .lower-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero h1, .page-hero h1, .atlas-dossier h2 { overflow-wrap: anywhere; }
+  .timeline-item { grid-template-columns: 92px 13px minmax(0, 1fr); }
+}
+
+@media (max-width: 420px) {
+  .header-inner { gap: 8px; padding-inline: 14px; }
+  .brand { min-width: 0; gap: 7px; }
+  .brand-copy { min-width: 0; }
+  .brand strong { font-size: 11px; letter-spacing: .055em; }
+  .brand small { font-size: 10px; letter-spacing: 0; }
+  .mobile-nav-toggle { flex: none; }
+  .hero-card-top { flex-wrap: wrap; }
+  .atlas-legend, .atlas-next-links { min-width: 0; }
+  .timeline-item { grid-template-columns: 80px 11px minmax(0, 1fr); gap: 7px; }
+}

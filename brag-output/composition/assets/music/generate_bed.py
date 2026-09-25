@@ -46,7 +46,7 @@ for index in range(RATE * DURATION):
                 sin(2 * pi * 660 * elapsed) + 0.32 * sin(2 * pi * 990 * elapsed)
             )
     fade = min(1.0, t / 0.7, max(0.0, (DURATION - t) / 1.2))
-    sample = tanh((bed + pluck + tick) * fade)
+    sample = tanh((bed + pluck + tick) * 3.1 * fade)
     samples.append(int(max(-1, min(1, sample)) * 32767))
 
 with wave.open(str(OUT), "wb") as sound:

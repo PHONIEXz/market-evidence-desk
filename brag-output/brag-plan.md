@@ -17,7 +17,7 @@ Market Evidence Desk is a research interface for published, dated evidence in Sa
 | Time | Scene | Text and action | Audio |
 |---|---|---|---|
 | 0–3.2s | Hook | “Make the claim.” appears; “Show the receipt.” resolves in mint. Source-trail mark and small `MARKET EVIDENCE` label. Hold the full line. | Warm synth bed starts; one restrained soft accent. |
-| 3.2–7.5s | Research desk | Reconstructed desk with actual `Read the question before you read the answer.` and the real reserve-snapshot research question. A `PUBLISHED EVIDENCE` chip and dated-claims list come into focus. | Short, quiet UI pulse at the first card. |
+| 3.2–7.5s | Research desk | Reconstructed desk with actual `Read the question before you read the answer.` and the real reserve-snapshot research question. A `PUBLISHED EVIDENCE` chip and the dated PCAOB staff and Kraken source positions come into focus. | Short, quiet UI pulse at the first card. |
 | 7.5–12.0s | Compare evidence | `Same question. Different kinds of proof.` followed by two scope cards: customer inclusion in a snapshot and broader liabilities. A visible `Scope matters` conclusion and link to original publications. No characterization of a source beyond the published site's own wording. | Soft cue on the compare reveal. |
 | 12.0–16.8s | Evidence Atlas | `Explore the questions behind the claims.` A dossier shows `Linked claims`, `Original publications`, and `What remains open`; an animated line connects the first two. Hold all three labels together. | Subtle ascending notes; no speech. |
 | 16.8–21.0s | Outro | Project mark and name, `Research with receipts.` / `Published evidence · Human review`, and `No live prices. No trading signals.` | Gentle resolution and fade. |

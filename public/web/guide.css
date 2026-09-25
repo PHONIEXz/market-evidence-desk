@@ -276,9 +276,15 @@
 }
 
 @media (max-width: 520px) {
+  .header-actions span:last-child { display: none; }
   .page-links { grid-template-columns: 1fr; }
   .page-hero { padding-top: 48px; }
   .page-hero h1 { font-size: 43px; }
+}
+
+@media (max-width: 360px) {
+  .header-inner { padding-inline: 14px; gap: 8px; }
+  .brand strong { font-size: 11px; letter-spacing: .08em; }
 }
 
 .comparison-tabs { margin: 25px 0 14px; }

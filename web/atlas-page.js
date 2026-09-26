@@ -64,8 +64,6 @@ function renderQuestions() {
       .some((value) => String(value || "").toLowerCase().includes(term));
   });
   const requested = new URLSearchParams(location.search).get("question");
-  const requestedIndex = visible.findIndex((event) => event.id === requested);
-  if (requestedIndex >= limit) limit = Math.ceil((requestedIndex + 1) / 24) * 24;
   $("#atlas-count").textContent = `Showing ${Math.min(limit, visible.length)} of ${visible.length} matching questions · ${graph.events.length} published in total`;
   $("#atlas-no-results").hidden = visible.length > 0;
   $("#atlas-more").hidden = visible.length <= limit;
@@ -107,6 +105,10 @@ try {
   $("#atlas-status").hidden = graph.events.length > 0;
   $("#atlas-content").hidden = !graph.events.length;
   renderQuestions();
+  const requested = new URLSearchParams(location.search).get("question");
+  if (graph.events.some((event) => event.id === requested)) {
+    requestAnimationFrame(() => $("#atlas-dossier").scrollIntoView({block: "start"}));
+  }
   if (!graph.events.length) $("#atlas-status").textContent = "No published research questions are available yet.";
 } catch {
   $("#atlas-status").textContent = "Published evidence is unavailable right now. Retry this page or open the research desk's fictional demo.";

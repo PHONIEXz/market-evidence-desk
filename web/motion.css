@@ -376,14 +376,14 @@ main { max-width: 1460px; }
   box-shadow: 15px 15px 0 rgba(72, 107, 105, .22);
 }
 .hero-card::before {
-  content: "MED / 001";
+  content: "";
   position: absolute;
-  right: 25px;
+  right: 28px;
   top: 50%;
-  color: rgba(24, 57, 59, .08);
-  font: 700 clamp(55px, 8vw, 126px) Georgia, serif;
-  white-space: nowrap;
-  transform: translateY(-50%) rotate(-90deg);
+  width: 3px;
+  height: 68px;
+  background: #a7cabc;
+  transform: translateY(-50%);
   pointer-events: none;
 }
 .hero-card > * { position: relative; z-index: 1; }
@@ -548,7 +548,7 @@ main { max-width: 1460px; }
   .page-links { grid-template-columns: minmax(0, 1fr); }
   .page-link-card { min-height: 0; padding: 22px 17px; }
   .page-link-card strong { margin-top: 16px; }
-  .hero-card::before { font-size: 55px; }
+  .hero-card::before { height: 48px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .top-nav a::after { transition: none; }

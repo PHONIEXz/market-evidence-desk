@@ -26,12 +26,8 @@ Check the read-only graph boundary with `python -m unittest discover -s tests -v
 
 ## Run the Sanity Context research agent
 
-Context is enabled for organization `oso5hthoq`. The **Market Evidence Desk Sourcebook** Knowledge Base (`kbu9WNgZ9ocF`) reads the `production` dataset and the March 23, 2023 [SEC investor alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities). The [hosted Studio](https://phoniex-market-evidence-desk.sanity.studio/) and its schema are deployed. The read-only `market-evidence-research` Context MCP endpoint serves the structured dataset; a second Context endpoint serves the Knowledge Base. The agent calls `groq_query` and `knowledge_base_read` before synthesis. The public dataset uses root-level document IDs, since dotted IDs are private to unauthenticated readers. The Sourcebook was rebuilt after the later comparison records were added; editors should continue reviewing its entries and issues as content changes.
-endpoint serves the dataset with a filter limited to `source`, `marketEvent`, and
-`evidenceClaim`; its earlier preview showed all three. The agent connects to the same
-endpoint in GROQ mode for the structured documents and in Knowledge Base mode for the
-Sourcebook, defaulting to this project's Knowledge Base ID. Refresh and review
-the Sourcebook after the corrected seed to spot repeated or outdated evidence.
+Context is enabled for organization `oso5hthoq`. The **Market Evidence Desk Sourcebook** Knowledge Base (`kbu9WNgZ9ocF`) reads the `production` dataset and the March 23, 2023 [SEC investor alert](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities). The [hosted Studio](https://phoniex-market-evidence-desk.sanity.studio/) and its schema are deployed. The read-only `market-evidence-research` Context MCP endpoint serves the structured dataset; a second Context endpoint serves the Knowledge Base. The agent calls `groq_query` and `knowledge_base_read` before synthesis. The public dataset uses root-level document IDs, since dotted IDs are private to unauthenticated readers. The Sourcebook was rebuilt after the later comparison records were added; editors should continue reviewing its entries and issues as content changes. The dataset MCP endpoint filters to `source`, `marketEvent`, and `evidenceClaim`. The agent connects to that endpoint in GROQ mode for linked records and to the Knowledge Base endpoint for cited entries. The bounded Knowledge Base selection is described below; changes to the public graph do not automatically prove that its generated entries are current.
+
 Create an **organization** API token with
 **Context Viewer** access; a project token will not authenticate to Context.
 
@@ -65,7 +61,7 @@ Gemini calls or the agent's longer request.
 After confirming both generation routes return 503, use
 `python scripts/diagnose_gemini.py --catalog-only` to check key access without
 repeating the generation requests.
-It avoids counting a copied SEC fact as independent corroboration. An authenticated Gemini run on September 23, 2026 logged both `groq_query`
+The agent avoids counting a copied SEC fact as independent corroboration. An authenticated Gemini run on September 23, 2026 logged both `groq_query`
 and `knowledge_base_read`, then answered the SEC proof-of-reserves question with the
 source URL and March 23, 2023 publication date. Its detailed answer was compared to
 the original SEC alert. The two retrieval paths have therefore been exercised live;
@@ -212,9 +208,7 @@ recommendations and local implementation. It uses FDIC, SEC, IOSCO, FSB, and
 BIS publications. A source's scope note explains its authority and limits;
 every new question remains `needs-human-review`.
 
-The feature preview now displays seven published research questions and eleven
-distinct original publications, including the four new questions and six new
-sources. The Sourcebook build and generated entries still need checking.
+This historical seed bundle added four questions and six source records. On September 26, 2026, the production graph contained 101 published questions and 22 source records (21 distinct original-publication URLs). Generated Sourcebook entries still need review after each rebuild.
 For a fresh dataset, validate links and dates before importing, then review
 each claim against its original publication in Studio. The validation checks
 structural integrity; it is not an independent fact check. From the project
@@ -243,7 +237,7 @@ The dated [EU consumer warnings](https://www.esma.europa.eu/press-news/esma-news
 On the machine already logged in to the Sanity CLI, from the repository root:
 
 ```bash
-git pull --ff-only origin feat/live-sanity-research-desk
+git pull --ff-only origin main
 bash scripts/publish_question_bundle.sh
 # Read the new source records and claims in Studio before the next command:
 bash scripts/publish_question_bundle.sh --apply
@@ -251,7 +245,7 @@ bash scripts/publish_question_bundle.sh --apply
 
 `--apply` uses `documents create --missing`, then checks every expected ID through an **anonymous, published-perspective** API query. The previous dotted-ID issue is avoided by root-level IDs. When verification succeeds, the dataset should contain at least **101 published research questions**. A later content change requires a Sourcebook check for changes, rebuild, and review of Entries and Issues; the Knowledge Base does not ingest new dataset material just because the public graph displays it. This is the first substantial batch toward hundreds; neither the live dataset nor this batch contains hundreds yet.
 
-The [feature preview](https://market-evidence-desk.vercel.app/) is the current walkthrough. The root landing page and six focused pages are served from `web/`. The pages are:
+The [production site](https://market-evidence-desk.vercel.app/) is the current walkthrough. The root landing page and six focused pages are served from `web/`. The pages are:
 
 | Page | Purpose |
 | --- | --- |
@@ -272,7 +266,7 @@ node --test tests/test_web_graph.mjs
 
 The site offers a scoped live research endpoint at `/api/ask`. A visitor can run **compare**, **dispute**, or **price**, or submit one short question about the reserve, stablecoin, audit, and crypto evidence in this desk. The server rejects unrelated questions, long prompts, multiline prompt injection, and arbitrary case IDs. The Python function reuses `agent.py`, checks that `groq_query` and `knowledge_base_read` ran, and returns the answer and tool names. The browser renders returned text safely and only links to sources already present in the published graph. The earlier SEC example is separately labeled as recorded.
 
-The endpoint is **off by default**. To switch it on, set `AGENT_DEMO_ENABLED=1`, `SANITY_CONTEXT_MCP_URL`, `SANITY_ORGANIZATION_TOKEN`, `SANITY_KNOWLEDGE_BASE_ID`, and `GEMINI_API_KEY` (or `OPENAI_API_KEY`) in the Vercel project's **Preview** environment for this branch, then redeploy. The Sanity token needs **Context Viewer** access to the organization. The client never receives these values. The three fixed questions and a short scoped input limit exposure, but a public enabled endpoint still consumes model quota; monitor usage and turn `AGENT_DEMO_ENABLED` off if necessary. Set these environment values for Production only when you intentionally publish the agent there. Never put secrets in the repo or ask visitors to supply keys. Check `GET /api/ask` for `{"ready":true}` after redeploy, then run each case on the preview and inspect the actual cited source text. Network, model overload, and stale Sourcebook content can still make individual runs fail; the interface reports this instead of displaying a fabricated answer. The [production URL](https://market-evidence-desk.vercel.app/) serves the merged research desk. On September 25, 2026, the public pages and all three hosted agent cases returned successful results; the model service can still be intermittent.
+The endpoint is **off by default for a fresh deployment**. The production deployment was enabled and all three fixed cases were verified on September 25, 2026. To configure another environment, set `AGENT_DEMO_ENABLED=1`, `SANITY_CONTEXT_MCP_URL`, `SANITY_ORGANIZATION_TOKEN`, `SANITY_KNOWLEDGE_BASE_ID`, and `GEMINI_API_KEY` (or `OPENAI_API_KEY`) in that Vercel environment, then redeploy. The Sanity token needs organization **Context Viewer** access. The client never receives these values. A public enabled endpoint consumes model quota; monitor usage and turn `AGENT_DEMO_ENABLED` off if necessary. Never put secrets in the repo or ask visitors to supply keys. Check `GET /api/ask` for `{"ready":true}` after redeploy, then run all three cases and inspect the cited sources. Network, model overload, and stale Sourcebook content can still make individual runs fail; the interface reports this instead of displaying a fabricated answer. The [production URL](https://market-evidence-desk.vercel.app/) serves the merged research desk. On September 25, 2026, the public pages and all three hosted agent cases returned successful results; the model service can still be intermittent.
 
 ## What works today
 

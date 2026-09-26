@@ -7,7 +7,7 @@ for (const dir of ["public/web", "public/data"]) await mkdir(join(root, dir), {r
 await rm(join(root, "public/web/app.js"), {force: true});
 for (const name of [
   "index.html", "research.html", "compare.html", "sources.html", "agent.html", "method.html", "atlas.html",
-  "favicon.svg", "style.css", "guide.css", "motion.css", "site.js", "comparison.js", "disagreement.js",
+  "favicon.svg", "style.css", "guide.css", "motion.css", "site.js", "home-page.js", "comparison.js", "disagreement.js",
   "research.js", "compare-page.js", "sources-page.js", "agent-page.js", "atlas-page.js",
 ]) {
   await copyFile(join(root, "web", name), join(root, "public/web", name));

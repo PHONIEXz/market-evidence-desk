@@ -102,6 +102,18 @@ The organization-wide meter may still show the old count until Sanity processes
 the changed source. If it remains over 150 after that, inspect other Knowledge
 Bases or sources in the organization before narrowing the query further.
 
+On 2026-09-26, the public graph returned **101 questions + 112 claims + 22
+source records = 235 published documents**; every question had a linked claim.
+The bounded Sourcebook query returned **134/134 eligible source and claim
+records**. With its separate one-page SEC website source, this selection would
+use at most **135 of 150** indexed-document slots if no other sources or
+Knowledge Bases consume the organization's allowance. A previously displayed
+Sourcebook import count of 140 is a last-build observation, not the website's
+question count or proof of a current rebuild. Check for changes and rebuild in
+Context, then verify the actual indexed total and Entries. The 101 question
+documents are not individually indexed by this query; each claim projects its
+linked question title and summary into the Knowledge Base.
+
 The dataset Context MCP endpoint uses GROQ mode and can still read the full
 published graph at request time. The Knowledge Base is a curated index, and
 once the number of source and claim documents exceeds 140 it will omit some

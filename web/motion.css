@@ -893,3 +893,15 @@ body.has-section-motion .reveal-section.is-in-view { opacity: 1; transform: none
   .reading-progress { background: Highlight; box-shadow: none; }
   .page-hero::before, .hero::before { display: none; }
 }
+
+/* Keep the reading notes inside their panel as the viewport narrows. */
+.reader-guide { padding: clamp(22px, 3vw, 38px); }
+.reader-guide-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: clamp(14px, 1.5vw, 22px);
+}
+.reader-guide-grid article { min-width: 0; padding: clamp(18px, 2vw, 26px); }
+.reader-guide h2, .reader-guide-grid h3, .reader-guide-grid p,
+.reader-guide > a { max-width: 100%; overflow-wrap: anywhere; }
+.reader-guide-grid p { line-height: 1.7; }
+.reader-guide > a { display: inline-block; }

@@ -23,3 +23,56 @@ menu?.addEventListener("click", () => {
   const open = nav?.classList.toggle("is-open") ?? false;
   menu.setAttribute("aria-expanded", String(open));
 });
+
+// Reading controls shared by every public page. They do not depend on Sanity loading.
+const progress = document.createElement("div");
+progress.className = "reading-progress";
+progress.setAttribute("aria-hidden", "true");
+document.body.prepend(progress);
+
+const returnTop = document.createElement("button");
+returnTop.type = "button";
+returnTop.className = "return-top";
+returnTop.setAttribute("aria-label", "Back to top");
+returnTop.textContent = "↑  TOP";
+returnTop.hidden = true;
+document.body.append(returnTop);
+
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+let scrollFrame = 0;
+function updateReadingPosition() {
+  scrollFrame = 0;
+  const length = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  progress.style.transform = `scaleX(${length ? Math.min(1, window.scrollY / length) : 0})`;
+  returnTop.hidden = window.scrollY < 720;
+}
+function scheduleReadingPosition() {
+  if (!scrollFrame) scrollFrame = requestAnimationFrame(updateReadingPosition);
+}
+window.addEventListener("scroll", scheduleReadingPosition, {passive: true});
+window.addEventListener("resize", scheduleReadingPosition);
+updateReadingPosition();
+returnTop.addEventListener("click", () => window.scrollTo({top: 0, behavior: reducedMotion.matches ? "instant" : "smooth"}));
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape" || !nav?.classList.contains("is-open")) return;
+  nav.classList.remove("is-open");
+  menu?.setAttribute("aria-expanded", "false");
+  menu?.focus();
+});
+
+if (!reducedMotion.matches && "IntersectionObserver" in window) {
+  const sections = document.querySelectorAll("main > section:not([hidden]), main > .scope-banner");
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add("is-in-view");
+      observer.unobserve(entry.target);
+    }
+  }, {rootMargin: "0px 0px -6% 0px", threshold: 0.05});
+  for (const section of sections) {
+    section.classList.add("reveal-section");
+    observer.observe(section);
+  }
+  document.body.classList.add("has-section-motion");
+}

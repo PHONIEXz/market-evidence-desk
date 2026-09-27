@@ -101,7 +101,7 @@ try {
   if (!response.ok) throw new Error("Published graph unavailable");
   graph = await response.json();
   if (![graph.events, graph.sources, graph.claims].every(Array.isArray)) throw new Error("Invalid graph");
-  $("#atlas-coverage").textContent = `${graph.events.length} published questions · ${graph.claims.length} linked claims · ${graph.sources.length} source records. These are different document types. The Sourcebook index has its own 150-document plan limit; the public graph is read directly from Sanity.`;
+  $("#atlas-coverage").textContent = `${graph.events.length} published questions · ${graph.claims.length} linked claims · ${graph.sources.length} source records. These are different document types. The Sourcebook index has a separate quota and build schedule; the public graph is read directly from Sanity.`;
   for (const source of graph.sources) sourceMap.set(source.id, source);
   $("#atlas-status").hidden = graph.events.length > 0;
   $("#atlas-content").hidden = !graph.events.length;

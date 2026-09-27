@@ -281,7 +281,7 @@ The endpoint is **off by default for a fresh deployment**. The production deploy
 
 ## Before submission
 
-The [judge walkthrough and verification list](DEMO_WALKTHROUGH.md) tracks the remaining release work. Review Sourcebook Issues and entries, verify all three hosted agent cases with actual URLs and tool receipts, check the mobile layout, then submit the [DEV post draft](SUBMISSION.md). The agent is server-configured and model/network latency can still interrupt a run; record only outcomes verified on the final deployed URL.
+The [judge walkthrough and verification list](DEMO_WALKTHROUGH.md) records the September 27 Sourcebook build and three successful hosted agent cases. The remaining release work is an actual phone layout check, demo recording, and the [DEV post draft](SUBMISSION.md). Sanity Context still reports four removals pending after the clean build, so keep that notice distinct from its 13 ready entries and zero open issues. The agent is server-configured and model/network latency can still interrupt a run; record only outcomes verified on the final deployed URL.
 
 ## Design guardrails
 

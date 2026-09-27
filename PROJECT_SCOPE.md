@@ -82,8 +82,10 @@ without a new scope decision.
   the separate SEC webpage import. Context reported ready, 13 entries, zero
   open issues, and source usage 142 of a currently reported 5,000 quota. The
   current published source/claim query returns 136; an incremental refresh
-  succeeded with four removals noted, and a clean build is in progress. Keep
-  import totals, generated entries, and public graph counts separate.
+  succeeded with four removals noted. The clean build succeeded at 04:13 UTC
+  on September 27 with 13 entries and zero new/open issues, but the four-removal
+  notice persists. Keep import totals, generated entries, and public graph
+  counts separate; do not call the notice cleared.
 - The public graph can return more than 100 questions and the atlas displays
   results in 24-card batches. Custom agent retrieval is bounded to linked
   claims instead of dumping the entire expanded dataset into a model prompt.
@@ -173,7 +175,7 @@ contains only source-backed links.
 ## Definition of done
 
 - [x] Sourcebook status is ready; 13 rebuilt entries include stablecoin and
-      proof-of-reserves material. A further cleanup build started September 27.
+      proof-of-reserves material. A further cleanup build succeeded September 27.
 - [x] Sanity Context reported zero open issues after authenticated entry review.
       Individual research questions can still require human review.
 - [x] All three hosted agent cases returned source-backed answers and both Sanity tool receipts on the 2026-09-24 feature preview.
@@ -187,7 +189,7 @@ The hosted model had intermittent timeouts during verification. The final
 single-pass agent build completed `compare`, `dispute`, and `price` once each;
 that is a successful snapshot, not a guarantee of future model availability.
 Sourcebook Issues showed zero pending on September 26. An actual phone layout
-check, final hosted retest, demo recording, and submission remain open.
+check, demo recording, and submission remain open. All three hosted cases passed again on September 27.
 
 ## Change-control rule
 

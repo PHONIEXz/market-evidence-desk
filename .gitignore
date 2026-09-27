@@ -7,3 +7,7 @@ public/
 !.env.example
 __pycache__/
 *.pyc
+.agents/
+skills-lock.json
+brag-output/
+brag-output-*/

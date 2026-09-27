@@ -1,6 +1,6 @@
 # Market Evidence Desk: Project Scope and Finish Checklist
 
-Last reviewed: 2026-09-25
+Last reviewed: 2026-09-27
 
 This document is the scope lock for the project. New work should map to this
 document. Anything outside the scope belongs in the parking lot until the
@@ -60,10 +60,9 @@ without a new scope decision.
 - SEC proof-of-reserves material plus PCAOB and Kraken context.
 - Stablecoin reserve-backing disagreement material, including both dated
   perspectives.
-- A 21-record global investor protections bundle has been prepared and
-  structurally validated. The feature preview displays its four new research
-  questions and six new original publications. Human and Sourcebook review
-  remain outstanding.
+- The global investor protections bundle is published. A targeted source audit
+  checked original SEC, FDIC, FSB, BIS, and IOSCO material and inspected the
+  Sourcebook's relevant entries. This does not certify every generated claim.
 - Sourcebook Knowledge Base `kbu9WNgZ9ocF`, rebuilt successfully. The current
   outline visibly includes stablecoin regulation and proof-of-reserves topics.
 - Context MCP endpoint and the Python research agent.
@@ -78,11 +77,13 @@ without a new scope decision.
 - A second, locally validated batch contains 94 new questions and ten original
   dated publications. The user imported all 198 new records, and anonymous
   verification returned 101 published questions on September 25, 2026.
-- The Sourcebook previously reported 240 indexed documents against an
-  organization limit of 150. The user changed its dataset selection to the
-  bounded source/claim query in README and reported a rebuild; verify the final
-  indexed count, entries, and issues before treating it as submission-ready.
-  The public graph and GROQ MCP remain separate.
+- The Sourcebook uses a bounded source/claim query. On September 27 its dataset
+  import reported 140 selected and distilled records, zero unsupported, plus
+  the separate SEC webpage import. Context reported ready, 13 entries, zero
+  open issues, and source usage 142 of a currently reported 5,000 quota. The
+  current published source/claim query returns 136; an incremental refresh
+  succeeded with four removals noted, and a clean build is in progress. Keep
+  import totals, generated entries, and public graph counts separate.
 - The public graph can return more than 100 questions and the atlas displays
   results in 24-card batches. Custom agent retrieval is bounded to linked
   claims instead of dumping the entire expanded dataset into a model prompt.
@@ -171,9 +172,10 @@ contains only source-backed links.
 
 ## Definition of done
 
-- [ ] Sourcebook status is ready and its rebuilt entries contain the new
-      stablecoin and proof-of-reserves material.
-- [ ] No important unresolved issue is being presented as settled fact.
+- [x] Sourcebook status is ready; 13 rebuilt entries include stablecoin and
+      proof-of-reserves material. A further cleanup build started September 27.
+- [x] Sanity Context reported zero open issues after authenticated entry review.
+      Individual research questions can still require human review.
 - [x] All three hosted agent cases returned source-backed answers and both Sanity tool receipts on the 2026-09-24 feature preview.
 - [x] The website clearly states that live prices are out of scope.
 - [x] Preview deployment works with model and Sanity credentials on the server side.
@@ -184,7 +186,8 @@ contains only source-backed links.
 The hosted model had intermittent timeouts during verification. The final
 single-pass agent build completed `compare`, `dispute`, and `price` once each;
 that is a successful snapshot, not a guarantee of future model availability.
-Sourcebook Issues and the mobile layout still require a final human check.
+Sourcebook Issues showed zero pending on September 26. An actual phone layout
+check, final hosted retest, demo recording, and submission remain open.
 
 ## Change-control rule
 

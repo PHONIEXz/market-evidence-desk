@@ -1,4 +1,4 @@
-// A published claim is a paraphrase linked to a source, never a verbatim excerpt.
+// The claim is a paraphrase. Only a separately recorded source check contains a quotation.
 const add = (parent, tag, value, className) => {
   const node = document.createElement(tag);
   node.textContent = value ?? "";
@@ -15,6 +15,14 @@ export function receiptPreview(parent, claim, source) {
   const card = add(receipt, "div", "", "receipt-card");
   add(card, "strong", "Linked claim · paraphrase, not a quotation");
   add(card, "p", claim.text);
+  if (claim.review) {
+    add(card, "strong", "Source check recorded by editor · check original");
+    add(card, "blockquote", `“${claim.review.excerpt}”`);
+    add(card, "span", `Location: ${claim.review.locator}`);
+    add(card, "span", `Recorded by ${claim.review.reviewer} · ${new Date(claim.review.reviewedAt).toLocaleDateString(undefined, {dateStyle: "medium", timeZone: "UTC"})}`);
+  } else {
+    add(card, "span", "No editor source check recorded for this claim.");
+  }
   add(card, "span", `${source.title} · ${new Date(source.publishedAt).toLocaleDateString(undefined, {dateStyle: "medium", timeZone: "UTC"})}`);
   add(card, "code", `Claim ID: ${claim.id}`);
   add(card, "code", `Source ID: ${source.id}`);

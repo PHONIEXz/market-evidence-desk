@@ -107,6 +107,25 @@ test("unverifiable claims are removed before reaching a hosted browser", () => {
   assert.equal(result.claims.length, 112);
 });
 
+test("only complete editor attestations expose exact excerpts and reviewer names", () => {
+  const original = graph.claims[0];
+  const checked = {...original, reviewStatus: "source-checked", sourceExcerpt: "An exact short passage.",
+    sourceLocator: "Proof of reserves section", reviewerName: "Example Editor",
+    reviewedAt: "2026-09-28T10:00:00Z"};
+  const incomplete = {...graph.claims[1], reviewStatus: "source-checked", reviewerName: "Example Editor"};
+  const premature = {...graph.claims[2], ...checked, id: graph.claims[2].id,
+    eventId: graph.claims[2].eventId, sourceId: graph.claims[2].sourceId,
+    observedAt: graph.claims[2].observedAt, reviewedAt: "2020-01-01T00:00:00Z"};
+  const normalized = normalizeGraph({...graph, claims: [checked, incomplete, premature]});
+  assert.deepEqual(normalized.claims[0].review, {
+    excerpt: "An exact short passage.", locator: "Proof of reserves section",
+    reviewer: "Example Editor", reviewedAt: "2026-09-28T10:00:00Z",
+  });
+  assert.equal(normalized.claims[1].review, null);
+  assert.equal(normalized.claims[2].review, null);
+  assert.equal(normalizeGraph(graph).claims.every((claim) => claim.review === null), true);
+});
+
 test("hosted graph route returns published data without credentials", async () => {
   const originalFetch = globalThis.fetch;
   let body;

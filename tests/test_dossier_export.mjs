@@ -19,3 +19,15 @@ test("dossier export preserves dates, source URLs, IDs, and the review boundary"
   }
   assert.deepEqual(claims.map((claim) => claim.id), ["claim-later", "claim-earlier"], "export should not mutate the displayed graph");
 });
+
+test("dossier exports recorded source checks separately from linked paraphrases", () => {
+  const event = {id: "question-a", title: "Review example", observedAt: "2026-09-28T00:00:00Z"};
+  const sources = new Map([["source-a", {id: "source-a", title: "Original publication",
+    url: "https://example.org/primary", publishedAt: "2025-01-01T00:00:00Z"}]]);
+  const claims = [{id: "claim-a", sourceId: "source-a", stance: "supports", text: "A paraphrase.",
+    observedAt: "2026-09-28T00:00:00Z", review: {excerpt: "An exact short passage.",
+      locator: "Section 2", reviewer: "Example Editor", reviewedAt: "2026-09-28T10:00:00Z"}}];
+  const report = dossierMarkdown(event, claims, sources);
+  for (const expected of ["A paraphrase.", "Exact excerpt: “An exact short passage.”", "Section 2",
+    "Example Editor", "check original publication"]) assert.ok(report.includes(expected));
+});

@@ -43,7 +43,7 @@ function renderDossier(event) {
     const source = sourceMap.get(claim.sourceId);
     const row = make($("#dossier-claims"), "article", "", `dossier-claim ${claim.stance}`);
     make(row, "span", claim.stance.toUpperCase(), `stance-pill ${claim.stance}`);
-    make(row, "span", "LINKED CLAIM · CHECK ORIGINAL", "claim-review-note");
+    make(row, "span", claim.review ? "EDITOR SOURCE CHECK RECORDED · CHECK ORIGINAL" : "LINKED CLAIM · CHECK ORIGINAL", "claim-review-note");
     make(row, "p", claim.text);
     const link = make(row, "a", `${source.title} · ${date(source.publishedAt)} ↗`);
     link.href = source.url; link.target = "_blank"; link.rel = "noopener noreferrer";

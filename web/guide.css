@@ -711,6 +711,7 @@
 .receipt-preview:hover .receipt-card, .receipt-preview:focus-within .receipt-card, .receipt-preview.is-open .receipt-card { display: grid; gap: 8px; }
 .receipt-card strong { font-size: 13px; line-height: 1.4; }
 .receipt-card p { margin: 0; color: #e3eae8; font-size: 14px; line-height: 1.5; }
+.receipt-card blockquote { margin: 0; padding: 8px 10px; border-left: 2px solid var(--mint); color: #fff; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
 .receipt-card span { color: #bbd6d2; font-size: 12px; }
 .receipt-card code { color: #c1d3dd; font-size: 11px; white-space: normal; }
 .receipt-card a { font-size: 13px; color: var(--mint); }

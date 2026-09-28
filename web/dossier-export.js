@@ -39,6 +39,12 @@ export function dossierMarkdown(event, claims, sourceMap, scopeLimit = "") {
       `Original URL: ${source.url}`,
       "",
     );
+    if (claim.review) lines.push(
+      `Editor-recorded source check: ${claim.review.reviewer} · ${date(claim.review.reviewedAt)} (check original publication)`,
+      `Exact excerpt: “${claim.review.excerpt}”`,
+      `Passage location: ${claim.review.locator}`,
+      "",
+    );
   }
   lines.push("## Bibliography", "");
   for (const source of sources) lines.push(

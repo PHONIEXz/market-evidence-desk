@@ -15,6 +15,7 @@ let graph;
 let filter = "";
 let kindFilter = "";
 let stanceFilter = "";
+let reviewFilter = "";
 
 function render() {
   const sources = graph.sources;
@@ -32,10 +33,11 @@ function render() {
   }
   const term = filter.trim().toLowerCase();
   const matchedClaims = (ids) => ids.flatMap((id) => claims.get(id) || [])
-    .filter((claim) => !stanceFilter || claim.stance === stanceFilter);
+    .filter((claim) => (!stanceFilter || claim.stance === stanceFilter) &&
+      (!reviewFilter || (reviewFilter === "checked" ? Boolean(claim.review) : !claim.review)));
   const visible = groups.filter(({source, ids}) =>
     (!kindFilter || source.kind === kindFilter) &&
-    (!stanceFilter || matchedClaims(ids).length > 0) &&
+    (!(stanceFilter || reviewFilter) || matchedClaims(ids).length > 0) &&
     (!term || [source.title, source.url, source.kind, source.notes,
       ...matchedClaims(ids).map((claim) => claim.text)].some((value) =>
       String(value || "").toLowerCase().includes(term))));
@@ -59,6 +61,9 @@ function render() {
       const list = add(card, "ul", "", "source-claim-list");
       for (const claim of linked) {
         const item = add(list, "li", `${claim.stance.toUpperCase()}: ${claim.text} · `);
+        add(item, "span", claim.review
+          ? `Source checked by ${claim.review.reviewer} · ${published(claim.review.reviewedAt)}`
+          : "Awaiting editor source check", `claim-review-badge ${claim.review ? "checked" : "awaiting"}`);
         const question = questions.get(claim.eventId);
         if (question) {
           const link = add(item, "a", question.title);
@@ -99,6 +104,10 @@ $("#source-kind-filter").addEventListener("change", (event) => {
 });
 $("#source-stance-filter").addEventListener("change", (event) => {
   stanceFilter = event.target.value;
+  render();
+});
+$("#source-review-filter").addEventListener("change", (event) => {
+  reviewFilter = event.target.value;
   render();
 });
 try {

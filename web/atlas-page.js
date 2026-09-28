@@ -23,6 +23,36 @@ function linked(event) {
   return graph.claims.filter((claim) => claim.eventId === event.id && sourceMap.has(claim.sourceId));
 }
 
+function renderPrintableDossier(event, claims, origins, scopeLimit) {
+  const report = $("#dossier-print-report");
+  report.replaceChildren();
+  make(report, "p", "MARKET EVIDENCE DESK · RESEARCH DOSSIER", "print-kicker");
+  make(report, "h1", event.title);
+  make(report, "p", "Draft for human review. Historical published evidence; no live market data or investment advice.", "print-caution");
+  make(report, "p", event.summary || "No question summary has been published.");
+  make(report, "p", `Question ID: ${event.id} · Status: ${event.review || "needs-human-review"} · Recorded: ${date(event.observedAt)}`);
+  make(report, "h2", "Dated claims");
+  if (!claims.length) make(report, "p", "No linked claims are published for this question.");
+  for (const claim of claims) {
+    const source = sourceMap.get(claim.sourceId);
+    const item = make(report, "article", "", "print-claim");
+    make(item, "h3", `${date(source.publishedAt)} · ${source.title}`);
+    make(item, "p", `${claim.stance.toUpperCase()} · ${claim.text}`);
+    make(item, "p", `Claim ID: ${claim.id} · Source ID: ${source.id} · Claim recorded: ${date(claim.observedAt)}`);
+    if (claim.review) {
+      make(item, "p", `Editor source check recorded by ${claim.review.reviewer} · ${date(claim.review.reviewedAt)}`);
+      make(item, "blockquote", `“${claim.review.excerpt}” · ${claim.review.locator}`);
+    } else make(item, "p", "Awaiting editor source check.");
+    make(item, "p", `Original URL: ${source.url}`);
+  }
+  make(report, "h2", "Bibliography");
+  for (const source of origins) {
+    make(report, "p", `${source.title}. Published ${date(source.publishedAt)}. Type: ${source.kind || "unclassified"}. Sanity ID: ${source.id}. ${source.url}`, "print-source");
+  }
+  make(report, "h2", "Limits");
+  make(report, "p", scopeLimit || "Check the original publications before relying on these linked claims.");
+}
+
 function renderDossier(event) {
   selectedEvent = event;
   const theme = themeFor(event.id);
@@ -43,7 +73,7 @@ function renderDossier(event) {
     const source = sourceMap.get(claim.sourceId);
     const row = make($("#dossier-claims"), "article", "", `dossier-claim ${claim.stance}`);
     make(row, "span", claim.stance.toUpperCase(), `stance-pill ${claim.stance}`);
-    make(row, "span", claim.review ? "EDITOR SOURCE CHECK RECORDED · CHECK ORIGINAL" : "LINKED CLAIM · CHECK ORIGINAL", "claim-review-note");
+    make(row, "span", claim.review ? `Source checked by ${claim.review.reviewer} · ${date(claim.review.reviewedAt)}` : "Awaiting editor source check", `claim-review-badge ${claim.review ? "checked" : "awaiting"}`);
     make(row, "p", claim.text);
     const link = make(row, "a", `${source.title} · ${date(source.publishedAt)} ↗`);
     link.href = source.url; link.target = "_blank"; link.rel = "noopener noreferrer";
@@ -60,6 +90,7 @@ function renderDossier(event) {
   }
   if (!origins.length) make($("#dossier-sources"), "p", "No original publications linked yet.");
   $("#dossier-limit").textContent = theme?.limit || "This record cannot establish the present status of an asset or platform.";
+  renderPrintableDossier(event, claims, origins, theme?.limit);
   $("#dossier-ledger").href = `/web/research.html?question=${encodeURIComponent(event.id)}`;
   $("#atlas-dossier").hidden = false;
   for (const button of document.querySelectorAll(".atlas-question")) button.setAttribute("aria-pressed", String(button.dataset.question === event.id));
@@ -116,6 +147,9 @@ $("#dossier-download").addEventListener("click", () => {
   link.download = `market-evidence-${selectedEvent.id.replace(/[^a-z0-9-]/gi, "-")}.md`;
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+$("#dossier-print").addEventListener("click", () => {
+  if (selectedEvent && graph) window.print();
 });
 try {
   const response = await fetch("/api/evidence", {signal: AbortSignal.timeout(8000)});

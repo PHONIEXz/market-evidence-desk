@@ -250,10 +250,10 @@ The [production site](https://market-evidence-desk.vercel.app/) is the current w
 | Page | Purpose |
 | --- | --- |
 | `/` | Project overview and navigation |
-| `/web/atlas.html` | Searchable guided dossiers with linked receipt previews and a downloadable Markdown report |
+| `/web/atlas.html` | Searchable guided dossiers with linked receipt previews, Markdown export, and print/PDF view |
 | `/web/research.html` | Published questions, linked claims, timeline, and draft brief |
 | `/web/compare.html` | Source comparison, disagreement, and evidence coverage |
-| `/web/sources.html` | Searchable source records with source-type and claim-stance filters |
+| `/web/sources.html` | Searchable source records with source-type, claim-stance, and editor-check filters |
 | `/web/agent.html` | Hosted Sanity Context agent and tool receipts |
 | `/web/method.html` | Source, claim, review, and answer workflow |
 
@@ -265,7 +265,7 @@ node --test tests/test_web_graph.mjs
 node --test tests/test_dossier_export.mjs
 ```
 
-The receipt preview shows a **linked claim paraphrase**, its original source URL, publication date, and the Sanity claim/source IDs. A separate exact source passage and editor attribution appear only after a complete `source-checked` record is published for that claim. The label describes an editor's recorded check, not an independent audit of their work. The atlas badges describe the **question's** review field; they do not confer review on individual claims or AI summaries. Dossier downloads are Markdown drafts generated in the browser from the published graph, with dated claims, any recorded source checks, record IDs, and a bibliography. The filters use the schema's actual `official`, `commentary`, `data` source kinds and `supports`, `conflicts`, `context` claim stances; they are not legal classifications or agreement scores.
+The receipt preview shows a **linked claim paraphrase**, its original source URL, publication date, and the Sanity claim/source IDs. A separate exact source passage and editor attribution appear only after a complete `source-checked` record is published for that claim. The label describes an editor's recorded check, not an independent audit of their work. The atlas badges describe the **question's** review field; they do not confer review on individual claims or AI summaries. Dossier downloads are Markdown drafts generated in the browser from the published graph, with dated claims, any recorded source checks, record IDs, and a bibliography. Print / save PDF opens the browser print dialog with a clean report containing those same receipts; choose Save as PDF there. The Sourcebook can filter claims with a complete editor source check separately from claims awaiting that check. The other filters use the schema's actual `official`, `commentary`, `data` source kinds and `supports`, `conflicts`, `context` claim stances; they are not legal classifications or agreement scores.
 
 ### Recording a source check in Studio
 

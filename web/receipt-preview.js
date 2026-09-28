@@ -1,0 +1,37 @@
+// A published claim is a paraphrase linked to a source, never a verbatim excerpt.
+const add = (parent, tag, value, className) => {
+  const node = document.createElement(tag);
+  node.textContent = value ?? "";
+  if (className) node.className = className;
+  parent.append(node);
+  return node;
+};
+
+export function receiptPreview(parent, claim, source) {
+  const receipt = add(parent, "span", "", "receipt-preview");
+  const trigger = add(receipt, "button", "View receipt", "receipt-trigger");
+  trigger.type = "button";
+  trigger.setAttribute("aria-expanded", "false");
+  const card = add(receipt, "div", "", "receipt-card");
+  add(card, "strong", "Linked claim · paraphrase, not a quotation");
+  add(card, "p", claim.text);
+  add(card, "span", `${source.title} · ${new Date(source.publishedAt).toLocaleDateString(undefined, {dateStyle: "medium", timeZone: "UTC"})}`);
+  add(card, "code", `Claim ID: ${claim.id}`);
+  add(card, "code", `Source ID: ${source.id}`);
+  const link = add(card, "a", "Read the original publication ↗");
+  link.href = source.url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  trigger.addEventListener("click", () => {
+    receipt.classList.toggle("is-open");
+    trigger.setAttribute("aria-expanded", String(receipt.classList.contains("is-open")));
+  });
+  receipt.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      receipt.classList.remove("is-open");
+      trigger.setAttribute("aria-expanded", "false");
+      trigger.focus();
+    }
+  });
+  return receipt;
+}

@@ -703,6 +703,34 @@
   .header-inner { gap: 10px; }
 }
 
+/* A receipt is a linked claim preview, never a purported quotation. */
+.receipt-preview { position: relative; display: inline-block; margin: 7px 0 0; max-width: 100%; vertical-align: middle; }
+.receipt-trigger { border: 1px solid #557b72; border-radius: 7px; padding: 7px 10px; background: #173b3c; color: #dcfff0; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.receipt-trigger:hover, .receipt-trigger:focus-visible { border-color: var(--mint); outline-offset: 2px; }
+.receipt-card { display: none; position: absolute; z-index: 10; left: 0; top: calc(100% + 6px); width: min(390px, 85vw); padding: 15px; border: 1px solid #69a28f; border-radius: 10px; background: #102932; box-shadow: 0 15px 40px #030c12cc; color: #edf8f4; text-align: left; white-space: normal; overflow-wrap: anywhere; }
+.receipt-preview:hover .receipt-card, .receipt-preview:focus-within .receipt-card, .receipt-preview.is-open .receipt-card { display: grid; gap: 8px; }
+.receipt-card strong { font-size: 13px; line-height: 1.4; }
+.receipt-card p { margin: 0; color: #e3eae8; font-size: 14px; line-height: 1.5; }
+.receipt-card span { color: #bbd6d2; font-size: 12px; }
+.receipt-card code { color: #c1d3dd; font-size: 11px; white-space: normal; }
+.receipt-card a { font-size: 13px; color: var(--mint); }
+.source-filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+.source-filters > label:not(.search-box) { display: grid; gap: 5px; color: #c7d8db; font-size: 12px; }
+.source-filters select { min-width: 130px; min-height: 42px; font-size: 13px; }
+.dossier-meta .button-quiet { width: fit-content; text-align: left; line-height: 1.4; }
+.question-review-badge { display: inline-block; width: fit-content; padding: 8px 10px; border: 1px solid #8a713d; border-radius: 8px; background: #3b301f; color: #ffe3aa !important; font-size: 12px; font-weight: 700; }
+.question-review-badge.approved { border-color: #438a71; background: #193d35; color: #c9f8e5 !important; }
+.question-review-badge.rejected { border-color: #ab6764; background: #422727; color: #ffd3cd !important; }
+.claim-review-note { display: inline-block; margin-left: 9px; color: #bdd7d4; font-size: 11px; letter-spacing: .03em; font-weight: 750; }
+@media (max-width: 620px) {
+  .source-filters, .source-filters .search-box { width: 100%; }
+  .source-filters > label:not(.search-box) { flex: 1 1 125px; }
+  .source-filters select { min-width: 0; }
+  .receipt-preview { display: block; }
+  .receipt-card { position: static; width: min(100%, 390px); margin-top: 8px; box-shadow: none; }
+  .receipt-preview:not(.is-open):not(:focus-within) .receipt-card { display: none; }
+}
+
 /* Evidence atlas and long-form reading surfaces */
 .atlas-feature, .atlas-next, .method-deep {
   margin: 30px 0 52px; padding: clamp(24px, 4vw, 40px);

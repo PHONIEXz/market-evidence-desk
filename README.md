@@ -250,10 +250,10 @@ The [production site](https://market-evidence-desk.vercel.app/) is the current w
 | Page | Purpose |
 | --- | --- |
 | `/` | Project overview and navigation |
-| `/web/atlas.html` | Searchable guided dossiers for published questions, linked claims, original publications and open limits |
+| `/web/atlas.html` | Searchable guided dossiers with linked receipt previews and a downloadable Markdown report |
 | `/web/research.html` | Published questions, linked claims, timeline, and draft brief |
 | `/web/compare.html` | Source comparison, disagreement, and evidence coverage |
-| `/web/sources.html` | Searchable source records with linked claims |
+| `/web/sources.html` | Searchable source records with source-type and claim-stance filters |
 | `/web/agent.html` | Hosted Sanity Context agent and tool receipts |
 | `/web/method.html` | Source, claim, review, and answer workflow |
 
@@ -262,7 +262,10 @@ The [production site](https://market-evidence-desk.vercel.app/) is the current w
 ```bash
 npm run web:build
 node --test tests/test_web_graph.mjs
+node --test tests/test_dossier_export.mjs
 ```
+
+The receipt preview shows a **linked claim paraphrase**, its original source URL, publication date, and the Sanity claim/source IDs. It is not an exact quotation from the publication. The atlas badges describe the **question's** review field; individual claims and AI summaries do not acquire a human-verification label from that status. Dossier downloads are Markdown drafts generated in the browser from the published graph, with dated claims, record IDs, and a bibliography. The filters use the schema's actual `official`, `commentary`, `data` source kinds and `supports`, `conflicts`, `context` claim stances; they are not legal classifications or agreement scores.
 
 The site offers a scoped live research endpoint at `/api/ask`. A visitor can run **compare**, **dispute**, or **price**, or submit one short question about the reserve, stablecoin, audit, and crypto evidence in this desk. The server rejects unrelated questions, long prompts, multiline prompt injection, and arbitrary case IDs. The Python function reuses `agent.py`, checks that `groq_query` and `knowledge_base_read` ran, and returns the answer and tool names. The browser renders returned text safely and only links to sources already present in the published graph. The earlier SEC example is separately labeled as recorded.
 

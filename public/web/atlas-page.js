@@ -1,4 +1,6 @@
 // An editorial map over the published graph. The graph supplies every factual claim.
+import {receiptPreview} from "./receipt-preview.js";
+import {dossierMarkdown} from "./dossier-export.js";
 const THEMES = [
   {name: "Reserve assurance", description: "A snapshot can answer a narrow question while leaving the broader balance sheet untested.", ids: ["market-event-sec-proof-of-reserves-question-2023", "market-event-proof-of-reserves-scope-question-2023", "market-event-stablecoin-reserve-assurance-question-2025"], limit: "A historical assessment cannot verify current asset availability, all liabilities or present solvency."},
   {name: "Customer protection", description: "Follow the difference between a consumer protection, a policy recommendation and an individual account's legal position.", ids: ["market-event-crypto-deposit-insurance-boundary-2026", "market-event-crypto-custody-and-conflicts-2026"], limit: "The records do not decide insurance eligibility or certify the custody practices of any named platform."},
@@ -15,19 +17,25 @@ const themeFor = (id) => THEMES.find((theme) => theme.ids?.includes(id) || theme
 const sourceMap = new Map();
 let graph;
 let limit = 24;
+let selectedEvent;
 
 function linked(event) {
   return graph.claims.filter((claim) => claim.eventId === event.id && sourceMap.has(claim.sourceId));
 }
 
 function renderDossier(event) {
+  selectedEvent = event;
   const theme = themeFor(event.id);
   const claims = linked(event).sort((a, b) => Date.parse(sourceMap.get(a.sourceId).publishedAt) - Date.parse(sourceMap.get(b.sourceId).publishedAt));
   const origins = [...new Map(claims.map((claim) => [sourceMap.get(claim.sourceId).url, sourceMap.get(claim.sourceId)])).values()];
   $("#dossier-category").textContent = theme?.name.toUpperCase() || "OTHER PUBLISHED QUESTION";
   $("#dossier-title").textContent = event.title;
   $("#dossier-summary").textContent = event.summary || "No question summary has been published.";
-  $("#dossier-review").textContent = `Review: ${(event.review || "needs-human-review").replaceAll("-", " ")}`;
+  const review = event.review || "needs-human-review";
+  const badge = $("#dossier-review");
+  badge.className = `question-review-badge ${["approved", "rejected"].includes(review) ? review : "needs-human-review"}`;
+  badge.textContent = review === "approved" ? "Question approved · claims require source check" :
+    review === "rejected" ? "Question rejected · check before use" : "Question awaiting human review";
   $("#dossier-observed").textContent = `Recorded ${date(event.observedAt)}`;
   $("#dossier-count").textContent = `${claims.length} linked ${claims.length === 1 ? "claim" : "claims"}`;
   $("#dossier-claims").replaceChildren();
@@ -35,9 +43,11 @@ function renderDossier(event) {
     const source = sourceMap.get(claim.sourceId);
     const row = make($("#dossier-claims"), "article", "", `dossier-claim ${claim.stance}`);
     make(row, "span", claim.stance.toUpperCase(), `stance-pill ${claim.stance}`);
+    make(row, "span", "LINKED CLAIM · CHECK ORIGINAL", "claim-review-note");
     make(row, "p", claim.text);
     const link = make(row, "a", `${source.title} · ${date(source.publishedAt)} ↗`);
     link.href = source.url; link.target = "_blank"; link.rel = "noopener noreferrer";
+    receiptPreview(row, claim, source);
   }
   if (!claims.length) make($("#dossier-claims"), "p", "No linked claims are currently published for this question.", "page-empty");
   $("#dossier-sources").replaceChildren();
@@ -64,9 +74,7 @@ function renderQuestions() {
       .some((value) => String(value || "").toLowerCase().includes(term));
   });
   const requested = new URLSearchParams(location.search).get("question");
-  const requestedIndex = visible.findIndex((event) => event.id === requested);
-  if (requestedIndex >= limit) limit = Math.ceil((requestedIndex + 1) / 24) * 24;
-  $("#atlas-count").textContent = `Showing ${Math.min(limit, visible.length)} of ${visible.length} matching questions · ${graph.events.length} published in total`;
+  $("#atlas-count").textContent = `Showing ${Math.min(limit, visible.length)} of ${visible.length} matching questions`;
   $("#atlas-no-results").hidden = visible.length > 0;
   $("#atlas-more").hidden = visible.length <= limit;
   $("#atlas-groups").replaceChildren();
@@ -98,15 +106,31 @@ function renderQuestions() {
 
 $("#atlas-search").addEventListener("input", () => { limit = 24; renderQuestions(); });
 $("#atlas-more").addEventListener("click", () => { limit += 24; renderQuestions(); });
+$("#dossier-download").addEventListener("click", () => {
+  if (!selectedEvent || !graph) return;
+  const contents = dossierMarkdown(selectedEvent, linked(selectedEvent), sourceMap, themeFor(selectedEvent.id)?.limit);
+  const blob = new Blob([contents], {type: "text/markdown;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `market-evidence-${selectedEvent.id.replace(/[^a-z0-9-]/gi, "-")}.md`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
 try {
   const response = await fetch("/api/evidence", {signal: AbortSignal.timeout(8000)});
   if (!response.ok) throw new Error("Published graph unavailable");
   graph = await response.json();
   if (![graph.events, graph.sources, graph.claims].every(Array.isArray)) throw new Error("Invalid graph");
+  $("#atlas-coverage").textContent = `${graph.events.length} published questions · ${graph.claims.length} linked claims · ${graph.sources.length} source records. These are different document types. The Sourcebook index has a separate quota and build schedule; the public graph is read directly from Sanity.`;
   for (const source of graph.sources) sourceMap.set(source.id, source);
   $("#atlas-status").hidden = graph.events.length > 0;
   $("#atlas-content").hidden = !graph.events.length;
   renderQuestions();
+  const requested = new URLSearchParams(location.search).get("question");
+  if (graph.events.some((event) => event.id === requested)) {
+    requestAnimationFrame(() => $("#atlas-dossier").scrollIntoView({block: "start"}));
+  }
   if (!graph.events.length) $("#atlas-status").textContent = "No published research questions are available yet.";
 } catch {
   $("#atlas-status").textContent = "Published evidence is unavailable right now. Retry this page or open the research desk's fictional demo.";

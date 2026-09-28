@@ -13,10 +13,9 @@ export function receiptPreview(parent, claim, source) {
   trigger.type = "button";
   trigger.setAttribute("aria-expanded", "false");
   const card = add(receipt, "div", "", "receipt-card");
-  add(card, "strong", "Linked claim · paraphrase, not a quotation");
-  add(card, "p", claim.text);
+  add(card, "strong", claim.review ? "Source receipt" : "Source record");
   if (claim.review) {
-    add(card, "strong", "Source check recorded by editor · check original");
+    add(card, "span", "Excerpt checked against the original publication. The claim above is a paraphrase.");
     add(card, "blockquote", `“${claim.review.excerpt}”`);
     add(card, "span", `Location: ${claim.review.locator}`);
     add(card, "span", `Recorded by ${claim.review.reviewer} · ${new Date(claim.review.reviewedAt).toLocaleDateString(undefined, {dateStyle: "medium", timeZone: "UTC"})}`);

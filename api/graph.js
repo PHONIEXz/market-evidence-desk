@@ -8,7 +8,8 @@ const QUERY = `{
   },
   "claims": *[_type == "evidenceClaim"][0...1800]{
     "id": _id, "eventId": event._ref, "sourceId": source._ref,
-    text, stance, observedAt, expiresAt
+    text, stance, observedAt, expiresAt,
+    sourceExcerpt, sourceLocator, reviewStatus, reviewerName, reviewedAt
   }
 }`;
 
@@ -16,6 +17,16 @@ const textField = (value) => typeof value === "string" && value.trim().length > 
 const timestamp = (value) => typeof value === "string" &&
   /(?:Z|[+-]\d{2}:\d{2})$/i.test(value) && Number.isFinite(Date.parse(value));
 const pick = (item, fields) => Object.fromEntries(fields.map((field) => [field, item[field] ?? null]));
+const sourceCheck = (item) => {
+  if (item.reviewStatus !== "source-checked" ||
+      !["sourceExcerpt", "sourceLocator", "reviewerName"].every((field) =>
+        textField(item[field]) && item[field].trim().length <= ({sourceExcerpt: 280, sourceLocator: 160, reviewerName: 100}[field])) ||
+      !timestamp(item.reviewedAt) || Date.parse(item.reviewedAt) < Date.parse(item.observedAt)) return null;
+  return {
+    excerpt: item.sourceExcerpt.trim(), locator: item.sourceLocator.trim(),
+    reviewer: item.reviewerName.trim(), reviewedAt: item.reviewedAt,
+  };
+};
 
 export function normalizeGraph(result) {
   if (!result || !["events", "sources", "claims"].every((key) => Array.isArray(result[key]))) {
@@ -41,7 +52,8 @@ export function normalizeGraph(result) {
     const observed = Date.parse(item.observedAt);
     return observed >= Date.parse(sourceById.get(item.sourceId).publishedAt) &&
       (item.expiresAt == null || (timestamp(item.expiresAt) && Date.parse(item.expiresAt) > observed));
-  }).map((item) => pick(item, ["id", "eventId", "sourceId", "text", "stance", "observedAt", "expiresAt"]));
+  }).map((item) => ({...pick(item, ["id", "eventId", "sourceId", "text", "stance", "observedAt", "expiresAt"]),
+    review: sourceCheck(item)}));
 
   return {
     notice: "Published Sanity content. Historical evidence is not current market news or a trading signal. Review every source before sharing.",

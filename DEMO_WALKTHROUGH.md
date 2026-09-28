@@ -2,6 +2,8 @@
 
 This is the short demo path for the Sanity Challenge Path One. The DEV post draft is in [SUBMISSION.md](SUBMISSION.md). Do not record credentials, private Sourcebook access URLs, or secret values.
 
+For the short Brag video and local setup, see [BRAG_VIDEO_BRIEF.md](BRAG_VIDEO_BRIEF.md). The user reports that the phone layout check and the Sourcebook pending-removal review are complete; the video and DEV post remain.
+
 ## Screen recording, about 90 seconds
 
 1. **Home and atlas, 0:00–0:18.** Say: “Market Evidence Desk answers research questions from dated, published Sanity records. It does not show live prices or trading advice.” Open the evidence atlas, select a dossier and point to its linked source and review status.

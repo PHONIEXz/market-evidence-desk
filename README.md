@@ -250,10 +250,10 @@ The [production site](https://market-evidence-desk.vercel.app/) is the current w
 | Page | Purpose |
 | --- | --- |
 | `/` | Project overview and navigation |
-| `/web/atlas.html` | Searchable guided dossiers for published questions, linked claims, original publications and open limits |
+| `/web/atlas.html` | Searchable guided dossiers with linked receipt previews, Markdown export, and print/PDF view |
 | `/web/research.html` | Published questions, linked claims, timeline, and draft brief |
 | `/web/compare.html` | Source comparison, disagreement, and evidence coverage |
-| `/web/sources.html` | Searchable source records with linked claims |
+| `/web/sources.html` | Searchable source records with source-type, claim-stance, and editor-check filters |
 | `/web/agent.html` | Hosted Sanity Context agent and tool receipts |
 | `/web/method.html` | Source, claim, review, and answer workflow |
 
@@ -262,7 +262,14 @@ The [production site](https://market-evidence-desk.vercel.app/) is the current w
 ```bash
 npm run web:build
 node --test tests/test_web_graph.mjs
+node --test tests/test_dossier_export.mjs
 ```
+
+The receipt preview shows a **linked claim paraphrase**, its original source URL, publication date, and the Sanity claim/source IDs. A separate exact source passage and editor attribution appear only after a complete `source-checked` record is published for that claim. The label describes an editor's recorded check, not an independent audit of their work. The atlas badges describe the **question's** review field; they do not confer review on individual claims or AI summaries. Dossier downloads are Markdown drafts generated in the browser from the published graph, with dated claims, any recorded source checks, record IDs, and a bibliography. Print / save PDF opens the browser print dialog with a clean report containing those same receipts; choose Save as PDF there. The Sourcebook can filter claims with a complete editor source check separately from claims awaiting that check. The other filters use the schema's actual `official`, `commentary`, `data` source kinds and `supports`, `conflicts`, `context` claim stances; they are not legal classifications or agreement scores.
+
+### Recording a source check in Studio
+
+Deploy this branch's Sanity Studio schema before editing a claim. Open an evidence claim, follow its linked original publication, and compare the claim with the original text. Copy a **short exact passage** (up to 280 characters), identify its location, enter your public reviewer name, and record when you checked it. Only then set **Source check** to `source-checked` and publish the claim. Studio requires the passage, location, reviewer, and date together; the public API also drops incomplete source checks. Leave the status at `needs-review` when no editor has completed that work. A claim paraphrase or an AI summary is never automatically promoted to an exact quotation or human-verified answer. Editing a checked claim later requires another source check; reset its status until the editor has rechecked it.
 
 The site offers a scoped live research endpoint at `/api/ask`. A visitor can run **compare**, **dispute**, or **price**, or submit one short question about the reserve, stablecoin, audit, and crypto evidence in this desk. The server rejects unrelated questions, long prompts, multiline prompt injection, and arbitrary case IDs. The Python function reuses `agent.py`, checks that `groq_query` and `knowledge_base_read` ran, and returns the answer and tool names. The browser renders returned text safely and only links to sources already present in the published graph. The earlier SEC example is separately labeled as recorded.
 

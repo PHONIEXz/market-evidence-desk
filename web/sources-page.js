@@ -1,3 +1,5 @@
+import {receiptPreview} from "./receipt-preview.js";
+
 const $ = (selector) => document.querySelector(selector);
 const add = (parent, tag, value, className) => {
   const node = document.createElement(tag);
@@ -11,6 +13,9 @@ const published = (value) => new Date(value).toLocaleDateString(undefined, {
 });
 let graph;
 let filter = "";
+let kindFilter = "";
+let stanceFilter = "";
+let reviewFilter = "";
 
 function render() {
   const sources = graph.sources;
@@ -27,10 +32,15 @@ function render() {
     claims.set(claim.sourceId, [...(claims.get(claim.sourceId) || []), claim]);
   }
   const term = filter.trim().toLowerCase();
+  const matchedClaims = (ids) => ids.flatMap((id) => claims.get(id) || [])
+    .filter((claim) => (!stanceFilter || claim.stance === stanceFilter) &&
+      (!reviewFilter || (reviewFilter === "checked" ? Boolean(claim.review) : !claim.review)));
   const visible = groups.filter(({source, ids}) =>
-    !term || [source.title, source.url, source.kind, source.notes,
-      ...ids.flatMap((id) => (claims.get(id) || []).map((claim) => claim.text))].some((value) =>
-      String(value || "").toLowerCase().includes(term)));
+    (!kindFilter || source.kind === kindFilter) &&
+    (!(stanceFilter || reviewFilter) || matchedClaims(ids).length > 0) &&
+    (!term || [source.title, source.url, source.kind, source.notes,
+      ...matchedClaims(ids).map((claim) => claim.text)].some((value) =>
+      String(value || "").toLowerCase().includes(term))));
   $("#source-count").textContent = `${visible.length} of ${groups.length} original publications from ${sources.length} Sanity records`;
   $("#source-cards").replaceChildren();
 
@@ -46,16 +56,20 @@ function render() {
     title.rel = "noopener noreferrer";
     add(card, "p", source.url, "source-url");
     if (source.notes) add(card, "p", source.notes, "source-scope");
-    const linked = ids.flatMap((id) => claims.get(id) || []);
+    const linked = matchedClaims(ids);
     if (linked.length) {
       const list = add(card, "ul", "", "source-claim-list");
       for (const claim of linked) {
         const item = add(list, "li", `${claim.stance.toUpperCase()}: ${claim.text} · `);
+        add(item, "span", claim.review
+          ? `Source checked by ${claim.review.reviewer} · ${published(claim.review.reviewedAt)}`
+          : "Awaiting editor source check", `claim-review-badge ${claim.review ? "checked" : "awaiting"}`);
         const question = questions.get(claim.eventId);
         if (question) {
           const link = add(item, "a", question.title);
           link.href = `/web/research.html?question=${encodeURIComponent(question.id)}`;
         }
+        receiptPreview(item, claim, source);
       }
     }
     const bottom = add(card, "div", "", "source-card-bottom");
@@ -68,20 +82,32 @@ function render() {
 
   const timeline = $("#timeline");
   timeline.replaceChildren();
-  for (const {source, ids} of [...groups].sort((a, b) =>
+  for (const {source, ids} of [...visible].sort((a, b) =>
     Date.parse(a.source.publishedAt) - Date.parse(b.source.publishedAt))) {
     const item = add(timeline, "div", "", "timeline-item");
     add(item, "span", source.publishedAt ? published(source.publishedAt) : "DATE UNVERIFIED", "timeline-date");
     add(item, "span", "", "timeline-marker supports");
     const content = add(item, "div", "", "timeline-content");
     add(content, "strong", source.title || "Untitled source");
-    const count = ids.reduce((total, id) => total + (claims.get(id)?.length || 0), 0);
+    const count = matchedClaims(ids).length;
     add(content, "span", `${source.kind?.toUpperCase() || "SOURCE"} · ${count} linked ${count === 1 ? "claim" : "claims"}`, "timeline-label");
   }
 }
 
 $("#source-search").addEventListener("input", (event) => {
   filter = event.target.value;
+  render();
+});
+$("#source-kind-filter").addEventListener("change", (event) => {
+  kindFilter = event.target.value;
+  render();
+});
+$("#source-stance-filter").addEventListener("change", (event) => {
+  stanceFilter = event.target.value;
+  render();
+});
+$("#source-review-filter").addEventListener("change", (event) => {
+  reviewFilter = event.target.value;
   render();
 });
 try {

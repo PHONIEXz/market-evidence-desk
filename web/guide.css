@@ -727,6 +727,8 @@
 .receipt-trigger:hover, .receipt-trigger:focus-visible { border-color: var(--mint); outline-offset: 2px; }
 .receipt-card { display: none; position: absolute; z-index: 10; left: 0; top: calc(100% + 6px); width: min(390px, 85vw); padding: 15px; border: 1px solid #69a28f; border-radius: 10px; background: #102932; box-shadow: 0 15px 40px #030c12cc; color: #edf8f4; text-align: left; white-space: normal; overflow-wrap: anywhere; }
 .receipt-preview:hover .receipt-card, .receipt-preview:focus-within .receipt-card, .receipt-preview.is-open .receipt-card { display: grid; gap: 8px; }
+.receipt-preview.is-open { display: block; }
+.receipt-preview.is-open .receipt-card { position: static; width: min(100%, 620px); margin-top: 8px; box-shadow: none; }
 .receipt-card strong { font-size: 13px; line-height: 1.4; }
 .receipt-card p { margin: 0; color: #e3eae8; font-size: 14px; line-height: 1.5; }
 .receipt-card blockquote { margin: 0; padding: 8px 10px; border-left: 2px solid var(--mint); color: #fff; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }

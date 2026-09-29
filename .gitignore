@@ -11,3 +11,7 @@ __pycache__/
 skills-lock.json
 brag-output/
 brag-output-*/
+dist.*/
+*:Zone.Identifier
+*.patch
+*launch register*.md

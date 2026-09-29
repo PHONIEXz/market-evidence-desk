@@ -8,7 +8,7 @@ await rm(join(root, "public/web/app.js"), {force: true});
 for (const name of [
   "index.html", "research.html", "compare.html", "sources.html", "agent.html", "method.html", "atlas.html",
   "favicon.svg", "og-image.png", "style.css", "guide.css", "motion.css", "site.js", "home-page.js", "comparison.js", "disagreement.js",
-  "research.js", "compare-page.js", "sources-page.js", "agent-page.js", "atlas-page.js", "receipt-preview.js", "dossier-export.js",
+  "research.js", "compare-page.js", "sources-page.js", "agent-page.js", "atlas-page.js", "receipt-preview.js", "editor-link.js", "dossier-export.js",
 ]) {
   await copyFile(join(root, "web", name), join(root, "public/web", name));
 }

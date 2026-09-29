@@ -876,3 +876,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 
 /* Homepage audience line */
 .hero-audience { max-width: 560px; margin: 14px 0 0; color: var(--muted, #91a1b1); font-size: 14px; line-height: 1.55; }
+
+/* Editor-only review shortcut (hidden unless ?editor=1 was used) */
+.editor-review-link { display: inline-block; margin: 8px 0 0 10px; padding: 5px 9px; border: 1px dashed #a1814b; border-radius: 7px; color: #ffe1aa; font-size: 12px; font-weight: 700; text-decoration: none; }
+.editor-review-link:hover { background: #392f22; }

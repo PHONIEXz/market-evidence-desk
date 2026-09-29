@@ -59,25 +59,30 @@ function render() {
     if (source.notes) add(card, "p", source.notes, "source-scope");
     const linked = matchedClaims(ids);
     if (linked.length) {
-      const list = add(card, "ul", "", "source-claim-list");
+      const details = add(card, "details", "", "source-claims");
+      if (term || stanceFilter || reviewFilter) details.open = true;
+      add(details, "summary", `${linked.length} linked ${linked.length === 1 ? "claim" : "claims"}`, "source-claims-summary");
+      const list = add(details, "ul", "", "source-claim-list");
       for (const claim of linked) {
-        const item = add(list, "li", `${claim.stance.toUpperCase()}: ${claim.text} · `);
-        add(item, "span", claim.review
+        const item = add(list, "li", "", "source-claim");
+        const head = add(item, "div", "", "source-claim-head");
+        add(head, "span", claim.stance.toUpperCase(), `stance-pill ${claim.stance}`);
+        add(head, "span", claim.review
           ? `Source checked by ${claim.review.reviewer} · ${published(claim.review.reviewedAt)}`
           : "Awaiting editor source check", `claim-review-badge ${claim.review ? "checked" : "awaiting"}`);
+        add(item, "p", claim.text, "source-claim-text");
+        const foot = add(item, "div", "", "source-claim-foot");
         const question = questions.get(claim.eventId);
         if (question) {
-          const link = add(item, "a", question.title);
+          const link = add(foot, "a", question.title, "source-claim-question");
           link.href = `/web/research.html?question=${encodeURIComponent(question.id)}`;
         }
-        receiptPreview(item, claim, source);
-        editorLink(item, claim);
+        receiptPreview(foot, claim, source);
+        editorLink(foot, claim);
       }
     }
     const bottom = add(card, "div", "", "source-card-bottom");
-    add(bottom, "span", linked.length
-      ? `${linked.length} linked ${linked.length === 1 ? "claim" : "claims"}`
-      : "No claims linked");
+    add(bottom, "span", linked.length ? "" : "No claims linked");
     add(bottom, "span", "Open source ↗", "open-source");
   }
   if (!visible.length) add($("#source-cards"), "p", "No sources match this filter.", "page-empty");

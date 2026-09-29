@@ -9,9 +9,15 @@ __pycache__/
 *.pyc
 .agents/
 skills-lock.json
-brag-output/
-brag-output-*/
 dist.*/
 *:Zone.Identifier
 *.patch
 *launch register*.md
+brag-output/brag.mp4
+brag-output/brag.jpg
+brag-output/composition/node_modules/
+brag-output/composition/renders/
+brag-output/composition/.hyperframes/
+brag-output/composition/assets/vendor/
+brag-output/composition/assets/music/*.mp3
+brag-output/composition/assets/music/*.wav

@@ -1,6 +1,6 @@
 ---
 title: Market Evidence Desk: an AI researcher that shows its receipts
-published: false
+published: true
 tags: devchallenge, sanitychallenge, sanity, ai
 ---
 

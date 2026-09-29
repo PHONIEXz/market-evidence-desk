@@ -1,5 +1,6 @@
 // An editorial map over the published graph. The graph supplies every factual claim.
 import {receiptPreview} from "./receipt-preview.js";
+import {editorLink} from "./editor-link.js";
 import {dossierMarkdown} from "./dossier-export.js";
 const THEMES = [
   {name: "Reserve assurance", description: "A snapshot can answer a narrow question while leaving the broader balance sheet untested.", ids: ["market-event-sec-proof-of-reserves-question-2023", "market-event-proof-of-reserves-scope-question-2023", "market-event-stablecoin-reserve-assurance-question-2025"], limit: "A historical assessment cannot verify current asset availability, all liabilities or present solvency."},
@@ -78,6 +79,7 @@ function renderDossier(event) {
     const link = make(row, "a", `${source.title} · ${date(source.publishedAt)} ↗`);
     link.href = source.url; link.target = "_blank"; link.rel = "noopener noreferrer";
     receiptPreview(row, claim, source);
+    editorLink(row, claim);
   }
   if (!claims.length) make($("#dossier-claims"), "p", "No linked claims are currently published for this question.", "page-empty");
   $("#dossier-sources").replaceChildren();

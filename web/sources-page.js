@@ -1,4 +1,5 @@
 import {receiptPreview} from "./receipt-preview.js";
+import {editorLink} from "./editor-link.js";
 
 const $ = (selector) => document.querySelector(selector);
 const add = (parent, tag, value, className) => {
@@ -70,6 +71,7 @@ function render() {
           link.href = `/web/research.html?question=${encodeURIComponent(question.id)}`;
         }
         receiptPreview(item, claim, source);
+        editorLink(item, claim);
       }
     }
     const bottom = add(card, "div", "", "source-card-bottom");

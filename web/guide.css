@@ -880,3 +880,26 @@ html, body { max-width: 100%; overflow-x: clip; }
 /* Editor-only review shortcut (hidden unless ?editor=1 was used) */
 .editor-review-link { display: inline-block; margin: 8px 0 0 10px; padding: 5px 9px; border: 1px dashed #a1814b; border-radius: 7px; color: #ffe1aa; font-size: 12px; font-weight: 700; text-decoration: none; }
 .editor-review-link:hover { background: #392f22; }
+
+/* Sources page: compact cards, collapsible claims, clear spacing */
+.source-grid { align-items: start; gap: 20px; }
+.source-card { padding: 24px; gap: 0; }
+.source-title { margin: 18px 0 10px; }
+.source-url { margin: 0 0 14px; }
+.source-scope { margin: 0 0 16px; }
+.source-claims { margin: 4px 0 16px; border-top: 1px solid #2c3f4e; padding-top: 14px; }
+.source-claims-summary { cursor: pointer; color: var(--mint); font-size: 14px; font-weight: 700; padding: 6px 0; list-style-position: inside; }
+.source-claims-summary:hover { text-decoration: underline; }
+.source-claims[open] .source-claims-summary { margin-bottom: 8px; }
+.source-claim-list { margin: 0; }
+.source-claim { margin: 0; padding: 16px 0; border-top: 1px solid #26384a; display: grid; gap: 10px; }
+.source-claim:first-child { border-top: 0; }
+.source-claim-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.source-claim-head .claim-review-badge { margin: 0; }
+.source-claim-text { margin: 0; color: #d4e0e3; font-size: 15px; line-height: 1.6; }
+.source-claim-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.source-claim-foot .receipt-preview { margin: 0; }
+.source-claim-question { font-size: 14px; line-height: 1.5; }
+.source-card-bottom { margin-top: auto; }
+.page-toolbar { margin-bottom: 20px; }
+.page-toolbar { background: rgba(10, 16, 25, 0.97); backdrop-filter: blur(14px); z-index: 20; }

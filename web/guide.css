@@ -873,3 +873,6 @@ html, body { max-width: 100%; overflow-x: clip; }
 #agent-progress-bar { display: block; height: 100%; width: 0; border-radius: inherit; background: currentColor; transition: width 1s linear; }
 #agent-elapsed { white-space: nowrap; font-variant-numeric: tabular-nums; }
 @media (prefers-reduced-motion: reduce) { #agent-progress-bar { transition: none; } }
+
+/* Homepage audience line */
+.hero-audience { max-width: 560px; margin: 14px 0 0; color: var(--muted, #91a1b1); font-size: 14px; line-height: 1.55; }

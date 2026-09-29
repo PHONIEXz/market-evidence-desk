@@ -903,3 +903,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 .source-card-bottom { margin-top: auto; }
 .page-toolbar { margin-bottom: 20px; }
 .page-toolbar { background: rgba(10, 16, 25, 0.97); backdrop-filter: blur(14px); z-index: 20; }
+
+/* Evidence ledger: keep claim content clear of the stance line */
+.evidence-row { padding-left: 20px; }
+.evidence-row + .evidence-row { margin-top: 2px; }

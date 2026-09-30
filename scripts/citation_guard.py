@@ -43,8 +43,10 @@ def checked_source_urls(published: str) -> set[str]:
     return set(re.findall(pattern, content))
 
 
-def validate_answer_urls(answer: str, allowed: set[str]) -> None:
+def validate_answer_urls(answer: str, allowed: set[str], required: set[str] | None = None) -> None:
     """Never present a plausible-looking but ungrounded citation as a receipt."""
     cited = {url.rstrip('.,;:') for url in re.findall(r'''https?://[^\s<>\]\)"'`]+''', answer)}
     if cited - allowed:
         raise CitationError("Answer withheld: a citation URL was not in the retrieved source records.")
+    if required and not required.issubset(cited):
+        raise CitationError("Answer withheld: the requested original source was not cited.")

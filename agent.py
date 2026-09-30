@@ -13,7 +13,7 @@ from openai import InternalServerError
 
 from scripts.context_config import called_tools, context_urls, initial_context_url, missing_retrievals, sourcebook_id
 from scripts.citation_guard import CitationError, checked_source_urls, validate_answer_urls
-from scripts.evidence_retrieval import scoped_query
+from scripts.evidence_retrieval import named_source_anchor, scoped_query
 from scripts.model_config import configured_value, fallback_model, missing_settings, model_credentials
 
 CASES = {
@@ -49,7 +49,8 @@ CASE_EVENT_IDS = {
 def evidence_query(question: str) -> str:
     """Use bounded, source-linked retrieval even as the dataset grows."""
     case = next((name for name, prompt in CASES.items() if prompt == question), None)
-    return scoped_query(question, CASE_EVENT_IDS[case] if case else None)
+    anchor = named_source_anchor(question) if not case else None
+    return scoped_query(question, CASE_EVENT_IDS[case] if case else anchor[0] if anchor else None)
 
 
 def tool_text(result):
@@ -84,6 +85,8 @@ async def research_answer(question: str) -> dict:
     mcp_url = configured_value(os.environ, "SANITY_CONTEXT_MCP_URL")
     token = configured_value(os.environ, "SANITY_ORGANIZATION_TOKEN")
     credentials = model_credentials(os.environ)
+    anchor = named_source_anchor(question)
+    required_urls = {anchor[1]} if anchor else set()
 
     dataset_url, knowledge_base_url = context_urls(
         mcp_url, sourcebook_id(os.environ)
@@ -171,13 +174,13 @@ async def research_answer(question: str) -> dict:
             result = await Runner.run(agent, prompt, max_turns=4)
             if isinstance(result.final_output, str):
                 try:
-                    validate_answer_urls(result.final_output, allowed_urls)
+                    validate_answer_urls(result.final_output, allowed_urls, required_urls)
                 except CitationError:
                     # Ask for one fresh draft; never silently repair a guessed URL.
                     result = await Runner.run(
                         agent,
-                        prompt + "\n\nThe previous draft included a URL absent from the source records. "
-                        "Write a fresh answer using only the exact source URLs listed above.",
+                        prompt + "\n\nThe previous draft cited an unlinked URL or omitted the requested original source. "
+                        "Write a fresh answer using only the exact source URLs listed above, including the requested publication.",
                         max_turns=4,
                     )
             return result, ["groq_query", *called_tools(result.new_items)], allowed_urls
@@ -224,7 +227,7 @@ async def research_answer(question: str) -> dict:
             raise RuntimeError("Answer withheld: the agent did not call required Sanity tools: " + ", ".join(missing))
         if not isinstance(result.final_output, str) or not result.final_output.strip():
             raise RuntimeError("Answer withheld: the agent returned no text.")
-        validate_answer_urls(result.final_output, allowed_urls)
+        validate_answer_urls(result.final_output, allowed_urls, required_urls)
         return {"answer": result.final_output, "tools": names}
 
 

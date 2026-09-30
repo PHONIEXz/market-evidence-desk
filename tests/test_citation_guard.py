@@ -17,6 +17,12 @@ class CitationGuardTests(unittest.TestCase):
         with self.assertRaises(CitationError):
             validate_answer_urls('See https://pcaob.org/advisory/third-party.', allowed)
 
+    def test_named_original_must_appear(self):
+        allowed = {'https://investor.gov/2023', 'https://investor.gov/2024'}
+        with self.assertRaises(CitationError):
+            validate_answer_urls('See https://investor.gov/2024', allowed, {'https://investor.gov/2023'})
+        validate_answer_urls('See https://investor.gov/2023', allowed, {'https://investor.gov/2023'})
+
 
 if __name__ == '__main__':
     unittest.main()

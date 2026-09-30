@@ -15,6 +15,21 @@ STOP_WORDS = {
     "where", "which", "with", "would", "your", "today", "right", "now",
 }
 
+SEC_ALERT_EVENT_ID = "market-event-sec-proof-of-reserves-question-2023"
+SEC_ALERT_URL = (
+    "https://www.investor.gov/introduction-investing/general-resources/"
+    "news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities"
+)
+
+
+def named_source_anchor(question: str) -> tuple[str, str] | None:
+    """Prefer a known linked event when a question identifies one dated publication."""
+    normalized = question.lower()
+    if ("sec" in normalized and "march 23" in normalized and "2023" in normalized
+            and ("investor alert" in normalized or "proof-of-reserves" in normalized)):
+        return SEC_ALERT_EVENT_ID, SEC_ALERT_URL
+    return None
+
 
 def scoped_query(question: str, event_id: str | None = None) -> str:
     """Constrain the query to a preset event or relevant custom claim text."""

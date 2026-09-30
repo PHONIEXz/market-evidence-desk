@@ -305,7 +305,7 @@ The [redacted public session](agent-sessions/2026-09-30-public-session.md) recor
 
 The two failures were an unavailable SEC alert answer after retries and incorrect source URL paths in the current-solvency answer. Five initial calls returned 502; four recovered on retry. The session contains no keys or private request headers.
 
-After this snapshot, the hosted endpoint was updated to retry a failed upstream run once with fresh connections. It now checks every answer URL against the exact linked source URLs retrieved for that question, asks for one new draft if a link is wrong, and withholds the answer if the new draft still cites an unlinked URL. These safeguards do not retroactively change the recorded scores or guarantee model availability.
+After this snapshot, the hosted endpoint was updated to retry a failed upstream run once with fresh connections. It now checks every answer URL against the exact linked source URLs retrieved for that question, asks for one new draft if a link is wrong, and withholds the answer if the new draft still cites an unlinked URL. A question naming the March 23, 2023 SEC alert retrieves that specific linked event and must cite the original alert, rather than a different SEC publication. These safeguards do not retroactively change the recorded scores or guarantee model availability.
 
 ## Before submission
 

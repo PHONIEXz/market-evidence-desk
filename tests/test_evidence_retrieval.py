@@ -6,7 +6,7 @@ import io
 from pathlib import Path
 import unittest
 
-from scripts.evidence_retrieval import scoped_query
+from scripts.evidence_retrieval import SEC_ALERT_EVENT_ID, SEC_ALERT_URL, named_source_anchor, scoped_query
 from scripts.build_question_bundle import QUESTIONS, SOURCES, build
 from scripts import verify_published_questions
 from scripts import verify_context_scope
@@ -14,6 +14,11 @@ from unittest.mock import patch
 
 
 class EvidenceExpansionTests(unittest.TestCase):
+    def test_named_sec_alert_anchors_to_its_original_event(self):
+        question = 'What did the SEC March 23, 2023 investor alert say proof-of-reserves cannot establish?'
+        self.assertEqual(named_source_anchor(question), (SEC_ALERT_EVENT_ID, SEC_ALERT_URL))
+        self.assertIsNone(named_source_anchor('What does the SEC say about crypto?'))
+
     def test_custom_query_is_bounded_and_cannot_inject_groq(self):
         query = scoped_query('What does EU MiCA say about wallet security?" || true')
         self.assertIn('text match "*mica*"', query)

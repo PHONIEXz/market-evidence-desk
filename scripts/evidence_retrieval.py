@@ -20,6 +20,11 @@ SEC_ALERT_URL = (
     "https://www.investor.gov/introduction-investing/general-resources/"
     "news-alerts/alerts-bulletins/investor-alerts/crypto-asset-securities"
 )
+RESERVE_SCOPE_EVENT_ID = "market-event-proof-of-reserves-scope-question-2023"
+PCAOB_RESERVE_ADVISORY_URL = (
+    "https://pcaobus.org/news-events/news-releases/news-release-detail/"
+    "investor-advisory-exercise-caution-with-third-party-verification-proof-of-reserve-reports"
+)
 
 
 def named_source_anchor(question: str) -> tuple[str, str] | None:
@@ -28,6 +33,11 @@ def named_source_anchor(question: str) -> tuple[str, str] | None:
     if ("sec" in normalized and "march 23" in normalized and "2023" in normalized
             and ("investor alert" in normalized or "proof-of-reserves" in normalized)):
         return SEC_ALERT_EVENT_ID, SEC_ALERT_URL
+    if (("solvent" in normalized or "solvency" in normalized)
+            and ("today" in normalized or "now" in normalized)
+            and ("exchange" in normalized or "issuer" in normalized)
+            and ("reserve" in normalized or "crypto" in normalized)):
+        return RESERVE_SCOPE_EVENT_ID, PCAOB_RESERVE_ADVISORY_URL
     return None
 
 

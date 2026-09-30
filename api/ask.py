@@ -37,6 +37,22 @@ def is_ready():
     return os.getenv("AGENT_DEMO_ENABLED", "").lower() in {"1", "true"} and not missing_settings(os.environ)
 
 
+async def answer_with_retry(question):
+    """Retry one transient upstream failure with fresh model and MCP sessions."""
+    try:
+        return await research_answer(question)
+    except (ValueError, TimeoutError):
+        raise
+    except RuntimeError as error:
+        if str(error).startswith("Answer withheld:"):
+            raise
+        print("Agent retry after RuntimeError", file=sys.stderr)
+    except Exception as error:
+        print(f"Agent retry after {type(error).__name__}", file=sys.stderr)
+    await asyncio.sleep(1.5)
+    return await research_answer(question)
+
+
 class handler(BaseHTTPRequestHandler):
     def respond(self, status, payload):
         data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
@@ -74,12 +90,12 @@ class handler(BaseHTTPRequestHandler):
             self.respond(400, {"error": str(error) or "Choose a research question."})
             return
         try:
-            result = asyncio.run(asyncio.wait_for(research_answer(question), timeout=110))
+            result = asyncio.run(asyncio.wait_for(answer_with_retry(question), timeout=110))
             self.respond(200, {"case": case, **result})
         except TimeoutError:
             self.respond(504, {"error": "The agent took too long. Please try again."})
         except RuntimeError as error:
-            if str(error).startswith("Answer withheld: the agent did not call required Sanity tools:"):
+            if str(error).startswith("Answer withheld:"):
                 self.respond(424, {"error": str(error)})
             elif str(error).startswith("Gemini is temporarily overloaded"):
                 self.respond(503, {"error": "The model is temporarily overloaded. Try again later."})

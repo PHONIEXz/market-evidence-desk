@@ -110,6 +110,23 @@ class HostedAgentTests(unittest.TestCase):
                 self.assertEqual(status, 400)
                 self.assertNotIn("answer", payload)
 
+    def test_transient_failure_gets_one_fresh_attempt(self):
+        calls = []
+
+        async def no_wait(delay):
+            return None
+
+        async def flaky(question):
+            calls.append(question)
+            if len(calls) == 1:
+                raise RuntimeError("temporary upstream failure")
+            return {"answer": "Recovered", "tools": ["groq_query", "knowledge_base_read"]}
+
+        with patch.object(module, "research_answer", flaky), patch.object(module.asyncio, "sleep", no_wait):
+            result = module.asyncio.run(module.answer_with_retry("test question"))
+        self.assertEqual(result["answer"], "Recovered")
+        self.assertEqual(len(calls), 2)
+
 
 if __name__ == "__main__":
     unittest.main()

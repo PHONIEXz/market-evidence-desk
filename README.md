@@ -305,6 +305,8 @@ The [redacted public session](agent-sessions/2026-09-30-public-session.md) recor
 
 The two failures were an unavailable SEC alert answer after retries and incorrect source URL paths in the current-solvency answer. Five initial calls returned 502; four recovered on retry. The session contains no keys or private request headers.
 
+After this snapshot, the hosted endpoint was updated to retry a failed upstream run once with fresh connections. It now checks every answer URL against the exact linked source URLs retrieved for that question, asks for one new draft if a link is wrong, and withholds the answer if the new draft still cites an unlinked URL. These safeguards do not retroactively change the recorded scores or guarantee model availability.
+
 ## Before submission
 
 The [judge walkthrough and verification list](DEMO_WALKTHROUGH.md) records the September 27 Sourcebook build and three successful hosted agent cases. The remaining release work is an actual phone layout check, demo recording, and the [DEV post draft](SUBMISSION.md). Sanity Context still reports four removals pending after the clean build, so keep that notice distinct from its 13 ready entries and zero open issues. The agent is server-configured and model/network latency can still interrupt a run; record only outcomes verified on the final deployed URL.

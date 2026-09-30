@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 from openai import InternalServerError
 
 from scripts.context_config import called_tools, context_urls, initial_context_url, missing_retrievals, sourcebook_id
+from scripts.citation_guard import CitationError, checked_source_urls, validate_answer_urls
 from scripts.evidence_retrieval import scoped_query
 from scripts.model_config import configured_value, fallback_model, missing_settings, model_credentials
 
@@ -145,6 +146,9 @@ async def research_answer(question: str) -> dict:
             published = tool_text(await dataset.call_tool("groq_query", {"query": evidence_query(question)}))
             if "evidenceClaim" not in published or "source" not in published:
                 raise RuntimeError("Sanity Context returned no usable evidence graph.")
+            allowed_urls = checked_source_urls(published)
+            if not allowed_urls:
+                raise RuntimeError("Sanity Context returned no linked source URLs.")
 
             mcp_servers = []
             if knowledge_base_url:
@@ -158,16 +162,25 @@ async def research_answer(question: str) -> dict:
 
             agent = Agent(
                 name="Market Evidence Desk",
-                instructions=instructions,
+                instructions=instructions + "\n\nUse only these exact source URL values from the retrieved graph in citations:\n" + "\n".join(sorted(allowed_urls)),
                 mcp_servers=mcp_servers,
                 model_settings=ModelSettings(tool_choice="required") if mcp_servers else None,
                 **model_options,
             )
-            result = await Runner.run(
-                agent, f"Question: {question}\n\n# Published Sanity evidence graph\n{published}",
-                max_turns=4,
-            )
-            return result, ["groq_query", *called_tools(result.new_items)]
+            prompt = f"Question: {question}\n\n# Published Sanity evidence graph\n{published}"
+            result = await Runner.run(agent, prompt, max_turns=4)
+            if isinstance(result.final_output, str):
+                try:
+                    validate_answer_urls(result.final_output, allowed_urls)
+                except CitationError:
+                    # Ask for one fresh draft; never silently repair a guessed URL.
+                    result = await Runner.run(
+                        agent,
+                        prompt + "\n\nThe previous draft included a URL absent from the source records. "
+                        "Write a fresh answer using only the exact source URLs listed above.",
+                        max_turns=4,
+                    )
+            return result, ["groq_query", *called_tools(result.new_items)], allowed_urls
 
     async with AsyncExitStack() as client_stack:
         model_options = {}
@@ -182,7 +195,7 @@ async def research_answer(question: str) -> dict:
                 model=credentials[2], openai_client=client
             )
         try:
-            result, names = await run_with_fresh_mcp(model_options)
+            result, names, allowed_urls = await run_with_fresh_mcp(model_options)
         except InternalServerError as error:
             if credentials[0] != "gemini" or error.status_code != 503:
                 raise
@@ -193,7 +206,7 @@ async def research_answer(question: str) -> dict:
                     model=alternative, openai_client=client
                 )}
                 try:
-                    result, names = await run_with_fresh_mcp(alternative_options)
+                    result, names, allowed_urls = await run_with_fresh_mcp(alternative_options)
                 except InternalServerError as fallback_error:
                     if fallback_error.status_code != 503:
                         raise
@@ -211,6 +224,7 @@ async def research_answer(question: str) -> dict:
             raise RuntimeError("Answer withheld: the agent did not call required Sanity tools: " + ", ".join(missing))
         if not isinstance(result.final_output, str) or not result.final_output.strip():
             raise RuntimeError("Answer withheld: the agent returned no text.")
+        validate_answer_urls(result.final_output, allowed_urls)
         return {"answer": result.final_output, "tools": names}
 
 

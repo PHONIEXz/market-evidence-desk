@@ -309,6 +309,8 @@ After this snapshot, the hosted endpoint was updated to retry a failed upstream 
 
 The [same ten questions were rerun](agent-sessions/2026-09-30-retest.md) after deployment: **10 pass / 0 fail**, with all ten returning HTTP 200 on the first call. The full answers and review notes are public. This is another small run, not a reliability guarantee.
 
+A September 30 fresh-tab check of the public interface ran the **compare**, **dispute**, and **live-price** preset cases once each. All three returned a draft on the first attempt, displayed `groq_query` and `knowledge_base_read`, and showed original source links. The price case declined to invent current market data. This was a three-case UI spot-check in a shared cloud browser, not an incognito-window test or continuous availability measurement.
+
 ## Before submission
 
 The [judge walkthrough and verification list](DEMO_WALKTHROUGH.md) records the September 27 Sourcebook build and three successful hosted agent cases. The remaining release work is an actual phone layout check, demo recording, and the [DEV post draft](SUBMISSION.md). Sanity Context still reports four removals pending after the clean build, so keep that notice distinct from its 13 ready entries and zero open issues. The agent is server-configured and model/network latency can still interrupt a run; record only outcomes verified on the final deployed URL.

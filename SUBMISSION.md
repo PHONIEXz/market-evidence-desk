@@ -10,7 +10,7 @@ tags: devchallenge, sanitychallenge, sanity, ai
 
 Market Evidence Desk is a public research desk for crypto investor protection questions. It links original publications to dated claims about proof of reserves, custody, deposit insurance, stablecoin redemption, and the gap between international recommendations and local implementation. An exchange may say customers can check inclusion in a reserve snapshot, while accounting and regulatory sources explain why that snapshot cannot establish full liabilities or solvency. SEC staff and a Commissioner also take different positions on what reserve reports demonstrate. Flattening those positions into a single confident answer would lose the point.
 
-The site lets a visitor inspect published source records, follow each claim to its question and original URL, compare dated views, and ask a scoped AI agent. The published Sanity graph contains 102 research questions linked to 23 source records (21 distinct source URLs); the evidence atlas shows them in manageable batches. New source scope notes make clear whether a document is investor education, analysis, or a recommendation to regulators. The agent returns a draft with source links and the names of the Sanity Context tools it used. It declines live Bitcoin prices and buy/sell requests because the Sourcebook does not contain current market feeds. Research drafts remain subject to human review.
+The site lets a visitor inspect published source records, follow each claim to its question and original URL, compare dated views, and ask a scoped AI agent. The published Sanity graph contains 101 research questions linked to 22 source records (21 distinct source URLs); the evidence atlas shows them in manageable batches. New source scope notes make clear whether a document is investor education, analysis, or a recommendation to regulators. The agent returns a draft with source links and the names of the Sanity Context tools it used. It declines live Bitcoin prices and buy/sell requests because the Sourcebook does not contain current market feeds. Research drafts remain subject to human review.
 
 ## Demo
 
@@ -35,7 +35,7 @@ Sanity Context points at both the dataset and the **Market Evidence Desk Sourceb
 
 The hard case is the same-day April 4, 2025 stablecoin material. The SEC Division of Corporation Finance staff described an issuer practice around reserve reports; Commissioner Caroline A. Crenshaw challenged whether such reports can establish adequate backing. The desk shows both attributed positions and does not turn either into a Commission rule or a present-day solvency finding. It also separates FSB and IOSCO recommendations from the rules actually adopted by individual countries. Human review remains separate from synthesis.
 
-As of September 30, the public dataset has 102 questions, 113 claims, and 23 source records. All 113 published claims currently carry `source-checked` status with an excerpt, locator, reviewer name, and review date. These fields record the editor's source-check attestation; they are not an independent audit of every passage or an endorsement of an AI-generated answer.
+As of September 30, the public dataset has 101 questions, 112 claims, and 22 source records. All 112 published claims currently carry `source-checked` status with an excerpt, locator, reviewer name, and review date. These fields record the editor's source-check attestation; they are not an independent audit of every passage or an endorsement of an AI-generated answer.
 
 ## Sanity Project Details
 

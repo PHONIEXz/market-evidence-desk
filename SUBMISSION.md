@@ -19,6 +19,7 @@ The site lets a visitor inspect published source records, follow each claim to i
 - [Compare the linked evidence](https://market-evidence-desk.vercel.app/web/compare.html)
 - [Inspect original sources and claims](https://market-evidence-desk.vercel.app/web/sources.html)
 - [Ask the Sanity Context agent](https://market-evidence-desk.vercel.app/web/agent.html?case=dispute)
+- [Watch the video walkthrough](https://youtu.be/UVXe_8nlCXU)
 
 Judges can test the public app without signing in: start on the home page, open **Show the disagreement**, press **Ask the sources**, then compare the cited answer with the original sources and the guided comparison. On the Research desk, switch to the question about worldwide protections: the 2023 international recommendations and the 2025 implementation review are linked as different kinds of evidence. Try the **live-price boundary** case as a negative test. On September 29, 2026, all three hosted cases (compare, dispute, price) returned cited answers using `groq_query` and `knowledge_base_read` on the public production URL. The agent can take up to two minutes; if the hosted service is temporarily unavailable, the guided comparison and source graph still work, and the local agent can be run with private credentials using the README. The **Fictional demo** on the Research desk is explicitly separate from published records.
 
@@ -34,7 +35,7 @@ Sanity Context points at both the dataset and the **Market Evidence Desk Sourceb
 
 The hard case is the same-day April 4, 2025 stablecoin material. The SEC Division of Corporation Finance staff described an issuer practice around reserve reports; Commissioner Caroline A. Crenshaw challenged whether such reports can establish adequate backing. The desk shows both attributed positions and does not turn either into a Commission rule or a present-day solvency finding. It also separates FSB and IOSCO recommendations from the rules actually adopted by individual countries. Human review remains separate from synthesis.
 
-Review status is shown honestly: 1 of the 112 claims carries an editor source check with the exact excerpt and locator, and the rest are labeled as awaiting review. Adding more checks is a Studio task, and the desk never presents an unchecked claim as verified.
+As of September 30, the public dataset has 101 questions, 112 claims, and 22 source records. All 112 published claims currently carry `source-checked` status with an excerpt, locator, reviewer name, and review date. These fields record the editor's source-check attestation; they are not an independent audit of every passage or an endorsement of an AI-generated answer.
 
 ## Sanity Project Details
 
@@ -44,7 +45,10 @@ Review status is shown honestly: 1 of the 112 claims carries an editor source ch
 - [Hosted Sanity Studio](https://phoniex-market-evidence-desk.sanity.studio/)
 - Sourcebook Knowledge Base ID: `kbu9WNgZ9ocF`
 
+## Agent Session
+
+The [public ten-question agent session](https://github.com/PHONIEXz/market-evidence-desk/blob/main/agent-sessions/2026-09-30-public-session.md) preserves the questions, full answers, reported Sanity Context tool calls, and grading notes without private headers or keys. It recorded 8 passes and 2 failures. After fixing retries and source validation, the [same questions were rerun](https://github.com/PHONIEXz/market-evidence-desk/blob/main/agent-sessions/2026-09-30-retest.md): all ten passed the original core criteria and returned HTTP 200 on the first call. This small manual check is not a reliability guarantee. The session is a public repository transcript, not a DEV Agent Session embed.
+
 ## What I Learned
 
 Structured content matters most where sources disagree or cover different scopes. Dates, authors, stances, and source references let the interface show what each source can establish. Sanity Context gives the agent a way to read both records and the Sourcebook, while the human review state reminds readers that a generated explanation is a draft. The useful boundary is as visible as the answer: historical evidence cannot provide a current price or investment recommendation.
-

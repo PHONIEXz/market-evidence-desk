@@ -59,7 +59,11 @@ def validate_named_authorities(answer: str) -> None:
     authorities = (
         (r'\b(?:Financial Stability Board|FSB)\b', 'fsb.org'),
         (r'\b(?:Bank for International Settlements|BIS)\b', 'bis.org'),
+        (r'\bDivision of Corporation Finance\b', 'sec.gov/newsroom/speeches-statements/statement-stablecoins-040425'),
+        (r'\b(?:Commissioner (?:Caroline A\. )?Crenshaw|Crenshaw)\b', 'sec.gov/newsroom/speeches-statements/crenshaw-statement-stablecoins-040425'),
+        (r'\bPCAOB\b', 'pcaobus.org'),
+        (r'\bKraken\b', 'blog.kraken.com'),
     )
-    for name, domain in authorities:
-        if re.search(name, body, re.I) and not re.search(r'https://(?:www\.)?' + re.escape(domain) + r'/', sources, re.I):
+    for name, source_path in authorities:
+        if re.search(name, body, re.I) and not re.search(r'https://(?:www\.)?' + re.escape(source_path) + r'(?:/|\b)', sources, re.I):
             raise CitationError("Answer withheld: a named authority has no original source in the Sources section.")

@@ -29,6 +29,14 @@ class CitationGuardTests(unittest.TestCase):
             validate_named_authorities(body + '\nSources:\n- https://www.fsb.org/report')
         validate_named_authorities(body + '\nSources:\n- https://www.fsb.org/report\n- https://www.bis.org/report')
 
+    def test_division_and_commissioner_need_their_distinct_statements(self):
+        body = 'The Division of Corporation Finance described the practice; Commissioner Crenshaw disagreed.'
+        crenshaw = 'https://www.sec.gov/newsroom/speeches-statements/crenshaw-statement-stablecoins-040425'
+        division = 'https://www.sec.gov/newsroom/speeches-statements/statement-stablecoins-040425'
+        with self.assertRaises(CitationError):
+            validate_named_authorities(body + '\nSources:\n- ' + crenshaw)
+        validate_named_authorities(body + '\nSources:\n- ' + crenshaw + '\n- ' + division)
+
 
 if __name__ == '__main__':
     unittest.main()

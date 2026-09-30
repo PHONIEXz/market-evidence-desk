@@ -50,3 +50,16 @@ def validate_answer_urls(answer: str, allowed: set[str], required: set[str] | No
         raise CitationError("Answer withheld: a citation URL was not in the retrieved source records.")
     if required and not required.issubset(cited):
         raise CitationError("Answer withheld: the requested original source was not cited.")
+
+
+def validate_named_authorities(answer: str) -> None:
+    """Keep named international bodies in the body tied to their original source list."""
+    parts = re.split(r'(?im)^\s*Sources\s*:?\s*$', answer, maxsplit=1)
+    body, sources = (parts[0], parts[1]) if len(parts) == 2 else (answer, "")
+    authorities = (
+        (r'\b(?:Financial Stability Board|FSB)\b', 'fsb.org'),
+        (r'\b(?:Bank for International Settlements|BIS)\b', 'bis.org'),
+    )
+    for name, domain in authorities:
+        if re.search(name, body, re.I) and not re.search(r'https://(?:www\.)?' + re.escape(domain) + r'/', sources, re.I):
+            raise CitationError("Answer withheld: a named authority has no original source in the Sources section.")

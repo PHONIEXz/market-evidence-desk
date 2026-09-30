@@ -1,6 +1,6 @@
 import unittest
 
-from scripts.citation_guard import CitationError, checked_source_urls, validate_answer_urls
+from scripts.citation_guard import CitationError, checked_source_urls, validate_answer_urls, validate_named_authorities
 
 
 class CitationGuardTests(unittest.TestCase):
@@ -22,6 +22,12 @@ class CitationGuardTests(unittest.TestCase):
         with self.assertRaises(CitationError):
             validate_answer_urls('See https://investor.gov/2024', allowed, {'https://investor.gov/2023'})
         validate_answer_urls('See https://investor.gov/2023', allowed, {'https://investor.gov/2023'})
+
+    def test_named_international_authority_needs_a_listed_source(self):
+        body = 'The Financial Stability Board and BIS discuss redemption design.'
+        with self.assertRaises(CitationError):
+            validate_named_authorities(body + '\nSources:\n- https://www.fsb.org/report')
+        validate_named_authorities(body + '\nSources:\n- https://www.fsb.org/report\n- https://www.bis.org/report')
 
 
 if __name__ == '__main__':

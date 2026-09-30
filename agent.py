@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 from openai import InternalServerError
 
 from scripts.context_config import called_tools, context_urls, initial_context_url, missing_retrievals, sourcebook_id
-from scripts.citation_guard import CitationError, checked_source_urls, validate_answer_urls
+from scripts.citation_guard import CitationError, checked_source_urls, validate_answer_urls, validate_named_authorities
 from scripts.evidence_retrieval import named_source_anchor, scoped_query
 from scripts.model_config import configured_value, fallback_model, missing_settings, model_credentials
 
@@ -188,12 +188,15 @@ async def research_answer(question: str) -> dict:
             if isinstance(result.final_output, str):
                 try:
                     validate_answer_urls(result.final_output, allowed_urls, required_urls)
+                    validate_named_authorities(result.final_output)
                 except CitationError:
                     # Ask for one fresh draft; never silently repair a guessed URL.
                     result = await Runner.run(
                         agent,
-                        prompt + "\n\nThe previous draft cited an unlinked URL or omitted the requested original source. "
-                        "Write a fresh answer using only the exact source URLs listed above, including the requested publication.",
+                        prompt + "\n\nThe previous draft had an unlinked URL, omitted a requested source, "
+                        "or named an institution without listing its original source. "
+                        "Write a fresh, shorter answer using only the listed URLs. "
+                        "Omit any institution whose original source will not appear in Sources.",
                         max_turns=4,
                     )
             return result, ["groq_query", *called_tools(result.new_items)], allowed_urls
@@ -241,6 +244,7 @@ async def research_answer(question: str) -> dict:
         if not isinstance(result.final_output, str) or not result.final_output.strip():
             raise RuntimeError("Answer withheld: the agent returned no text.")
         validate_answer_urls(result.final_output, allowed_urls, required_urls)
+        validate_named_authorities(result.final_output)
         return {"answer": result.final_output, "tools": names}
 
 

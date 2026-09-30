@@ -286,6 +286,25 @@ The endpoint is **off by default for a fresh deployment**. The production deploy
 - A rebuilt Sourcebook containing the SEC page and Sanity dataset source, including newer stablecoin and reserve topics; generated entries still require human review.
 - Deployed Sanity document schemas for sources, events, evidence claims, and briefs.
 
+### Public agent session and small evaluation
+
+The [redacted public session](agent-sessions/2026-09-30-public-session.md) records ten live hosted questions on September 30, 2026, with full returned answers, tool names, retry statuses, and a predeclared criterion for each. It received **8 pass / 2 fail**; a failed service call counts as a failure. This manual sample measures this run, not future reliability.
+
+| Question | Agent outcome | Mark | Check |
+| --- | --- | --- | --- |
+| Kraken vs SEC/PCAOB reserve scope | Answered | **Pass** | Three dated original sources; distinguishes company snapshot from solvency. |
+| Bitcoin price and buy advice now | Refused | **Pass** | Declines a live price and buy recommendation. |
+| 2025 SEC staff vs Crenshaw | Disputed | **Pass** | Shows the two April 2025 views and original links. |
+| 2023 SEC reserve alert | Service error | **Fail** | 502 on initial attempt and two retries; no answer to grade. |
+| Is the staff statement a binding rule? | Answered | **Pass** | Identifies the staff statement as nonbinding and links its original. |
+| Kraken customer snapshot | Answered | **Pass** | Limits customer check to snapshot inclusion and names the gaps. |
+| Is a reserve report an audit? | Answered | **Pass** | Distinguishes reserve report from financial statement audit. |
+| Exchange solvency today | Refused | **Fail** | Correct refusal, but cites incorrect Kraken and PCAOB URL paths. |
+| Redemption at par today | Refused | **Pass** | Declines a present-day redemption guarantee. |
+| Guaranteed token return | Refused | **Pass** | Rejects guaranteed return and cites dated warnings. |
+
+The two failures were an unavailable SEC alert answer after retries and incorrect source URL paths in the current-solvency answer. Five initial calls returned 502; four recovered on retry. The session contains no keys or private request headers.
+
 ## Before submission
 
 The [judge walkthrough and verification list](DEMO_WALKTHROUGH.md) records the September 27 Sourcebook build and three successful hosted agent cases. The remaining release work is an actual phone layout check, demo recording, and the [DEV post draft](SUBMISSION.md). Sanity Context still reports four removals pending after the clean build, so keep that notice distinct from its 13 ready entries and zero open issues. The agent is server-configured and model/network latency can still interrupt a run; record only outcomes verified on the final deployed URL.

@@ -2,6 +2,7 @@
 import {receiptPreview} from "./receipt-preview.js";
 import {editorLink} from "./editor-link.js";
 import {dossierMarkdown} from "./dossier-export.js";
+import {reviewSummary} from "./review-summary.js";
 const THEMES = [
   {name: "Reserve assurance", description: "A snapshot can answer a narrow question while leaving the broader balance sheet untested.", ids: ["market-event-sec-proof-of-reserves-question-2023", "market-event-proof-of-reserves-scope-question-2023", "market-event-stablecoin-reserve-assurance-question-2025"], limit: "A historical assessment cannot verify current asset availability, all liabilities or present solvency."},
   {name: "Customer protection", description: "Follow the difference between a consumer protection, a policy recommendation and an individual account's legal position.", ids: ["market-event-crypto-deposit-insurance-boundary-2026", "market-event-crypto-custody-and-conflicts-2026"], limit: "The records do not decide insurance eligibility or certify the custody practices of any named platform."},
@@ -65,8 +66,7 @@ function renderDossier(event) {
   const review = event.review || "needs-human-review";
   const badge = $("#dossier-review");
   badge.className = `question-review-badge ${["approved", "rejected"].includes(review) ? review : "needs-human-review"}`;
-  badge.textContent = review === "approved" ? "Question approved · claims require source check" :
-    review === "rejected" ? "Question rejected · check before use" : "Question awaiting human review";
+  badge.textContent = reviewSummary(event, claims);
   $("#dossier-observed").textContent = `Recorded ${date(event.observedAt)}`;
   $("#dossier-count").textContent = `${claims.length} linked ${claims.length === 1 ? "claim" : "claims"}`;
   $("#dossier-claims").replaceChildren();

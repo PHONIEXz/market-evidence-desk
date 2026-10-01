@@ -14,6 +14,13 @@ from agent import CASES, research_answer  # noqa: E402
 from scripts.model_config import missing_settings  # noqa: E402
 
 TOPIC = re.compile(r"\b(?:reserves?|stablecoins?|bitcoin|btc|kraken|pcaob|sec|crypto|audits?|solvency|solvent|liabilit(?:y|ies))\b", re.I)
+GREETING = re.compile(r"(?:hi|hello|hey|good morning|good afternoon|good evening)(?: there)?[!?.]*", re.I)
+WELCOME = (
+    "Hi! I can help you investigate the published evidence behind crypto investor "
+    "protection questions. Try asking what a proof-of-reserves snapshot can show, "
+    "or where the SEC staff and Commissioner Crenshaw differ. I'll show the "
+    "sources when we get into a research question."
+)
 
 
 def question_from_body(body):
@@ -26,6 +33,8 @@ def question_from_body(body):
         raise ValueError("Choose a preset or enter one research question.")
     raw = body["question"]
     question = " ".join(raw.split())
+    if len(raw) <= 240 and not any(ord(c) < 32 for c in raw) and GREETING.fullmatch(question):
+        return "greeting", question
     if len(raw) > 240 or not 20 <= len(question) <= 240 or any(ord(c) < 32 for c in raw):
         raise ValueError("Ask one question in 20 to 240 characters.")
     if not TOPIC.search(question):
@@ -90,6 +99,9 @@ class handler(BaseHTTPRequestHandler):
             self.respond(400, {"error": str(error) or "Choose a research question."})
             return
         try:
+            if case == "greeting":
+                self.respond(200, {"case": case, "answer": WELCOME, "tools": []})
+                return
             result = asyncio.run(asyncio.wait_for(answer_with_retry(question), timeout=110))
             self.respond(200, {"case": case, **result})
         except TimeoutError:
